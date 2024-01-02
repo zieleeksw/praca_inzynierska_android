@@ -9,15 +9,15 @@ class EmailValidator(
 
 
     override fun validate(): ValidationResult {
-        setResultIfEmailIsBusy()
+        setResultIfEmailIsTaken()
         setResultIfEmailIsBlank()
         setResultIfEmailIsNotValid()
         return result
     }
 
-    private fun setResultIfEmailIsBusy() {
+    private fun setResultIfEmailIsTaken() {
         if (usernames.contains(email)) {
-            updateResultIfNotError("The email is busy")
+            updateResultIfNotError("The email is taken")
         }
     }
 

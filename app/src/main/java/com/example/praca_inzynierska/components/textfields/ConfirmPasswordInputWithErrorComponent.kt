@@ -20,12 +20,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.RegisterViewModel
-import com.example.praca_inzynierska.RegistrationFormEvent
 import com.example.praca_inzynierska.components.getVisibilityDescription
 import com.example.praca_inzynierska.components.getVisibilityIcon
 import com.example.praca_inzynierska.components.getVisualTransformation
 import com.example.praca_inzynierska.components.togglePasswordVisibility
+import com.example.praca_inzynierska.viewModels.RegisterViewModel
 
 @Composable
 fun ConfirmPasswordInputWithErrorComponent(
@@ -53,7 +52,7 @@ private fun ConfirmPasswordFieldComponent(viewModel: RegisterViewModel) {
         isError = state.confirmPasswordError != null,
         leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
         visualTransformation = getVisualTransformation(passwordVisible.value),
-        onValueChange = { viewModel.onEvent(RegistrationFormEvent.ConfirmPasswordChanged(it)) },
+        onValueChange = { viewModel.onConfirmPasswordChanged(it) },
         label = { Text(text = stringResource(id = R.string.confirm_password)) },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,

@@ -16,8 +16,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.RegisterViewModel
-import com.example.praca_inzynierska.RegistrationFormEvent
+import com.example.praca_inzynierska.viewModels.RegisterViewModel
 
 @Composable
 fun UsernameInputWithErrorComponent(
@@ -41,7 +40,7 @@ fun UsernameFieldComponent(viewModel: RegisterViewModel) {
         shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions.Default,
         label = { Text(text = stringResource(id = R.string.username)) },
-        onValueChange = { viewModel.onEvent(RegistrationFormEvent.UsernameChanged(it)) },
+        onValueChange = { viewModel.onUsernameChanged(it) },
         leadingIcon = { Icon(Icons.Default.AccountCircle, contentDescription = "Username field") },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,

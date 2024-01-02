@@ -5,9 +5,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 val retrofit =
     Retrofit.Builder().baseUrl("http://192.168.11.144:8080")
@@ -24,5 +24,9 @@ interface UserApiService {
     suspend fun getEmails(): List<String>
 
     @POST("/api/auth/register")
-    suspend fun registerUser(@Body user: User): Response<ResponseBody>
+    suspend fun registerUser(@Body user: UserRegisterRequest): Response<ResponseBody>
+
+    @POST("/api/auth/authenticate")
+    suspend fun login(@Body loginRequest: LoginRequest): Response<User>
 }
+

@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -31,8 +32,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.RegisterViewModel
-import com.example.praca_inzynierska.RegistrationFormEvent
+import com.example.praca_inzynierska.viewModels.LoginRegisterViewModel
 
 
 @Composable
@@ -71,9 +71,15 @@ fun HeadingTextComponent(text: String) {
 }
 
 @Composable
-fun ButtonComponent(text: String, viewModel: RegisterViewModel) {
+fun ButtonComponent(text: String, viewModel: LoginRegisterViewModel) {
+
+    val focusManager = LocalFocusManager.current
+
     Button(
-        onClick = { viewModel.onEvent(RegistrationFormEvent.Submit) },
+        onClick = {
+            focusManager.clearFocus()
+            viewModel.onSubmit()
+        },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(48.dp)

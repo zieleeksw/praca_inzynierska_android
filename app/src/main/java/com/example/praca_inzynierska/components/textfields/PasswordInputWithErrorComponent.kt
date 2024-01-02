@@ -20,8 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.RegisterViewModel
-import com.example.praca_inzynierska.RegistrationFormEvent
 import com.example.praca_inzynierska.components.getVisibilityDescription
 import com.example.praca_inzynierska.components.getVisibilityIcon
 import com.example.praca_inzynierska.components.getVisualTransformation
@@ -29,31 +27,38 @@ import com.example.praca_inzynierska.components.togglePasswordVisibility
 
 @Composable
 fun PasswordInputWithErrorComponent(
-    viewModel: RegisterViewModel
-) {
-    PasswordFieldComponent(viewModel)
-    ErrorTextComponent(viewModel.state.passwordError)
+    password: String,
+    isError: Boolean,
+    errorMessage: String?,
+    onPasswordChanged: (String) -> Unit,
+
+    ) {
+    PasswordFieldComponent(password, isError, onPasswordChanged)
+    ErrorTextComponent(errorMessage)
 }
 
 @Composable
-private fun PasswordFieldComponent(viewModel: RegisterViewModel) {
+private fun PasswordFieldComponent(
+    password: String,
+    isError: Boolean,
+    onPasswordChanged: (String) -> Unit,
+) {
 
     val passwordVisible = remember {
         mutableStateOf(false)
     }
 
-    val state = viewModel.state
     val primaryColor = colorResource(id = R.color.primary_color)
     val secondaryColor = colorResource(id = R.color.secondary_color)
 
     OutlinedTextField(
-        value = state.password,
+        value = password,
         shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        isError = state.passwordError != null,
+        isError = isError,
         leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
         visualTransformation = getVisualTransformation(passwordVisible.value),
-        onValueChange = { viewModel.onEvent(RegistrationFormEvent.PasswordChanged(it)) },
+        onValueChange = { onPasswordChanged(it) },
         label = { Text(text = stringResource(id = R.string.password)) },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,

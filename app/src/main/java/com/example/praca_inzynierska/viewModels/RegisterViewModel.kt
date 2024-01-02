@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska
+package com.example.praca_inzynierska.viewModels
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
@@ -6,6 +6,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.praca_inzynierska.RegistrationFormState
+import com.example.praca_inzynierska.UserRegisterRequest
+import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.userService
 import com.example.praca_inzynierska.validators.ConfirmPasswordValidator
 import com.example.praca_inzynierska.validators.EmailValidator
 import com.example.praca_inzynierska.validators.PasswordValidator
@@ -14,7 +18,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel : ViewModel(), LoginRegisterViewModel {
 
     var state by mutableStateOf(RegistrationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
@@ -65,40 +69,29 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
-    fun onEvent(event: RegistrationFormEvent) {
-        when (event) {
-            is RegistrationFormEvent.UsernameChanged -> {
-                state = state.copy(username = event.username.trim())
-            }
-
-            is RegistrationFormEvent.EmailChanged -> {
-                state = state.copy(email = event.email.trim())
-            }
-
-            is RegistrationFormEvent.PasswordChanged -> {
-                state = state.copy(password = event.password.trim())
-            }
-
-            is RegistrationFormEvent.ConfirmPasswordChanged -> {
-                state = state.copy(confirmPassword = event.confirmPassword.trim())
-            }
-
-            is RegistrationFormEvent.Submit -> {
-                submitData()
-            }
-        }
+    override fun onEmailChanged(email: String) {
+        state = state.copy(email = email)
     }
 
-    private fun submitData() {
-        val usernameValidator = UsernameValidator(_usernameState.value.list, state.username)
-        val usernameResult = usernameValidator.validate()
-        val emailValidator = EmailValidator(_emailState.value.list, state.email)
-        val emailResult = emailValidator.validate()
-        val passwordValidator = PasswordValidator(state.password)
-        val passwordResult = passwordValidator.validate()
-        val confirmPasswordValidator =
-            ConfirmPasswordValidator(state.password, state.confirmPassword)
-        val confirmPasswordResult = confirmPasswordValidator.validate()
+    override fun onPasswordChanged(password: String) {
+        state = state.copy(password = password)
+    }
+
+    fun onConfirmPasswordChanged(confirmPassword: String) {
+        state = state.copy(confirmPassword = confirmPassword)
+    }
+
+    fun onUsernameChanged(username: String) {
+        state = state.copy(username = username)
+    }
+
+    override fun onSubmit() {
+        val usernameResult = UsernameValidator(_usernameState.value.list, state.username).validate()
+        val emailResult = EmailValidator(_emailState.value.list, state.email).validate()
+        val passwordResult = PasswordValidator(state.password).validate()
+        val confirmPasswordResult = ConfirmPasswordValidator(state.password, state.confirmPassword)
+            .validate()
+
         val hasError = listOf(
             usernameResult,
             emailResult,
@@ -122,19 +115,15 @@ class RegisterViewModel : ViewModel() {
         }
     }
 
+
     private suspend fun registerNewUser() {
-        val user = User(state.username, state.email, state.password)
+        val user = UserRegisterRequest(state.username, state.email, state.password)
         try {
             userService.registerUser(user)
         } catch (e: Exception) {
             validationEventChannel.send(ValidationEvent.Failure)
             return
         }
-    }
-
-    sealed class ValidationEvent {
-        object Success : ValidationEvent()
-        object Failure : ValidationEvent()
     }
 
     data class UsernameState(

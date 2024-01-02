@@ -22,25 +22,21 @@ import com.example.praca_inzynierska.components.ClickableLoginTextComponent
 import com.example.praca_inzynierska.components.DividerTextComponent
 import com.example.praca_inzynierska.components.HeadingTextComponent
 import com.example.praca_inzynierska.components.NormalTextComponent
-import com.example.praca_inzynierska.components.textfields.ConfirmPasswordInputWithErrorComponent
 import com.example.praca_inzynierska.components.textfields.EmailInputWithErrorComponent
 import com.example.praca_inzynierska.components.textfields.PasswordInputWithErrorComponent
-import com.example.praca_inzynierska.components.textfields.UsernameInputWithErrorComponent
-import com.example.praca_inzynierska.viewModels.RegisterViewModel
-
+import com.example.praca_inzynierska.viewModels.LoginViewModel
 
 @Composable
-fun RegisterScreen(
+fun LoginScreen(
     navController: NavController
 ) {
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .padding(28.dp)
     ) {
 
-        val viewModel = viewModel<RegisterViewModel>()
+        val viewModel = viewModel<LoginViewModel>()
         val context = LocalContext.current
 
         LaunchedEffect(key1 = context) {
@@ -59,36 +55,35 @@ fun RegisterScreen(
                             Toast.LENGTH_LONG
                         ).show()
 
-                    else -> {}
+                    is ValidationEvent.BadCredentials ->
+                        Toast.makeText(
+                            context, "Incorrect login or password",
+                            Toast.LENGTH_LONG
+                        ).show()
                 }
             }
         }
-
         Column(modifier = Modifier.fillMaxSize()) {
             NormalTextComponent(text = stringResource(id = R.string.welcome))
-            HeadingTextComponent(text = stringResource(id = R.string.register))
-            UsernameInputWithErrorComponent(viewModel = viewModel)
-            Spacer(modifier = Modifier.height(8.dp))
+            HeadingTextComponent(text = stringResource(id = R.string.login))
             EmailInputWithErrorComponent(
                 email = viewModel.state.email,
-                isError = viewModel.state.emailError != null,
-                errorMessage = viewModel.state.emailError,
+                isError = viewModel.state.loginError,
+                errorMessage = null,
                 onEmailChanged = { email -> viewModel.onEmailChanged(email) }
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             PasswordInputWithErrorComponent(
                 password = viewModel.state.password,
-                isError = viewModel.state.passwordError != null,
-                errorMessage = viewModel.state.emailError,
+                isError = viewModel.state.loginError,
+                errorMessage = null,
                 onPasswordChanged = { password -> viewModel.onPasswordChanged(password) }
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            ConfirmPasswordInputWithErrorComponent(viewModel = viewModel)
             Spacer(modifier = Modifier.height(36.dp))
-            ButtonComponent(text = stringResource(id = R.string.register_button), viewModel)
+            ButtonComponent(text = stringResource(id = R.string.login_button), viewModel)
             DividerTextComponent()
             ClickableLoginTextComponent(onTextSelected = {
-                navController.navigate("loginscreen")
+                navController.navigate("registerscreen")
             })
         }
     }

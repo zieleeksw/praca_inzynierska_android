@@ -16,31 +16,35 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.RegisterViewModel
-import com.example.praca_inzynierska.RegistrationFormEvent
 
 @Composable
 fun EmailInputWithErrorComponent(
-    viewModel: RegisterViewModel
+    email: String,
+    errorMessage: String?,
+    isError: Boolean,
+    onEmailChanged: (String) -> Unit,
 ) {
-    EmailFieldComponent(viewModel)
-    ErrorTextComponent(viewModel.state.emailError)
+    EmailFieldComponent(email, isError, onEmailChanged)
+    ErrorTextComponent(errorMessage)
 }
 
 @Composable
-private fun EmailFieldComponent(viewModel: RegisterViewModel) {
+private fun EmailFieldComponent(
+    email: String,
+    isError: Boolean,
+    onEmailChanged: (String) -> Unit,
+) {
 
-    val state = viewModel.state
     val primaryColor = colorResource(id = R.color.primary_color)
     val secondaryColor = colorResource(id = R.color.secondary_color)
 
     OutlinedTextField(
-        value = state.email,
-        isError = state.emailError != null,
+        value = email,
+        isError = isError,
         shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions.Default,
         label = { Text(text = stringResource(id = R.string.email)) },
-        onValueChange = { viewModel.onEvent(RegistrationFormEvent.EmailChanged(it)) },
+        onValueChange = { onEmailChanged(it) },
         leadingIcon = { Icon(Icons.Default.Email, contentDescription = "Email field") },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,

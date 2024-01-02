@@ -6,15 +6,15 @@ class UsernameValidator(
 ) : Validator() {
 
     override fun validate(): ValidationResult {
-        setResultIfUsernameIsBusy()
+        setResultIfUsernameIsTaken()
         setResultIfUsernameIsTooShort()
         setResultIfUsernameContainsInvalidCharacters()
         return result
     }
 
-    private fun setResultIfUsernameIsBusy() {
+    private fun setResultIfUsernameIsTaken() {
         if (usernames.contains(username)) {
-            updateResultIfNotError("The username is busy")
+            updateResultIfNotError("The username is taken")
         }
     }
 
