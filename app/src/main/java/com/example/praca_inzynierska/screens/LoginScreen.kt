@@ -82,7 +82,10 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(36.dp))
             ButtonComponent(text = stringResource(id = R.string.login_button), viewModel)
             DividerTextComponent()
-            ClickableLoginTextComponent(onTextSelected = {
+            ClickableLoginTextComponent(
+                initialText = "Don't have an acoount?  ",
+                clickableText = "Sign up",
+                onTextSelected = {
                 navController.navigate("registerscreen")
             })
         }

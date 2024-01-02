@@ -138,14 +138,17 @@ fun DividerTextComponent() {
 }
 
 @Composable
-fun ClickableLoginTextComponent(onTextSelected: (String) -> Unit) {
-    val initialText = "Already have an account? "
-    val loginText = "Login"
+fun ClickableLoginTextComponent(
+    initialText: String,
+    clickableText: String,
+    onTextSelected: (String) -> Unit
+
+) {
     val annotatedString = buildAnnotatedString {
         append(initialText)
         withStyle(style = SpanStyle(color = colorResource(id = R.color.purple_700))) {
-            pushStringAnnotation(tag = loginText, annotation = loginText)
-            append(loginText)
+            pushStringAnnotation(tag = clickableText, annotation = clickableText)
+            append(clickableText)
         }
     }
 
@@ -163,7 +166,7 @@ fun ClickableLoginTextComponent(onTextSelected: (String) -> Unit) {
             annotatedString.getStringAnnotations(offset, offset)
                 .firstOrNull()?.also { span ->
                     Log.d("ClickableTextComponent", "Clicked: {${span.item}} at offset: $offset")
-                    if (span.item == loginText) {
+                    if (span.item == clickableText) {
                         onTextSelected(span.item)
                     }
                 }
