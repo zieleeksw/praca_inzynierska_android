@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,15 +18,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.components.ButtonComponent
-import com.example.praca_inzynierska.components.ClickableLoginTextComponent
-import com.example.praca_inzynierska.components.DividerTextComponent
-import com.example.praca_inzynierska.components.HeadingTextComponent
-import com.example.praca_inzynierska.components.NormalTextComponent
-import com.example.praca_inzynierska.components.textfields.ConfirmPasswordInputWithErrorComponent
-import com.example.praca_inzynierska.components.textfields.EmailInputWithErrorComponent
-import com.example.praca_inzynierska.components.textfields.PasswordInputWithErrorComponent
-import com.example.praca_inzynierska.components.textfields.UsernameInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.buttons.ConfirmButtonComponent
+import com.example.praca_inzynierska.login.register.components.textfields.ConfirmPasswordInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.textfields.EmailInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.textfields.PasswordInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.textfields.UsernameInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.texts.CenteredHeadingComponent
+import com.example.praca_inzynierska.login.register.components.texts.CenteredNormalTextComponent
+import com.example.praca_inzynierska.login.register.components.texts.ClickableLoginTextComponent
+import com.example.praca_inzynierska.login.register.components.texts.DividerTextComponent
 import com.example.praca_inzynierska.viewModels.RegisterViewModel
 
 
@@ -33,7 +34,6 @@ import com.example.praca_inzynierska.viewModels.RegisterViewModel
 fun RegisterScreen(
     navController: NavController
 ) {
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -59,14 +59,19 @@ fun RegisterScreen(
                             Toast.LENGTH_LONG
                         ).show()
 
-                    else -> {}
+                    else -> {
+                        Log.e(
+                            "SOMETHING_WENT_WRONG", "Register screen went into " +
+                                    "illegal state exception"
+                        )
+                    }
                 }
             }
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
-            NormalTextComponent(text = stringResource(id = R.string.welcome))
-            HeadingTextComponent(text = stringResource(id = R.string.register))
+            CenteredNormalTextComponent(text = stringResource(id = R.string.welcome))
+            CenteredHeadingComponent(text = stringResource(id = R.string.register))
             UsernameInputWithErrorComponent(viewModel = viewModel)
             Spacer(modifier = Modifier.height(8.dp))
             EmailInputWithErrorComponent(
@@ -85,7 +90,10 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(8.dp))
             ConfirmPasswordInputWithErrorComponent(viewModel = viewModel)
             Spacer(modifier = Modifier.height(36.dp))
-            ButtonComponent(text = stringResource(id = R.string.register_button), viewModel)
+            ConfirmButtonComponent(
+                text = stringResource(id = R.string.register_button),
+                256.dp,
+                onClick = { viewModel.onSubmit() })
             DividerTextComponent()
             ClickableLoginTextComponent(
                 initialText = "Already have an account? ",

@@ -17,13 +17,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.components.ButtonComponent
-import com.example.praca_inzynierska.components.ClickableLoginTextComponent
-import com.example.praca_inzynierska.components.DividerTextComponent
-import com.example.praca_inzynierska.components.HeadingTextComponent
-import com.example.praca_inzynierska.components.NormalTextComponent
-import com.example.praca_inzynierska.components.textfields.EmailInputWithErrorComponent
-import com.example.praca_inzynierska.components.textfields.PasswordInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.buttons.ConfirmButtonComponent
+import com.example.praca_inzynierska.login.register.components.textfields.EmailInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.textfields.PasswordInputWithErrorComponent
+import com.example.praca_inzynierska.login.register.components.texts.CenteredHeadingComponent
+import com.example.praca_inzynierska.login.register.components.texts.CenteredNormalTextComponent
+import com.example.praca_inzynierska.login.register.components.texts.ClickableLoginTextComponent
+import com.example.praca_inzynierska.login.register.components.texts.DividerTextComponent
 import com.example.praca_inzynierska.viewModels.LoginViewModel
 
 @Composable
@@ -64,8 +64,8 @@ fun LoginScreen(
             }
         }
         Column(modifier = Modifier.fillMaxSize()) {
-            NormalTextComponent(text = stringResource(id = R.string.welcome))
-            HeadingTextComponent(text = stringResource(id = R.string.login))
+            CenteredNormalTextComponent(text = stringResource(id = R.string.welcome))
+            CenteredHeadingComponent(text = stringResource(id = R.string.login))
             EmailInputWithErrorComponent(
                 email = viewModel.state.email,
                 isError = viewModel.state.loginError,
@@ -80,14 +80,17 @@ fun LoginScreen(
                 onPasswordChanged = { password -> viewModel.onPasswordChanged(password) }
             )
             Spacer(modifier = Modifier.height(36.dp))
-            ButtonComponent(text = stringResource(id = R.string.login_button), viewModel)
+            ConfirmButtonComponent(
+                text = stringResource(id = R.string.login_button),
+                340.dp,
+                onClick = { viewModel.onSubmit() })
             DividerTextComponent()
             ClickableLoginTextComponent(
                 initialText = "Don't have an acoount?  ",
                 clickableText = "Sign up",
                 onTextSelected = {
-                navController.navigate("registerscreen")
-            })
+                    navController.navigate("registerscreen")
+                })
         }
     }
 }

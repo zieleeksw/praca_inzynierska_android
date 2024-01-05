@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.textfields
+package com.example.praca_inzynierska.login.register.components.textfields
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,7 +31,6 @@ fun PasswordInputWithErrorComponent(
     isError: Boolean,
     errorMessage: String?,
     onPasswordChanged: (String) -> Unit,
-
     ) {
     PasswordFieldComponent(password, isError, onPasswordChanged)
     ErrorTextComponent(errorMessage)

@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.textfields
+package com.example.praca_inzynierska.login.register.components.textfields
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -35,12 +35,11 @@ fun ConfirmPasswordInputWithErrorComponent(
 }
 
 @Composable
-private fun ConfirmPasswordFieldComponent(viewModel: RegisterViewModel) {
+private fun ConfirmPasswordFieldComponent(
+    viewModel: RegisterViewModel
+) {
 
-    val passwordVisible = remember {
-        mutableStateOf(false)
-    }
-
+    val passwordVisible = remember { mutableStateOf(false) }
     val state = viewModel.state
     val primaryColor = colorResource(id = R.color.primary_color)
     val secondaryColor = colorResource(id = R.color.secondary_color)

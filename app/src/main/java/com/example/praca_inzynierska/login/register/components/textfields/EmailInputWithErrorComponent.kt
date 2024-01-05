@@ -1,11 +1,11 @@
-package com.example.praca_inzynierska.components.textfields
+package com.example.praca_inzynierska.login.register.components.textfields
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -16,32 +16,36 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.viewModels.RegisterViewModel
 
 @Composable
-fun UsernameInputWithErrorComponent(
-    viewModel: RegisterViewModel
+fun EmailInputWithErrorComponent(
+    email: String,
+    errorMessage: String?,
+    isError: Boolean,
+    onEmailChanged: (String) -> Unit,
 ) {
-    UsernameFieldComponent(viewModel)
-    ErrorTextComponent(viewModel.state.usernameError)
+    EmailFieldComponent(email, isError, onEmailChanged)
+    ErrorTextComponent(errorMessage)
 }
 
-
 @Composable
-fun UsernameFieldComponent(viewModel: RegisterViewModel) {
+private fun EmailFieldComponent(
+    email: String,
+    isError: Boolean,
+    onEmailChanged: (String) -> Unit,
+) {
 
-    val state = viewModel.state
     val primaryColor = colorResource(id = R.color.primary_color)
     val secondaryColor = colorResource(id = R.color.secondary_color)
 
     OutlinedTextField(
-        value = state.username,
-        isError = state.usernameError != null,
+        value = email,
+        isError = isError,
         shape = RoundedCornerShape(16.dp),
         keyboardOptions = KeyboardOptions.Default,
-        label = { Text(text = stringResource(id = R.string.username)) },
-        onValueChange = { viewModel.onUsernameChanged(it) },
-        leadingIcon = { Icon(Icons.Default.AccountCircle, contentDescription = "Username field") },
+        label = { Text(text = stringResource(id = R.string.email)) },
+        onValueChange = { onEmailChanged(it) },
+        leadingIcon = { Icon(Icons.Default.Email, contentDescription = "Email field") },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,
             focusedBorderColor = secondaryColor,
@@ -50,6 +54,6 @@ fun UsernameFieldComponent(viewModel: RegisterViewModel) {
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 24.dp, end = 24.dp, top = 8.dp),
+            .padding(start = 24.dp, end = 24.dp),
     )
 }
