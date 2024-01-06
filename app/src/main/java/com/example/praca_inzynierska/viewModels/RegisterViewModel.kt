@@ -6,19 +6,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.RegistrationFormState
 import com.example.praca_inzynierska.UserRegisterRequest
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.states.RegistrationFormState
 import com.example.praca_inzynierska.userService
-import com.example.praca_inzynierska.validators.ConfirmPasswordValidator
-import com.example.praca_inzynierska.validators.EmailValidator
-import com.example.praca_inzynierska.validators.PasswordValidator
-import com.example.praca_inzynierska.validators.UsernameValidator
+import com.example.praca_inzynierska.validators.login.register.ConfirmPasswordValidator
+import com.example.praca_inzynierska.validators.login.register.EmailValidator
+import com.example.praca_inzynierska.validators.login.register.PasswordValidator
+import com.example.praca_inzynierska.validators.login.register.UsernameValidator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : ViewModel(), LoginRegisterViewModel {
+class RegisterViewModel : ViewModel() {
 
     var state by mutableStateOf(RegistrationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
@@ -69,23 +69,7 @@ class RegisterViewModel : ViewModel(), LoginRegisterViewModel {
         }
     }
 
-    override fun onEmailChanged(email: String) {
-        state = state.copy(email = email)
-    }
-
-    override fun onPasswordChanged(password: String) {
-        state = state.copy(password = password)
-    }
-
-    fun onConfirmPasswordChanged(confirmPassword: String) {
-        state = state.copy(confirmPassword = confirmPassword)
-    }
-
-    fun onUsernameChanged(username: String) {
-        state = state.copy(username = username)
-    }
-
-    override fun onSubmit() {
+    fun onSubmit() {
         val usernameResult = UsernameValidator(_usernameState.value.list, state.username).validate()
         val emailResult = EmailValidator(_emailState.value.list, state.email).validate()
         val passwordResult = PasswordValidator(state.password).validate()
@@ -108,6 +92,7 @@ class RegisterViewModel : ViewModel(), LoginRegisterViewModel {
             )
             return
         }
+
         viewModelScope.launch {
             registerNewUser()
             state = RegistrationFormState()
@@ -124,6 +109,22 @@ class RegisterViewModel : ViewModel(), LoginRegisterViewModel {
             validationEventChannel.send(ValidationEvent.Failure)
             return
         }
+    }
+
+    fun onEmailChanged(email: String) {
+        state = state.copy(email = email)
+    }
+
+    fun onPasswordChanged(password: String) {
+        state = state.copy(password = password)
+    }
+
+    fun onConfirmPasswordChanged(confirmPassword: String) {
+        state = state.copy(confirmPassword = confirmPassword)
+    }
+
+    fun onUsernameChanged(username: String) {
+        state = state.copy(username = username)
     }
 
     data class UsernameState(

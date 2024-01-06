@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.LoginFormState
+import com.example.praca_inzynierska.states.LoginFormState
 import com.example.praca_inzynierska.LoginRequest
 import com.example.praca_inzynierska.User
 import com.example.praca_inzynierska.ValidationEvent
@@ -14,13 +14,13 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel(), LoginRegisterViewModel {
+class LoginViewModel : ViewModel() {
 
     var state by mutableStateOf(LoginFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
-    override fun onSubmit() {
+    fun onSubmit() {
         viewModelScope.launch {
             try {
                 val loginRequest = LoginRequest(state.email, state.password)
@@ -40,11 +40,11 @@ class LoginViewModel : ViewModel(), LoginRegisterViewModel {
         }
     }
 
-    override fun onEmailChanged(email: String) {
+    fun onEmailChanged(email: String) {
         state = state.copy(email = email)
     }
 
-    override fun onPasswordChanged(password: String) {
+    fun onPasswordChanged(password: String) {
         state = state.copy(password = password)
     }
 }

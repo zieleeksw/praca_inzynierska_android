@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.praca_inzynierska.screens.DietConfigurationScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
 
@@ -16,6 +17,9 @@ fun App() {
         }
         composable("registerscreen") {
             RegisterScreen(navController)
+        }
+        composable("dietconfigurationscreen") {
+            DietConfigurationScreen(navController)
         }
     }
 }

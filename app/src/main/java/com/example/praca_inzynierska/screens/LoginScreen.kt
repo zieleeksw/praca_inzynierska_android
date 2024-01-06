@@ -1,41 +1,51 @@
 package com.example.praca_inzynierska.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.login.register.components.buttons.ConfirmButtonComponent
-import com.example.praca_inzynierska.login.register.components.textfields.EmailInputWithErrorComponent
-import com.example.praca_inzynierska.login.register.components.textfields.PasswordInputWithErrorComponent
-import com.example.praca_inzynierska.login.register.components.texts.CenteredHeadingComponent
-import com.example.praca_inzynierska.login.register.components.texts.CenteredNormalTextComponent
-import com.example.praca_inzynierska.login.register.components.texts.ClickableLoginTextComponent
-import com.example.praca_inzynierska.login.register.components.texts.DividerTextComponent
+import com.example.praca_inzynierska.components.ConfirmButtonComponent
+import com.example.praca_inzynierska.components.login_register.textfields.EmailInputWithErrorComponent
+import com.example.praca_inzynierska.components.login_register.textfields.PasswordInputWithErrorComponent
+import com.example.praca_inzynierska.components.login_register.texts.CenteredHeadingComponent
+import com.example.praca_inzynierska.components.login_register.texts.CenteredNormalTextComponent
+import com.example.praca_inzynierska.components.login_register.texts.ClickableLoginTextComponent
+import com.example.praca_inzynierska.components.login_register.texts.DividerTextComponent
 import com.example.praca_inzynierska.viewModels.LoginViewModel
 
 @Composable
 fun LoginScreen(
     navController: NavController
 ) {
-    Surface(
+
+    val focusManager = LocalFocusManager.current
+
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(28.dp)
-    ) {
-
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { focusManager.clearFocus() })
+            }
+    )
+    {
         val viewModel = viewModel<LoginViewModel>()
         val context = LocalContext.current
 
@@ -43,8 +53,9 @@ fun LoginScreen(
             viewModel.validationEvents.collect { event ->
                 when (event) {
                     is ValidationEvent.Success -> {
+                        navController.navigate("dietconfigurationscreen")
                         Toast.makeText(
-                            context, "Register successful",
+                            context, "Logged successful",
                             Toast.LENGTH_LONG
                         ).show()
                     }

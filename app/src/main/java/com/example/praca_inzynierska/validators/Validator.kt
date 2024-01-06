@@ -1,5 +1,7 @@
 package com.example.praca_inzynierska.validators
 
+import com.example.praca_inzynierska.validators.login.register.ValidationResult
+
 abstract class Validator {
 
     protected var result = ValidationResult(successful = true)
