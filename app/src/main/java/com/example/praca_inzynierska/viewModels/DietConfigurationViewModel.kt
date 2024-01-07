@@ -1,6 +1,5 @@
 package com.example.praca_inzynierska.viewModels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,8 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
-class DietConfigurationViewModel(
-) : ViewModel() {
+class DietConfigurationViewModel : ViewModel() {
 
     var state by mutableStateOf(DietConfigurationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
@@ -79,7 +77,6 @@ class DietConfigurationViewModel(
         try {
             userService.addNutritionConfiguration(userId!!, "Bearer $token", userNutritionConfig)
         } catch (e: Exception) {
-            Log.d("CHUJ W DUPE", e.message!!)
             validationEventChannel.send(ValidationEvent.Failure)
             return
         }

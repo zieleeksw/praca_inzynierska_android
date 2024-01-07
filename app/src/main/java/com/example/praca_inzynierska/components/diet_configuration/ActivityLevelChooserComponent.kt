@@ -42,7 +42,7 @@ fun ActivityLevelChooserComponent(
 
     var isExpanded by remember { mutableStateOf(false) }
 
-    Column() {
+    Column {
         HeaderTextConfigurationScreenComponent(text = "Choose your activity level")
         Spacer(Modifier.height(12.dp))
         Button(
