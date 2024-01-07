@@ -1,25 +1,33 @@
 package com.example.praca_inzynierska.viewModels
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.praca_inzynierska.UserNutritionConfigRequest
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.enums.ActivityLevel
 import com.example.praca_inzynierska.enums.Gender
 import com.example.praca_inzynierska.states.DietConfigurationFormState
+import com.example.praca_inzynierska.userService
 import com.example.praca_inzynierska.validators.diet.configuration.DateOfBirthValidator
 import com.example.praca_inzynierska.validators.diet.configuration.HeightValidator
 import com.example.praca_inzynierska.validators.diet.configuration.WeightValidator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 
-class DietConfigurationViewModel : ViewModel() {
+class DietConfigurationViewModel(
+) : ViewModel() {
 
     var state by mutableStateOf(DietConfigurationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
+    var userId by mutableStateOf<Long?>(null)
+    var token by mutableStateOf("")
 
     fun onSubmit() {
         val dateResult =
@@ -46,7 +54,34 @@ class DietConfigurationViewModel : ViewModel() {
         }
 
         viewModelScope.launch {
+            addNutritionConfig()
             validationEventChannel.send(ValidationEvent.Success)
+        }
+    }
+
+    private suspend fun addNutritionConfig() {
+
+        val birthDate = LocalDate.of(
+            state.yearOfBirth.toInt(),
+            state.monthOfBirth.toInt(),
+            state.dayOfBirth.toInt()
+        )
+
+        val userNutritionConfig = UserNutritionConfigRequest(
+            state.gender.text,
+            birthDate.toString(),
+            state.activityLevel.text,
+            state.height.toInt(),
+            state.currentWeight.toDouble(),
+            state.targetWeight.toDouble()
+        )
+
+        try {
+            userService.addNutritionConfiguration(userId!!, "Bearer $token", userNutritionConfig)
+        } catch (e: Exception) {
+            Log.d("CHUJ W DUPE", e.message!!)
+            validationEventChannel.send(ValidationEvent.Failure)
+            return
         }
     }
 
@@ -64,6 +99,10 @@ class DietConfigurationViewModel : ViewModel() {
 
     fun onYearOfBirthChanged(yearOfBirth: String) {
         state = state.copy(yearOfBirth = yearOfBirth)
+    }
+
+    fun onActivityLevelChanged(activityLevel: ActivityLevel) {
+        state = state.copy(activityLevel = activityLevel)
     }
 
     fun onHeightChanged(height: String) {

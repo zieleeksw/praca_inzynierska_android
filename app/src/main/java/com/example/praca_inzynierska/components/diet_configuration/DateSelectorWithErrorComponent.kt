@@ -1,8 +1,10 @@
-package com.example.praca_inzynierska.components.choose
+package com.example.praca_inzynierska.components.diet_configuration
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +17,7 @@ fun DateSelectorWithErrorComponent(
     viewModel: DietConfigurationViewModel
 ) {
     DateSelectorComponent(viewModel)
-    ErrorTextComponent(viewModel.state.dateOfBirthError, 102, 0)
+    ErrorTextComponent(viewModel.state.dateOfBirthError, 118, 0)
 }
 
 @Composable
@@ -36,7 +38,6 @@ fun DateSelectorComponent(
                 .padding(bottom = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-
             DietConfigurationScreenTextField(
                 numOfTakenCharacters = 2,
                 textFieldValue = "DD",
@@ -45,6 +46,7 @@ fun DateSelectorComponent(
                 isError = state.dateOfBirthError != null,
                 onTextFieldChanged = { day -> viewModel.onDayOfBirthChanged(day) }
             )
+            Spacer(modifier = Modifier.width(8.dp))
             DietConfigurationScreenTextField(
                 numOfTakenCharacters = 2,
                 textFieldValue = "MM",
@@ -53,6 +55,7 @@ fun DateSelectorComponent(
                 isError = state.dateOfBirthError != null,
                 onTextFieldChanged = { month -> viewModel.onMonthOfBirthChanged(month) }
             )
+            Spacer(modifier = Modifier.width(8.dp))
             DietConfigurationScreenTextField(
                 numOfTakenCharacters = 4,
                 textFieldValue = "YYYY",

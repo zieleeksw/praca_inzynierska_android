@@ -20,14 +20,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.components.ConfirmButtonComponent
-import com.example.praca_inzynierska.components.choose.DateSelectorWithErrorComponent
-import com.example.praca_inzynierska.components.choose.EnterValueOutlinedTextFieldWithError
-import com.example.praca_inzynierska.components.choose.GenderSelectorComponent
+import com.example.praca_inzynierska.components.diet_configuration.ActivityLevelChooserComponent
+import com.example.praca_inzynierska.components.diet_configuration.DateSelectorWithErrorComponent
+import com.example.praca_inzynierska.components.diet_configuration.EnterValueOutlinedTextFieldWithError
+import com.example.praca_inzynierska.components.diet_configuration.GenderSelectorComponent
 import com.example.praca_inzynierska.viewModels.DietConfigurationViewModel
 
 @Composable
 fun DietConfigurationScreen(
-    navController: NavController
+    navController: NavController,
+    userId: Long?,
+    token: String?
 ) {
 
     val focusManager = LocalFocusManager.current
@@ -35,7 +38,7 @@ fun DietConfigurationScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(28.dp)
+            .padding(16.dp)
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() })
@@ -43,6 +46,8 @@ fun DietConfigurationScreen(
     ) {
 
         val viewModel = viewModel<DietConfigurationViewModel>()
+        viewModel.userId = userId
+        viewModel.token = token!!
         val context = LocalContext.current
 
         LaunchedEffect(key1 = context) {
@@ -71,6 +76,7 @@ fun DietConfigurationScreen(
         ) {
             GenderSelectorComponent(viewModel)
             DateSelectorWithErrorComponent(viewModel)
+            ActivityLevelChooserComponent(viewModel)
             EnterValueOutlinedTextFieldWithError(
                 headerText = "Height",
                 textFieldValue = "CM",
@@ -98,7 +104,7 @@ fun DietConfigurationScreen(
                 value = viewModel.state.targetWeight,
                 onTextFieldChanged = { weight -> viewModel.onTargetWeightChanged(weight) }
             )
-            ConfirmButtonComponent(text = "Next", 128.dp, onClick = { viewModel.onSubmit() })
+            ConfirmButtonComponent(text = "Next", 140.dp, onClick = { viewModel.onSubmit() })
         }
     }
 }

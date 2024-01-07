@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -28,5 +29,13 @@ interface UserApiService {
 
     @POST("/api/auth/authenticate")
     suspend fun login(@Body loginRequest: LoginRequest): Response<User>
+
+
+    @POST("/api/user-nutrition-config/add/{userId}")
+    suspend fun addNutritionConfiguration(
+        @Path("userId") userId: Long,
+        @Header("Authorization") authorization: String,
+        @Body nutritionRequest: UserNutritionConfigRequest
+    ): Response<Any>
 }
 

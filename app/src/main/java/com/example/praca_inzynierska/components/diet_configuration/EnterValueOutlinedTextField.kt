@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.choose
+package com.example.praca_inzynierska.components.diet_configuration
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -26,7 +26,7 @@ fun EnterValueOutlinedTextFieldWithError(
         value,
         onTextFieldChanged = onTextFieldChanged
     )
-    ErrorTextComponent(error = errorString, start = 102, end = 0)
+    ErrorTextComponent(error = errorString, start = 118, end = 0)
 }
 
 @Composable
@@ -39,7 +39,7 @@ fun EnterValueOutlinedTextField(
     onTextFieldChanged: (String) -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp),
+        modifier = Modifier.padding(start = 16.dp, end = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         HeaderTextConfigurationScreenComponent(text = headerText)

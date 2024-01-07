@@ -1,10 +1,11 @@
-package com.example.praca_inzynierska.components.choose
+package com.example.praca_inzynierska.components.diet_configuration
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
@@ -23,11 +24,11 @@ fun GenderSelectorComponent(
         modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
     ) {
         HeaderTextConfigurationScreenComponent(text = "Choose Your Gender")
+        Spacer(modifier = Modifier.height(8.dp))
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
         ) {
             GenderSelectorButtonComponent(
                 gender = Gender.FEMALE,

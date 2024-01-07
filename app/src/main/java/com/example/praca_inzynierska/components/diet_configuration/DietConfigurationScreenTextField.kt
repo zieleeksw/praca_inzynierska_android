@@ -1,6 +1,7 @@
-package com.example.praca_inzynierska.components.choose
+package com.example.praca_inzynierska.components.diet_configuration
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,7 +38,7 @@ fun DietConfigurationScreenTextField(
         isError = isError,
         modifier = Modifier
             .width(width)
-            .padding(end = 8.dp),
+            .height(58.dp),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = colorResource(id = R.color.primary_color),
             focusedBorderColor = colorResource(id = R.color.secondary_color),

@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.choose
+package com.example.praca_inzynierska.components.diet_configuration
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

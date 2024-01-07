@@ -53,7 +53,13 @@ fun LoginScreen(
             viewModel.validationEvents.collect { event ->
                 when (event) {
                     is ValidationEvent.Success -> {
-                        navController.navigate("dietconfigurationscreen")
+                        if (viewModel.user?.userNutritionConfig == null) {
+                            navController.navigate(
+                                "dietconfigurationscreen/${viewModel.user?.id}/${viewModel.user?.token}"
+                            )
+                        } else {
+                            // TODO:
+                        }
                         Toast.makeText(
                             context, "Logged successful",
                             Toast.LENGTH_LONG
