@@ -89,7 +89,7 @@ fun DietConfigurationScreen(
             EnterValueOutlinedTextFieldWithError(
                 headerText = "Current weight",
                 textFieldValue = "KG",
-                numOfTakenCharacters = 4,
+                numOfTakenCharacters = 5,
                 isError = viewModel.state.currentWeightError != null,
                 errorString = viewModel.state.currentWeightError,
                 value = viewModel.state.currentWeight,
@@ -98,7 +98,7 @@ fun DietConfigurationScreen(
             EnterValueOutlinedTextFieldWithError(
                 headerText = "Target weight",
                 textFieldValue = "KG",
-                numOfTakenCharacters = 4,
+                numOfTakenCharacters = 5,
                 isError = viewModel.state.targetWeightError != null,
                 errorString = viewModel.state.targetWeightError,
                 value = viewModel.state.targetWeight,

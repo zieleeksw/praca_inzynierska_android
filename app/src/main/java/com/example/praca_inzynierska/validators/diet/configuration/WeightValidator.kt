@@ -8,7 +8,6 @@ class WeightValidator(
 ) : Validator() {
     override fun validate(): ValidationResult {
         isWeightFieldBlank()
-        isWeightDouble()
         isWeightFormatValid()
         return result
     }
@@ -19,12 +18,8 @@ class WeightValidator(
         }
     }
 
-    private fun isWeightDouble(): Boolean {
-        return weight.toDoubleOrNull() != null
-    }
-
     private fun isWeightFormatValid() {
-        if (!isTwoDigitWholeNumber() && !isTwoDigitDecimalNumber()) {
+        if (!(isTwoDigitWholeNumber() || isTwoDigitDecimalNumber() || isThreeDigitNumber() || isThreeDigitDecimalNumber())) {
             updateResultIfNotError("Invalid weight format")
         }
     }
@@ -34,7 +29,14 @@ class WeightValidator(
     }
 
     private fun isTwoDigitDecimalNumber(): Boolean {
-        return weight.matches(Regex("\\d{2}[.,]\\d"))
+        return weight.matches(Regex("\\d{2}[.,]\\d*"))
     }
 
+    private fun isThreeDigitNumber(): Boolean {
+        return weight.matches(Regex("\\d{3}"))
+    }
+
+    private fun isThreeDigitDecimalNumber(): Boolean {
+        return weight.matches(Regex("\\d{3}[.,]\\d"))
+    }
 }

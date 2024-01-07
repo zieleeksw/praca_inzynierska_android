@@ -60,4 +60,28 @@ class WeightValidatorTest {
         assertEquals(false, result.successful)
         assertEquals("Invalid weight format", result.errorMessage)
     }
+
+    @Test
+    fun `should return true for weight with three digits number`() {
+        val validator = WeightValidator("201")
+        val result = validator.validate()
+        assertEquals(true, result.successful)
+        assertEquals(null, result.errorMessage)
+    }
+
+    @Test
+    fun `should return true for weight with three digits number and one after dot`() {
+        val validator = WeightValidator("100.1")
+        val result = validator.validate()
+        assertEquals(true, result.successful)
+        assertEquals(null, result.errorMessage)
+    }
+
+    @Test
+    fun `should return true for weight with three digits number and one after comma`() {
+        val validator = WeightValidator("100,7")
+        val result = validator.validate()
+        assertEquals(true, result.successful)
+        assertEquals(null, result.errorMessage)
+    }
 }
