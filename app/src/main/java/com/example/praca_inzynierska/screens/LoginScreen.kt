@@ -55,10 +55,14 @@ fun LoginScreen(
                     is ValidationEvent.Success -> {
                         if (viewModel.user?.userNutritionConfig == null) {
                             navController.navigate(
-                                "dietconfigurationscreen/${viewModel.user?.id}/${viewModel.user?.token}"
+                                "${Screens.DietConfigurationScreen.name}/${viewModel.user?.id}/${viewModel.user?.token}"
                             )
                         } else {
-                            // TODO:
+                            navController.popBackStack()
+                            navController.navigate("main") {
+                                popUpTo(navController.graph.startDestinationId)
+                                launchSingleTop = true
+                            }
                         }
                         Toast.makeText(
                             context, "Logged successful",
@@ -106,7 +110,7 @@ fun LoginScreen(
                 initialText = "Don't have an acoount?  ",
                 clickableText = "Sign up",
                 onTextSelected = {
-                    navController.navigate("registerscreen")
+                    navController.navigate(Screens.RegisterScreen.name)
                 })
         }
     }

@@ -109,7 +109,7 @@ fun RegisterScreen(
                 initialText = "Already have an account? ",
                 clickableText = "Login",
                 onTextSelected = {
-                    navController.navigate("loginscreen")
+                    navController.navigate(Screens.LoginScreen.name)
                 })
         }
     }
