@@ -1,7 +1,7 @@
 package com.example.praca_inzynierska.validators.diet.configuration
 
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertEquals
 
 class WeightValidatorTest {
 

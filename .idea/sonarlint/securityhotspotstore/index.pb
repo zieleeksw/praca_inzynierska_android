@@ -125,3 +125,13 @@ Kapp/src/main/java/com/example/praca_inzynierska/navigation/AppNavigation.kt,f\
 Lapp/src/main/java/com/example/praca_inzynierska/navigation/NavigationItem.kt,f\a\fac2743abf71ac2bb7a13af1d868385b74ef16c9
 u
 Eapp/src/main/java/com/example/praca_inzynierska/screens/HomeScreen.kt,b\b\bbe3278f480221f872d573ba9b9d9f15ee04dfce
+Œ
+\app/src/test/java/com/example/praca_inzynierska/validators/register/UsernameValidatorTest.kt,9\a\9a7705a5ec54363dab54854cc4d8d42fcac5ac1f
+…
+Uapp/src/test/java/com/example/praca_inzynierska/validators/register/EmailValidator.kt,4\0\4079f1e2f0656383c7cf8a4d11275b82564898f5
+‰
+Yapp/src/test/java/com/example/praca_inzynierska/validators/register/EmailValidatorTest.kt,2\3\23394e570250331718b91a4d102dbf364b16b416
+Œ
+\app/src/test/java/com/example/praca_inzynierska/validators/register/PasswordValidatorTest.kt,2\e\2e868bf91dd8e05f440e4013b839fc434fe934a3
+“
+capp/src/test/java/com/example/praca_inzynierska/validators/register/ConfirmPasswordValidatorTest.kt,9\7\97dee62455d34a8e958d49f6b503613c3b5716ca

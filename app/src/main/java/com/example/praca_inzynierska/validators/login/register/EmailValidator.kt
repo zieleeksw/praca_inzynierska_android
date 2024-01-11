@@ -1,6 +1,7 @@
 package com.example.praca_inzynierska.validators.login.register
 
 import android.util.Patterns
+import androidx.core.util.PatternsCompat
 import com.example.praca_inzynierska.validators.Validator
 
 class EmailValidator(
@@ -21,7 +22,7 @@ class EmailValidator(
     }
 
     private fun setResultIfEmailIsNotValid() {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
             updateResultIfNotError("That's not a valid email")
         }
     }
