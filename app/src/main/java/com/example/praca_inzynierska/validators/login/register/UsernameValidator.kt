@@ -3,21 +3,13 @@ package com.example.praca_inzynierska.validators.login.register
 import com.example.praca_inzynierska.validators.Validator
 
 class UsernameValidator(
-    private val usernames: List<String>,
     private val username: String
 ) : Validator() {
 
     override fun validate(): ValidationResult {
-        setResultIfUsernameIsTaken()
         setResultIfUsernameIsTooShort()
         setResultIfUsernameContainsInvalidCharacters()
         return result
-    }
-
-    private fun setResultIfUsernameIsTaken() {
-        if (usernames.contains(username)) {
-            updateResultIfNotError("The username is taken")
-        }
     }
 
     private fun setResultIfUsernameIsTooShort() {

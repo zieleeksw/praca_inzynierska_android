@@ -94,7 +94,7 @@ fun RegisterScreen(
             PasswordInputWithErrorComponent(
                 password = viewModel.state.password,
                 isError = viewModel.state.passwordError != null,
-                errorMessage = viewModel.state.emailError,
+                errorMessage = viewModel.state.passwordError,
                 onPasswordChanged = { password -> viewModel.onPasswordChanged(password) }
             )
             Spacer(modifier = Modifier.height(8.dp))

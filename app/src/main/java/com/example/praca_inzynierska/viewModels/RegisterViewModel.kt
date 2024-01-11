@@ -1,6 +1,5 @@
 package com.example.praca_inzynierska.viewModels
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,6 +13,7 @@ import com.example.praca_inzynierska.validators.login.register.ConfirmPasswordVa
 import com.example.praca_inzynierska.validators.login.register.EmailValidator
 import com.example.praca_inzynierska.validators.login.register.PasswordValidator
 import com.example.praca_inzynierska.validators.login.register.UsernameValidator
+import com.example.praca_inzynierska.validators.login.register.ValidationResult
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -23,81 +23,95 @@ class RegisterViewModel : ViewModel() {
     var state by mutableStateOf(RegistrationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
-    private val _usernameState = mutableStateOf(UsernameState())
-    val usernameState: State<UsernameState> = _usernameState
-    private val _emailState = mutableStateOf(EmailState())
-    val emailState: State<EmailState> = _emailState
-
-    init {
-        fetchUsernames()
-        fetchEmails()
-    }
-
-    private fun fetchUsernames() {
-        viewModelScope.launch {
-            try {
-                val response = userService.getUsers()
-                _usernameState.value = usernameState.value.copy(
-                    list = response,
-                    loading = false,
-                    error = null
-                )
-            } catch (e: Exception) {
-                _usernameState.value = _usernameState.value.copy(
-                    loading = false,
-                    error = "Error fetching usernames ${e.message}"
-                )
-            }
-        }
-    }
-
-    private fun fetchEmails() {
-        viewModelScope.launch {
-            try {
-                val response = userService.getEmails()
-                _emailState.value = emailState.value.copy(
-                    list = response,
-                    loading = false,
-                    error = null
-                )
-            } catch (e: Exception) {
-                _emailState.value = _emailState.value.copy(
-                    loading = false,
-                    error = "Error fetching emails ${e.message}"
-                )
-            }
-        }
-    }
 
     fun onSubmit() {
-        val usernameResult = UsernameValidator(_usernameState.value.list, state.username).validate()
-        val emailResult = EmailValidator(_emailState.value.list, state.email).validate()
-        val passwordResult = PasswordValidator(state.password).validate()
-        val confirmPasswordResult = ConfirmPasswordValidator(state.password, state.confirmPassword)
-            .validate()
+        viewModelScope.launch {
+            try {
+                validate()
+            } catch (e: Exception) {
+                validationEventChannel.send(ValidationEvent.Failure)
+            }
+        }
+    }
 
-        val hasError = listOf(
+    private suspend fun validate() {
+        val usernameResponse = userService.isUsernameAvailable(state.username)
+        val emailResponse = userService.isEmailAvailable()
+        if (usernameResponse.isSuccessful && emailResponse.isSuccessful) {
+            val usernameResult = validateUsername(usernameResponse.body())
+            val emailResult = validateEmail(emailResponse.body())
+            val passwordResult = PasswordValidator(state.password).validate()
+            val confirmPasswordResult =
+                ConfirmPasswordValidator(state.password, state.confirmPassword).validate()
+            if (hasError(
+                    usernameResult,
+                    emailResult,
+                    passwordResult,
+                    confirmPasswordResult
+                )
+            ) {
+                updateStateErrors(
+                    usernameResult,
+                    emailResult,
+                    passwordResult,
+                    confirmPasswordResult
+                )
+            } else {
+                onSuccess()
+            }
+        } else {
+            validationEventChannel.send(ValidationEvent.Failure)
+        }
+    }
+
+    private fun validateUsername(usernameResponseResult: Boolean?): ValidationResult {
+        return if (usernameResponseResult != null && !usernameResponseResult) {
+            ValidationResult(successful = false, "The username is taken")
+        } else {
+            UsernameValidator(state.username).validate()
+        }
+    }
+
+    private fun validateEmail(emailResponseResult: Boolean?): ValidationResult {
+        return if (emailResponseResult != null && !emailResponseResult) {
+            ValidationResult(successful = false, "The email is taken")
+        } else {
+            EmailValidator(state.email).validate()
+        }
+    }
+
+    private fun updateStateErrors(
+        usernameResult: ValidationResult,
+        emailResult: ValidationResult,
+        passwordResult: ValidationResult,
+        confirmPasswordResult: ValidationResult
+    ) {
+        state = state.copy(
+            usernameError = if (!usernameResult.successful) usernameResult.errorMessage else null,
+            emailError = if (!emailResult.successful) emailResult.errorMessage else null,
+            passwordError = if (!passwordResult.successful) passwordResult.errorMessage else null,
+            confirmPasswordError = if (!confirmPasswordResult.successful) confirmPasswordResult.errorMessage else null
+        )
+    }
+
+    private fun hasError(
+        usernameResult: ValidationResult,
+        emailResult: ValidationResult,
+        passwordResult: ValidationResult,
+        confirmPasswordResult: ValidationResult
+    ): Boolean {
+        return listOf(
             usernameResult,
             emailResult,
             passwordResult,
             confirmPasswordResult
         ).any { !it.successful }
+    }
 
-        if (hasError) {
-            state = state.copy(
-                usernameError = usernameResult.errorMessage,
-                emailError = emailResult.errorMessage,
-                passwordError = passwordResult.errorMessage,
-                confirmPasswordError = confirmPasswordResult.errorMessage,
-            )
-            return
-        }
-
-        viewModelScope.launch {
-            registerNewUser()
-            state = RegistrationFormState()
-            validationEventChannel.send(ValidationEvent.Success)
-        }
+    private suspend fun onSuccess() {
+        registerNewUser()
+        state = RegistrationFormState()
+        validationEventChannel.send(ValidationEvent.Success)
     }
 
 
@@ -126,16 +140,4 @@ class RegisterViewModel : ViewModel() {
     fun onUsernameChanged(username: String) {
         state = state.copy(username = username)
     }
-
-    data class UsernameState(
-        val loading: Boolean = true,
-        val list: List<String> = emptyList(),
-        val error: String? = null
-    )
-
-    data class EmailState(
-        val loading: Boolean = true,
-        val list: List<String> = emptyList(),
-        val error: String? = null
-    )
 }

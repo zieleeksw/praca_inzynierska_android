@@ -11,18 +11,19 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 val retrofit =
-    Retrofit.Builder().baseUrl("http://192.168.1.7:8080")
+    Retrofit.Builder().baseUrl("http://192.168.11.144:8080")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 val userService = retrofit.create(UserApiService::class.java)
 
+
 interface UserApiService {
 
-    @GET("/api/user/usernames")
-    suspend fun getUsers(): List<String>
+    @GET("/api/user/username/{username}")
+    suspend fun isUsernameAvailable(@Path("username") username: String): Response<Boolean>
 
-    @GET("/api/user/emails")
-    suspend fun getEmails(): List<String>
+    @GET("/api/user/email/{email}")
+    suspend fun isEmailAvailable(): Response<Boolean>
 
     @POST("/api/auth/register")
     suspend fun registerUser(@Body user: UserRegisterRequest): Response<ResponseBody>
