@@ -17,6 +17,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.praca_inzynierska.screens.AddCommentScreen
+import com.example.praca_inzynierska.screens.AddPostScreen
 import com.example.praca_inzynierska.screens.DietConfigurationScreen
 import com.example.praca_inzynierska.screens.FoodScreen
 import com.example.praca_inzynierska.screens.HomeScreen
@@ -95,7 +97,14 @@ fun MainContent() {
             modifier = Modifier.padding(paddingValues)
         ) {
             composable(route = Screens.HomeScreen.name) {
-                HomeScreen()
+                HomeScreen(mainNavController)
+            }
+            composable(route = Screens.AddPostScreen.name) {
+                AddPostScreen(mainNavController,
+                    onAddPost = { _, _ -> /* Handle onAddPost logic */ })
+            }
+            composable(route = Screens.AddCommentScreen.name) {
+                AddCommentScreen(mainNavController)
             }
             composable(route = Screens.FoodScreen.name) {
                 FoodScreen()

@@ -1,6 +1,5 @@
 package com.example.praca_inzynierska.validators.login.register
 
-import android.util.Patterns
 import androidx.core.util.PatternsCompat
 import com.example.praca_inzynierska.validators.Validator
 

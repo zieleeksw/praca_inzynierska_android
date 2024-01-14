@@ -56,7 +56,7 @@ fun ConfirmButtonComponent(
                             colorResource(id = R.color.primary_color)
                         )
                     ),
-                ),
+                )
         ) {
             Text(
                 text = text,

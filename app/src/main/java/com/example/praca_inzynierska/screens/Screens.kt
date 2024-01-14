@@ -7,5 +7,7 @@ enum class Screens {
     SettingsScreen,
     LoginScreen,
     RegisterScreen,
-    DietConfigurationScreen
+    DietConfigurationScreen,
+    AddCommentScreen,
+    AddPostScreen
 }
