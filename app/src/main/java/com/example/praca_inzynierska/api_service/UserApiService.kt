@@ -1,21 +1,20 @@
-package com.example.praca_inzynierska
+package com.example.praca_inzynierska.api_service
 
+import com.example.praca_inzynierska.LoginRequest
+import com.example.praca_inzynierska.api_service.Retrofit.retrofit
+import com.example.praca_inzynierska.data.User
+import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
+import com.example.praca_inzynierska.requests.UserRegisterRequest
 import okhttp3.ResponseBody
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-val retrofit =
-    Retrofit.Builder().baseUrl("http://192.168.11.144:8080")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-val userService = retrofit.create(UserApiService::class.java)
 
+val userService = retrofit.create(UserApiService::class.java)
 
 interface UserApiService {
 
@@ -30,7 +29,6 @@ interface UserApiService {
 
     @POST("/api/auth/authenticate")
     suspend fun login(@Body loginRequest: LoginRequest): Response<User>
-
 
     @POST("/api/user-nutrition-config/add/{userId}")
     suspend fun addNutritionConfiguration(

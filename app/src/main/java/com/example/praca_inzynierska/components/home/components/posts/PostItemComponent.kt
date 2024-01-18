@@ -1,7 +1,5 @@
 package com.example.praca_inzynierska.components.home.components.posts
 
-import android.net.Uri
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -9,45 +7,45 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.components.home.components.TimestampWithDeleteComponent
+import com.example.praca_inzynierska.data.Post
 import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.view.models.post.HomeScreenViewModel
 
 @Composable
 fun PostItemComponent(
     navController: NavHostController,
-    author: String,
-    content: String,
-    timestamp: String,
-    onFollowClick: () -> Unit
+    post: Post,
+    viewModel: HomeScreenViewModel
 ) {
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val authorText = getAuthorText(post)
+
     Column(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(8.dp)
             .background(color = Color.White)
     ) {
         Row(
@@ -55,36 +53,23 @@ fun PostItemComponent(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
-                text = "$author",
+                text = authorText,
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            Text(
-                text = "$timestamp",
-                fontSize = 14.sp,
-                color = Color.Gray,
+            TimestampWithDeleteComponent(
+                text = post.timestamp,
+                deleteButton = post.authorId == Global.currentUserId,
+                deleteString = "post",
+                onConfirm = { viewModel.deletePost(post.id) },
+                buttonColor = colorResource(id = R.color.primary_color)
             )
         }
         Text(
-            text = content,
+            text = post.content,
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 4.dp)
-        )
-        selectedImageUri?.let { uri ->
-            Image(
-                painter = rememberAsyncImagePainter(model = uri),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .padding(8.dp)
-            )
-        }
-        Text(
-            text = "Followers: 126",
-            fontSize = 14.sp,
-            color = Color.Gray,
         )
         Row(
             modifier = Modifier
@@ -93,29 +78,11 @@ fun PostItemComponent(
                 .height(50.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            FollowButtonComponent(post = post)
+            Spacer(Modifier.width(8.dp))
             Button(
                 contentPadding = PaddingValues(),
-                onClick = { onFollowClick() },
-                shape = RoundedCornerShape(4.dp),
-                modifier = Modifier
-                    .fillMaxHeight()
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .width(110.dp)
-                        .height(50.dp)
-                        .background(
-                            color = colorResource(id = R.color.primary_color),
-                            shape = RoundedCornerShape(4.dp),
-                        )
-                ) {
-                    Text(text = "Follow")
-                }
-            }
-            Button(
-                contentPadding = PaddingValues(),
-                onClick = { navController.navigate(Screens.AddCommentScreen.name) },
+                onClick = { navController.navigate("${Screens.CommentsScreen.name}/${post.id}") },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
                     .fillMaxHeight(),
@@ -123,8 +90,8 @@ fun PostItemComponent(
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .width(240.dp)
-                        .height(50.dp)
+                        .widthIn(240.dp)
+                        .heightIn(50.dp)
                         .border(
                             1.dp,
                             color = colorResource(id = R.color.primary_color)
@@ -135,7 +102,7 @@ fun PostItemComponent(
                         )
                 ) {
                     Text(
-                        text = "Add a comment!",
+                        text = "Comments!",
                         color = colorResource(id = R.color.primary_color)
                     )
                 }
@@ -144,18 +111,14 @@ fun PostItemComponent(
     }
 }
 
-@Preview
-@Composable
-fun PostPreview() {
-    val navController = rememberNavController()
-    val author = "John Doe"
-    val content = "This is the post content."
-    val timestamp = "2 hours ago"
-    PostItemComponent(
-        navController = navController,
-        author = author,
-        content = content,
-        timestamp = timestamp,
-        onFollowClick = {}
-    )
+fun getAuthorText(post: Post): String {
+    return if (isPostOwner(post)) {
+        "${post.author} (You)"
+    } else {
+        post.author
+    }
+}
+
+fun isPostOwner(post: Post): Boolean {
+    return post.authorId == Global.currentUserId
 }

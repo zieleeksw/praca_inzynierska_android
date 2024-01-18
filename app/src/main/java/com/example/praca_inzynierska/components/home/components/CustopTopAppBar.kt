@@ -14,12 +14,13 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.screens.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopAppBar(
-    navController: NavHostController,
-    text: String
+    text: String,
+    onNavigationIconClick: () -> Unit
 ) {
     TopAppBar(
         title = {
@@ -34,7 +35,7 @@ fun CustomTopAppBar(
             navigationIconContentColor = Color.White
         ),
         navigationIcon = {
-            IconButton(onClick = { navController.popBackStack() }) {
+            IconButton(onClick = { onNavigationIconClick() }) {
                 Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
             }
         }

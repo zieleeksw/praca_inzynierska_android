@@ -1,14 +1,14 @@
-package com.example.praca_inzynierska.viewModels
+package com.example.praca_inzynierska.view.models
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.UserRegisterRequest
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.api_service.userService
+import com.example.praca_inzynierska.requests.UserRegisterRequest
 import com.example.praca_inzynierska.states.RegistrationFormState
-import com.example.praca_inzynierska.userService
 import com.example.praca_inzynierska.validators.login.register.ConfirmPasswordValidator
 import com.example.praca_inzynierska.validators.login.register.EmailValidator
 import com.example.praca_inzynierska.validators.login.register.PasswordValidator

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.ErrorTextComponent
-import com.example.praca_inzynierska.viewModels.RegisterViewModel
+import com.example.praca_inzynierska.view.models.RegisterViewModel
 
 @Composable
 fun UsernameInputWithErrorComponent(

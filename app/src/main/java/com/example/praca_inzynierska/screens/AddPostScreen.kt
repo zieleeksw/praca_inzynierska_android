@@ -1,11 +1,7 @@
 package com.example.praca_inzynierska.screens
 
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
+import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,78 +19,70 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
+import com.example.praca_inzynierska.view.models.post.AddPostViewModel
 
 @Composable
 fun AddPostScreen(
     navController: NavHostController,
-    onAddPost: (String, Uri?) -> Unit
 ) {
-    var postText by remember { mutableStateOf("") }
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+
     val primaryColor = colorResource(id = R.color.primary_color)
-    val pickImage =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri: Uri? ->
-            selectedImageUri = uri
+    val viewModel = viewModel<AddPostViewModel>()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = context) {
+        viewModel.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+                    navController.popBackStack()
+                    Toast.makeText(
+                        context, "Successfully added new post",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                is ValidationEvent.BadCredentials ->
+                    Toast.makeText(
+                        context, "You have enter correct post content",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                is ValidationEvent.Failure ->
+                    Toast.makeText(
+                        context, "Something went wrong. Try again later",
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
         }
+    }
+
     Scaffold(
-        topBar = { CustomTopAppBar(navController = navController, text = "Add a post!") },
+        topBar = { CustomTopAppBar(text = "Add a post!") { navController.navigate(Screens.HomeScreen.name) } },
         bottomBar = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
             ) {
-                Button(
-                    contentPadding = PaddingValues(),
-                    onClick = { pickImage.launch("image/*") },
-                    shape = RoundedCornerShape(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp)
-                ) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .height(56.dp)
-                            .border(
-                                1.dp,
-                                color = primaryColor,
-                                shape = RoundedCornerShape(16.dp),
-                            )
-                            .background(
-                                color = Color.White,
-                                shape = RoundedCornerShape(16.dp),
-                            )
-                            .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "Add photo",
-                            color = primaryColor
-                        )
-                    }
-                }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     contentPadding = PaddingValues(),
                     onClick = {
-                        onAddPost(postText, selectedImageUri)
-                        postText = ""
-                        selectedImageUri = null
+                        viewModel.onSubmit()
                     },
                     shape = RoundedCornerShape(16.dp),
                     modifier = Modifier.height(56.dp)
@@ -122,8 +110,8 @@ fun AddPostScreen(
                 .padding(it)
         ) {
             OutlinedTextField(
-                value = postText,
-                onValueChange = { postText = it },
+                value = viewModel.state.content,
+                onValueChange = { content -> viewModel.onContentChanged(content) },
                 placeholder = { Text("Text...") },
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent,
@@ -145,25 +133,13 @@ fun AddPostScreen(
                         .weight(1f),
                 )
             }
-            selectedImageUri?.let { uri ->
-                Image(
-                    painter = rememberAsyncImagePainter(model = uri),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(300.dp)
-                        .padding(8.dp)
-                )
-            }
         }
     }
 }
-
 
 @Preview
 @Composable
 fun PostScreenPreview() {
     val navController = rememberNavController()
-    AddPostScreen(navController = navController,
-        onAddPost = { _, _ -> })
+    AddPostScreen(navController = navController)
 }

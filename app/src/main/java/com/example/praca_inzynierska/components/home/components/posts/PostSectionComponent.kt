@@ -18,25 +18,25 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.data.Post
+import com.example.praca_inzynierska.view.models.post.HomeScreenViewModel
 
 @Composable
 fun PostSectionComponent(
     navController: NavHostController,
     posts: List<Post>,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    viewModel: HomeScreenViewModel
 ) {
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        items(posts) { post ->
+        items(posts.reversed()) { post ->
             PostItemComponent(
                 navController,
-                author = post.author,
-                content = post.content,
-                timestamp = post.timestamp,
-                {}
+                post = post,
+                viewModel
             )
             Spacer(Modifier.height(2.dp))
             Row(

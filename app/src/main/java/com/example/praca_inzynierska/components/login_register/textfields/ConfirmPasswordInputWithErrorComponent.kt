@@ -25,7 +25,7 @@ import com.example.praca_inzynierska.components.getVisibilityDescription
 import com.example.praca_inzynierska.components.getVisibilityIcon
 import com.example.praca_inzynierska.components.getVisualTransformation
 import com.example.praca_inzynierska.components.togglePasswordVisibility
-import com.example.praca_inzynierska.viewModels.RegisterViewModel
+import com.example.praca_inzynierska.view.models.RegisterViewModel
 
 @Composable
 fun ConfirmPasswordInputWithErrorComponent(

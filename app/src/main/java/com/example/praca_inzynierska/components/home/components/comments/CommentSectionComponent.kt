@@ -11,11 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.data.Comment
+import com.example.praca_inzynierska.view.models.comments.CommentsScreenViewModel
 
 @Composable
 fun CommentSectionComponent(
-    comments: List<Comment>
-    // TODO: on add comment
+    comments: List<Comment>,
+    viewModel: CommentsScreenViewModel
 ) {
     Column(
         modifier = Modifier
@@ -25,7 +26,10 @@ fun CommentSectionComponent(
     ) {
         LazyColumn {
             items(comments) { comment ->
-                CommentItemComponent(comment = comment)
+                CommentItemComponent(
+                    comment = comment,
+                    viewModel
+                )
             }
         }
     }

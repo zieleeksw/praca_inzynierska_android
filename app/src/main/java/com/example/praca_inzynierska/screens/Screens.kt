@@ -1,6 +1,7 @@
 package com.example.praca_inzynierska.screens
 
 enum class Screens {
+    MainContent,
     HomeScreen,
     FoodScreen,
     ExerciseScreen,
@@ -8,6 +9,7 @@ enum class Screens {
     LoginScreen,
     RegisterScreen,
     DietConfigurationScreen,
-    AddCommentScreen,
-    AddPostScreen
+    CommentsScreen,
+    AddPostScreen,
+    AddProductScreen
 }

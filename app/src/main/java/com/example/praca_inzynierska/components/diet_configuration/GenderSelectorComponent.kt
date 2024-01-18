@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.enums.Gender
-import com.example.praca_inzynierska.viewModels.DietConfigurationViewModel
+import com.example.praca_inzynierska.view.models.DietConfigurationViewModel
 
 @Composable
 fun GenderSelectorComponent(

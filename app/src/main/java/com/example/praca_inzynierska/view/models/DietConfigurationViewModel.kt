@@ -1,16 +1,16 @@
-package com.example.praca_inzynierska.viewModels
+package com.example.praca_inzynierska.view.models
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.UserNutritionConfigRequest
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.api_service.userService
 import com.example.praca_inzynierska.enums.ActivityLevel
 import com.example.praca_inzynierska.enums.Gender
+import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
 import com.example.praca_inzynierska.states.DietConfigurationFormState
-import com.example.praca_inzynierska.userService
 import com.example.praca_inzynierska.validators.diet.configuration.DateOfBirthValidator
 import com.example.praca_inzynierska.validators.diet.configuration.HeightValidator
 import com.example.praca_inzynierska.validators.diet.configuration.WeightValidator

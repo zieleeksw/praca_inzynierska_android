@@ -1,0 +1,6 @@
+package com.example.praca_inzynierska.states
+
+data class AddCommentState(
+    val content: String = "",
+    val contentError: Boolean = false
+)

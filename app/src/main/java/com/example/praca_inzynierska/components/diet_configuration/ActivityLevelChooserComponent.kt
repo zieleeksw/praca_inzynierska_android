@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.enums.ActivityLevel
-import com.example.praca_inzynierska.viewModels.DietConfigurationViewModel
+import com.example.praca_inzynierska.view.models.DietConfigurationViewModel
 
 @Composable
 fun ActivityLevelChooserComponent(
