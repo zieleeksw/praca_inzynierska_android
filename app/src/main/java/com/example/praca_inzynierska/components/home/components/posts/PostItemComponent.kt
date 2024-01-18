@@ -1,7 +1,6 @@
 package com.example.praca_inzynierska.components.home.components.posts
 
-import android.net.Uri
-import androidx.compose.foundation.Image
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -18,36 +17,58 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import coil.compose.rememberAsyncImagePainter
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.components.home.components.TimestampWithDeleteComponent
+import com.example.praca_inzynierska.data.Post
 import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.view.models.post.DeletePostViewModel
 
 @Composable
 fun PostItemComponent(
     navController: NavHostController,
-    author: String,
-    content: String,
-    timestamp: String,
-    onFollowClick: () -> Unit
+    post: Post,
 ) {
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+
+    val deletePostViewModel = viewModel<DeletePostViewModel>()
+    val isPostOwner = post.authorId == Global.currentUserId
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = context) {
+        deletePostViewModel.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+                    navController.popBackStack()
+                    Toast.makeText(
+                        context, "Successfully deleted post",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                else ->
+                    Toast.makeText(
+                        context, "Something went wrong. Try again later",
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
-            .padding(16.dp)
+            .padding(8.dp)
             .background(color = Color.White)
     ) {
         Row(
@@ -55,36 +76,26 @@ fun PostItemComponent(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(
-                text = "$author",
+                text = if (isPostOwner) {
+                    "${post.author} (You)"
+                } else {
+                    post.author
+                },
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            Text(
-                text = "$timestamp",
-                fontSize = 14.sp,
-                color = Color.Gray,
+            TimestampWithDeleteComponent(
+                text = post.timestamp,
+                deleteButton = post.authorId == Global.currentUserId,
+                onConfirm = { performDeleteAction(deletePostViewModel, navController, post.id) },
+                buttonColor = colorResource(id = R.color.primary_color)
             )
         }
         Text(
-            text = content,
+            text = post.content,
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 4.dp)
-        )
-        selectedImageUri?.let { uri ->
-            Image(
-                painter = rememberAsyncImagePainter(model = uri),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(300.dp)
-                    .padding(8.dp)
-            )
-        }
-        Text(
-            text = "Followers: 126",
-            fontSize = 14.sp,
-            color = Color.Gray,
         )
         Row(
             modifier = Modifier
@@ -93,29 +104,10 @@ fun PostItemComponent(
                 .height(50.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            FollowButtonComponent(post = post)
             Button(
                 contentPadding = PaddingValues(),
-                onClick = { onFollowClick() },
-                shape = RoundedCornerShape(4.dp),
-                modifier = Modifier
-                    .fillMaxHeight()
-            ) {
-                Box(
-                    contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .width(110.dp)
-                        .height(50.dp)
-                        .background(
-                            color = colorResource(id = R.color.primary_color),
-                            shape = RoundedCornerShape(4.dp),
-                        )
-                ) {
-                    Text(text = "Follow")
-                }
-            }
-            Button(
-                contentPadding = PaddingValues(),
-                onClick = { navController.navigate(Screens.AddCommentScreen.name) },
+                onClick = { navController.navigate("${Screens.CommentsScreen.name}/${post.id}") },
                 shape = RoundedCornerShape(4.dp),
                 modifier = Modifier
                     .fillMaxHeight(),
@@ -144,18 +136,11 @@ fun PostItemComponent(
     }
 }
 
-@Preview
-@Composable
-fun PostPreview() {
-    val navController = rememberNavController()
-    val author = "John Doe"
-    val content = "This is the post content."
-    val timestamp = "2 hours ago"
-    PostItemComponent(
-        navController = navController,
-        author = author,
-        content = content,
-        timestamp = timestamp,
-        onFollowClick = {}
-    )
+fun performDeleteAction(
+    deleteViewModel: DeletePostViewModel,
+    navController: NavHostController,
+    postId: Long
+) {
+    deleteViewModel.onClick(postId)
+    navController.navigate(Screens.HomeScreen.name)
 }

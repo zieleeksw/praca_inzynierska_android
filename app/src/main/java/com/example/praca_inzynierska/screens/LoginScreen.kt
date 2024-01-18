@@ -27,14 +27,16 @@ import com.example.praca_inzynierska.components.login_register.texts.CenteredHea
 import com.example.praca_inzynierska.components.login_register.texts.CenteredNormalTextComponent
 import com.example.praca_inzynierska.components.login_register.texts.ClickableLoginTextComponent
 import com.example.praca_inzynierska.components.login_register.texts.DividerTextComponent
-import com.example.praca_inzynierska.viewModels.LoginViewModel
+import com.example.praca_inzynierska.view.models.LoginViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
 ) {
 
     val focusManager = LocalFocusManager.current
+    val viewModel = viewModel<LoginViewModel>()
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -46,23 +48,14 @@ fun LoginScreen(
             }
     )
     {
-        val viewModel = viewModel<LoginViewModel>()
-        val context = LocalContext.current
-
         LaunchedEffect(key1 = context) {
             viewModel.validationEvents.collect { event ->
                 when (event) {
                     is ValidationEvent.Success -> {
                         if (viewModel.user?.userNutritionConfig == null) {
-                            navController.navigate(
-                                "${Screens.DietConfigurationScreen.name}/${viewModel.user?.id}/${viewModel.user?.token}"
-                            )
+                            navController.navigate(Screens.DietConfigurationScreen.name)
                         } else {
-                            navController.popBackStack()
-                            navController.navigate("main") {
-                                popUpTo(navController.graph.startDestinationId)
-                                launchSingleTop = true
-                            }
+                            navController.navigate(Screens.MainContent.name)
                         }
                         Toast.makeText(
                             context, "Logged successful",

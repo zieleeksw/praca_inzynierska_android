@@ -18,9 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun ActionWithDropDownMenuComponent() {
+fun ActionWithDropDownMenuComponent(
+    onOptionSelected: (String) -> Unit
+) {
+
     var expanded by remember { mutableStateOf(false) }
     var selectedOption by remember { mutableStateOf("Newest") }
+
     Column {
         IconButton(onClick = { expanded = true }) {
             Icon(imageVector = Icons.Default.FilterList, contentDescription = null)
@@ -34,16 +38,24 @@ fun ActionWithDropDownMenuComponent() {
             DropdownMenuItem(text = { Text("Newest") }, onClick = {
                 selectedOption = "Newest"
                 expanded = false
+                onOptionSelected(selectedOption)
             })
             DropdownMenuItem(text = {
                 Text(text = "Followed")
             }, onClick = {
                 selectedOption = "Followed"
                 expanded = false
+                onOptionSelected(selectedOption)
             })
-            DropdownMenuItem(text = { Text("Most popular") }, onClick = {
-                selectedOption = "Most popular"
+            DropdownMenuItem(text = { Text("Oldest") }, onClick = {
+                selectedOption = "Oldest"
                 expanded = false
+                onOptionSelected(selectedOption)
+            })
+            DropdownMenuItem(text = { Text("Mine") }, onClick = {
+                selectedOption = "Mine"
+                expanded = false
+                onOptionSelected(selectedOption)
             })
         }
     }

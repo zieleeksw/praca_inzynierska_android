@@ -18,22 +18,25 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.components.ConfirmButtonComponent
 import com.example.praca_inzynierska.components.diet_configuration.ActivityLevelChooserComponent
 import com.example.praca_inzynierska.components.diet_configuration.DateSelectorWithErrorComponent
 import com.example.praca_inzynierska.components.diet_configuration.EnterValueOutlinedTextFieldWithError
 import com.example.praca_inzynierska.components.diet_configuration.GenderSelectorComponent
-import com.example.praca_inzynierska.viewModels.DietConfigurationViewModel
+import com.example.praca_inzynierska.view.models.DietConfigurationViewModel
 
 @Composable
 fun DietConfigurationScreen(
-    navController: NavController,
-    userId: Long?,
-    token: String?
+    navController: NavController
 ) {
 
     val focusManager = LocalFocusManager.current
+    val viewModel = viewModel<DietConfigurationViewModel>()
+    viewModel.userId = Global.currentUserId
+    viewModel.token = Global.token
+    val context = LocalContext.current
 
     Box(
         modifier = Modifier
@@ -44,16 +47,11 @@ fun DietConfigurationScreen(
                     onTap = { focusManager.clearFocus() })
             }
     ) {
-
-        val viewModel = viewModel<DietConfigurationViewModel>()
-        viewModel.userId = userId
-        viewModel.token = token!!
-        val context = LocalContext.current
-
         LaunchedEffect(key1 = context) {
             viewModel.validationEvents.collect { event ->
                 when (event) {
                     is ValidationEvent.Success -> {
+                        navController.navigate(Screens.MainContent.name)
                         Toast.makeText(
                             context, "Data filled successfully",
                             Toast.LENGTH_LONG

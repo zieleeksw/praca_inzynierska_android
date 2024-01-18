@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.components.home.components.comments
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,18 +13,53 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.view.models.comments.AddCommentViewModel
 
 @Composable
-fun AddCommentTextField() {
-    var commentText by remember { mutableStateOf("") }
+fun AddCommentTextField(
+    navController: NavHostController,
+    postId: Long
+) {
+
+    val viewModel = viewModel<AddCommentViewModel>()
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = context) {
+        viewModel.validationEvents.collect { event ->
+            when (event) {
+                is ValidationEvent.Success -> {
+                    navController.popBackStack()
+                    Toast.makeText(
+                        context, "Successfully added new comment",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
+                is ValidationEvent.BadCredentials ->
+                    Toast.makeText(
+                        context, "You have enter correct comment content",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                is ValidationEvent.Failure ->
+                    Toast.makeText(
+                        context, "Somethig went wrong. Try again later",
+                        Toast.LENGTH_LONG
+                    ).show()
+            }
+        }
+    }
+
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
@@ -31,8 +67,8 @@ fun AddCommentTextField() {
             .padding(8.dp),
     ) {
         OutlinedTextField(
-            value = commentText,
-            onValueChange = { commentText = it },
+            value = viewModel.state.content,
+            onValueChange = { viewModel.onContentChanged(it) },
             placeholder = { Text("Add a comment...") },
             colors = OutlinedTextFieldDefaults.colors(
                 unfocusedBorderColor = colorResource(id = R.color.primary_color),
@@ -44,7 +80,10 @@ fun AddCommentTextField() {
                 .fillMaxWidth()
                 .padding(bottom = 8.dp, start = 8.dp, end = 8.dp),
             trailingIcon = {
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    viewModel.onSubmit(postId)
+                    navController.navigate("${Screens.CommentsScreen.name}/${postId}")
+                }) {
                     Icon(
                         imageVector = Icons.Outlined.Send,
                         contentDescription = null,

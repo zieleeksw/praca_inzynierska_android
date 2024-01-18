@@ -10,12 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.data.Comment
 
 @Composable
 fun CommentSectionComponent(
+    navController: NavHostController,
+    postId: Long,
     comments: List<Comment>
-    // TODO: on add comment
 ) {
     Column(
         modifier = Modifier
@@ -25,7 +27,11 @@ fun CommentSectionComponent(
     ) {
         LazyColumn {
             items(comments) { comment ->
-                CommentItemComponent(comment = comment)
+                CommentItemComponent(
+                    navController,
+                    postId,
+                    comment = comment
+                )
             }
         }
     }

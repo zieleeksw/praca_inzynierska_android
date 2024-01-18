@@ -30,13 +30,10 @@ fun PostSectionComponent(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        items(posts) { post ->
+        items(posts.reversed()) { post ->
             PostItemComponent(
                 navController,
-                author = post.author,
-                content = post.content,
-                timestamp = post.timestamp,
-                {}
+                post = post
             )
             Spacer(Modifier.height(2.dp))
             Row(

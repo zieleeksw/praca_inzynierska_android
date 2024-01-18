@@ -30,7 +30,7 @@ import com.example.praca_inzynierska.components.login_register.texts.CenteredHea
 import com.example.praca_inzynierska.components.login_register.texts.CenteredNormalTextComponent
 import com.example.praca_inzynierska.components.login_register.texts.ClickableLoginTextComponent
 import com.example.praca_inzynierska.components.login_register.texts.DividerTextComponent
-import com.example.praca_inzynierska.viewModels.RegisterViewModel
+import com.example.praca_inzynierska.view.models.RegisterViewModel
 
 
 @Composable

@@ -1,15 +1,16 @@
-package com.example.praca_inzynierska.viewModels
+package com.example.praca_inzynierska.view.models
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.LoginRequest
-import com.example.praca_inzynierska.User
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.api_service.userService
+import com.example.praca_inzynierska.data.User
 import com.example.praca_inzynierska.states.LoginFormState
-import com.example.praca_inzynierska.userService
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -31,6 +32,8 @@ class LoginViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     user = response.body()
                     if (user != null) {
+                        Global.currentUserId = user!!.id
+                        Global.token = user!!.token
                         validationEventChannel.send(ValidationEvent.Success)
                     }
                 } else {
