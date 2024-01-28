@@ -76,4 +76,21 @@ class DateOfBirthValidatorTest {
         assertEquals(false, result.successful)
         assertEquals("You must be at least 16 years old", result.errorMessage)
     }
+
+    @Test
+    fun `should return success when user is 100 years old`() {
+        val validator = DateOfBirthValidator("01", "01", "1955")
+        val result = validator.validate()
+        assertEquals(true, result.successful)
+        assertEquals(null, result.errorMessage)
+    }
+
+    @Test
+    fun `should return error when user is older than 100 years`() {
+        val validator = DateOfBirthValidator("01", "01", "1910")
+        val result = validator.validate()
+        assertEquals(false, result.successful)
+        assertEquals("You cannot be older than 100 years", result.errorMessage)
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.example.praca_inzynierska.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -12,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +25,7 @@ import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.food.components.main.CustomDatePicker
 import com.example.praca_inzynierska.components.food.components.main.DateWithIcon
 import com.example.praca_inzynierska.components.food.components.main.ExpandableCard
+import com.example.praca_inzynierska.components.food.components.main.FoodBottomBar
 import com.example.praca_inzynierska.enums.Meal
 import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 import java.text.SimpleDateFormat
@@ -38,6 +42,7 @@ fun FoodScreen(
     val foodScreenViewModel = FoodScreenViewModel(dateResult)
 
     Scaffold(
+        bottomBar = { FoodBottomBar(viewModel = foodScreenViewModel) },
         topBar = {
             TopAppBar(
                 title = {
@@ -53,8 +58,11 @@ fun FoodScreen(
                 )
             )
         }) {
-        Column {
-
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        ) {
             if (openDialog) {
                 CustomDatePicker(
                     onDisableDialog = { openDialog = false },
@@ -63,21 +71,22 @@ fun FoodScreen(
             }
 
             when {
-                foodScreenViewModel.foodState.value.loading ->
+                foodScreenViewModel.foodState.value.loading
+                        || foodScreenViewModel.userConfigState.value.loading ->
                     CircularProgressIndicator()
 
-                foodScreenViewModel.foodState.value.error != null -> {
+                foodScreenViewModel.foodState.value.error != null
+                        || foodScreenViewModel.userConfigState.value.error != null -> {
                     Text("Something went wrong")
                     Text("Try again later")
                 }
 
                 else -> {
+
                     DateWithIcon(
-                        paddingValues = it,
                         dateResult = dateResult,
                         onClick = { openDialog = true }
                     )
-
                     ExpandableCard(
                         cardTitle = Meal.BREAKFAST.displayName,
                         foodScreenViewModel,

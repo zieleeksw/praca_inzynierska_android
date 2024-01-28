@@ -1,10 +1,11 @@
 package com.example.praca_inzynierska.service
 
 import com.example.praca_inzynierska.LoginRequest
-import com.example.praca_inzynierska.service.Retrofit.retrofit
 import com.example.praca_inzynierska.data.User
+import com.example.praca_inzynierska.data.UserNutritionConfig
 import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
 import com.example.praca_inzynierska.requests.UserRegisterRequest
+import com.example.praca_inzynierska.service.Retrofit.retrofit
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -36,5 +37,11 @@ interface UserApiService {
         @Header("Authorization") authorization: String,
         @Body nutritionRequest: UserNutritionConfigRequest
     ): Response<Any>
+
+    @GET("/api/user-nutrition-config/{userId}")
+    suspend fun fetchNutritionConfiguration(
+        @Path("userId") userId: Long,
+        @Header("Authorization") authorization: String,
+    ): UserNutritionConfig
 }
 

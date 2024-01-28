@@ -67,24 +67,44 @@ fun ExpandableCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "${calculator.calculateKcal(cardTitle, viewModel.foodState.value.list)}kcal",
+                        text = "${
+                            calculator.calculateKcal(
+                                cardTitle,
+                                viewModel.foodState.value.list
+                            )
+                        }kcal",
                         style = TextStyle(
                             color = Color.White
                         )
                     )
                     Text(
-                        text = "P ${calculator.calculateProtein(cardTitle, viewModel.foodState.value.list)}",
+                        text = "P ${
+                            calculator.calculateProtein(
+                                cardTitle,
+                                viewModel.foodState.value.list
+                            )
+                        }",
                         style = TextStyle(
                             color = Color.White
                         )
                     )
                     Text(
-                        text = "C ${calculator.calculateCarbs(cardTitle, viewModel.foodState.value.list)}", style = TextStyle(
+                        text = "C ${
+                            calculator.calculateCarbs(
+                                cardTitle,
+                                viewModel.foodState.value.list
+                            )
+                        }", style = TextStyle(
                             color = Color.White
                         )
                     )
                     Text(
-                        text = "F ${calculator.calculateFat(cardTitle, viewModel.foodState.value.list)}", style = TextStyle(
+                        text = "F ${
+                            calculator.calculateFat(
+                                cardTitle,
+                                viewModel.foodState.value.list
+                            )
+                        }", style = TextStyle(
                             color = Color.White
                         )
                     )

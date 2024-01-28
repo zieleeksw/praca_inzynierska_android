@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.service.foodApiService
+import com.example.praca_inzynierska.service.userService
 import com.example.praca_inzynierska.states.FoodState
+import com.example.praca_inzynierska.states.UserConfigState
 import kotlinx.coroutines.launch
 
 class FoodScreenViewModel(
@@ -15,6 +17,8 @@ class FoodScreenViewModel(
 
     private val _foodState = mutableStateOf(FoodState())
     val foodState: State<FoodState> = _foodState
+    private val _userConfigState = mutableStateOf(UserConfigState())
+    val userConfigState: State<UserConfigState> = _userConfigState
     private var token: String = Global.token
 
     init {
@@ -35,15 +39,26 @@ class FoodScreenViewModel(
     private fun fetchFood() {
         viewModelScope.launch {
             try {
-                val response =
+                val foodResponse =
                     foodApiService.fetchFoodByDate("Bearer $token", Global.currentUserId, date)
                 _foodState.value = _foodState.value.copy(
-                    list = response,
+                    list = foodResponse,
                     loading = false,
                     error = null
                 )
+                val userConfigResponse =
+                    userService.fetchNutritionConfiguration(Global.currentUserId, "Bearer $token")
+                _userConfigState.value = _userConfigState.value.copy(
+                    loading = false,
+                    error = null,
+                    userNutritionConfig = userConfigResponse
+                )
             } catch (e: Exception) {
                 _foodState.value = _foodState.value.copy(
+                    loading = false,
+                    error = "Error fetching data ${e.message}"
+                )
+                _userConfigState.value = _userConfigState.value.copy(
                     loading = false,
                     error = "Error fetching data ${e.message}"
                 )

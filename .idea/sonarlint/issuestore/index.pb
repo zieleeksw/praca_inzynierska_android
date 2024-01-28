@@ -301,3 +301,9 @@ dapp/src/main/java/com/example/praca_inzynierska/components/food/components/main
 _app/src/main/java/com/example/praca_inzynierska/components/food/components/main/DateWithIcon.kt,4\c\4c7871507a71d717e55160d9ee09eaac05a21362
 ì
 capp/src/main/java/com/example/praca_inzynierska/components/food/components/main/CustomDatePicker.kt,d\1\d1911e7b8517644ef0fb9bd6be3f817218bc43ed
+î
+dapp/src/main/java/com/example/praca_inzynierska/components/food/components/main/CustomProgressBar.kt,d\a\da3af7a338bc9d1f5119053defd2d468b3d841db
+ê
+`app/src/main/java/com/example/praca_inzynierska/components/food/components/main/FoodBottomBar.kt,2\2\22b6e9a449de6957053167252163fee60f78b9b7
+y
+Iapp/src/main/java/com/example/praca_inzynierska/states/UserConfigState.kt,0\d\0d121a03cab060a8bf761b114519f9a825e717cb

@@ -16,6 +16,7 @@ class DateOfBirthValidator(
         validateNumericField()
         isDateValid()
         isUserAtLeast16YearsOld()
+        isUserYoungerThan100Years()
         return result
     }
 
@@ -58,6 +59,22 @@ class DateOfBirthValidator(
             val currentDate = LocalDate.now()
             if (birthDate.plusYears(16).isAfter(currentDate)) {
                 updateResultIfNotError("You must be at least 16 years old")
+            }
+        } catch (e: DateTimeParseException) {
+            // Ignored, data correction is checked method before
+        }
+    }
+
+    private fun isUserYoungerThan100Years() {
+        if (!result.successful) {
+            return
+        }
+        try {
+            val birthDate =
+                LocalDate.of(yearOfBirth.toInt(), monthOfBirth.toInt(), dayOfBirth.toInt())
+            val currentDate = LocalDate.now()
+            if (birthDate.plusYears(100).isBefore(currentDate)) {
+                updateResultIfNotError("You cannot be older than 100 years")
             }
         } catch (e: DateTimeParseException) {
             // Ignored, data correction is checked method before

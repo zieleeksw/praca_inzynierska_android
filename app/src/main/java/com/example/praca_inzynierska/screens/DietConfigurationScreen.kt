@@ -33,8 +33,6 @@ fun DietConfigurationScreen(
 
     val focusManager = LocalFocusManager.current
     val viewModel = viewModel<DietConfigurationViewModel>()
-    viewModel.userId = Global.currentUserId
-    viewModel.token = Global.token
     val context = LocalContext.current
 
     Box(
