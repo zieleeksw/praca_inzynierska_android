@@ -6,6 +6,7 @@ import com.example.praca_inzynierska.data.UserNutritionConfig
 import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
 import com.example.praca_inzynierska.requests.UserRegisterRequest
 import com.example.praca_inzynierska.service.Retrofit.retrofit
+
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -16,6 +17,7 @@ import retrofit2.http.Path
 
 
 val userService: UserApiService = retrofit.create(UserApiService::class.java)
+
 
 interface UserApiService {
 
