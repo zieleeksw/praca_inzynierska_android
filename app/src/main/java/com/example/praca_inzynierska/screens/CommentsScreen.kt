@@ -3,13 +3,12 @@ package com.example.praca_inzynierska.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
+import com.example.praca_inzynierska.components.OnErrorComponent
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.components.home.components.comments.AddCommentTextField
 import com.example.praca_inzynierska.components.home.components.comments.CommentSectionComponent
@@ -36,15 +35,10 @@ fun CommentsScreen(
 
             when {
                 commentState.value.loading ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize(), contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    CustomCircularProgressIndicator()
 
                 commentState.value.error != null ->
-                    Text("ERROR OCCURED")
+                    OnErrorComponent()
 
                 else -> {
                     CommentSectionComponent(

@@ -2,7 +2,6 @@ package com.example.praca_inzynierska.screens
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +20,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
+import com.example.praca_inzynierska.components.OnErrorComponent
 import com.example.praca_inzynierska.components.home.components.posts.ActionWithDropDownMenuComponent
 import com.example.praca_inzynierska.components.home.components.posts.PostSectionComponent
 import com.example.praca_inzynierska.view.models.post.HomeScreenViewModel
@@ -63,11 +64,10 @@ fun HomeScreen(
 
         when {
             postState.value.loading ->
-                CircularProgressIndicator()
+                CustomCircularProgressIndicator()
 
             postState.value.error != null -> {
-                Text("Something went wrong.")
-                Text("Try again later.")
+                OnErrorComponent()
             }
 
             else -> {

@@ -307,3 +307,7 @@ dapp/src/main/java/com/example/praca_inzynierska/components/food/components/main
 `app/src/main/java/com/example/praca_inzynierska/components/food/components/main/FoodBottomBar.kt,2\2\22b6e9a449de6957053167252163fee60f78b9b7
 y
 Iapp/src/main/java/com/example/praca_inzynierska/states/UserConfigState.kt,0\d\0d121a03cab060a8bf761b114519f9a825e717cb
+ç
+]app/src/main/java/com/example/praca_inzynierska/components/CustomCircularProgressIndicator.kt,3\7\375bf89e70b8b0e85df7be6f339fa27336003cba
+~
+Napp/src/main/java/com/example/praca_inzynierska/components/OnErrorComponent.kt,a\e\ae499a1608439793ddc2388249f077c3a18fff37

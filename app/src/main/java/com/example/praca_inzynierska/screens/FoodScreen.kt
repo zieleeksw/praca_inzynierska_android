@@ -73,12 +73,11 @@ fun FoodScreen(
             when {
                 foodScreenViewModel.foodState.value.loading
                         || foodScreenViewModel.userConfigState.value.loading ->
-                    CircularProgressIndicator()
+                    CustomCircularProgressIndicator()
 
                 foodScreenViewModel.foodState.value.error != null
                         || foodScreenViewModel.userConfigState.value.error != null -> {
-                    Text("Something went wrong")
-                    Text("Try again later")
+                    com.example.praca_inzynierska.components.OnErrorComponent()
                 }
 
                 else -> {
