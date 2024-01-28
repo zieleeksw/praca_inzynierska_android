@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.api_service
+package com.example.praca_inzynierska.service
 
 import com.example.praca_inzynierska.data.Food
 import com.example.praca_inzynierska.requests.FoodRequest
@@ -11,7 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-val foodApiService = Retrofit.retrofit.create(FoodApiService::class.java)
+val foodApiService: FoodApiService = Retrofit.retrofit.create(FoodApiService::class.java)
 
 interface FoodApiService {
 
@@ -25,7 +25,7 @@ interface FoodApiService {
     suspend fun fetchFoodByDate(
         @Header("Authorization") authorization: String,
         @Path("id") userId: Long,
-        @Path ("date") date : String
+        @Path("date") date: String
     ): List<Food>
 
     @DELETE("/api/food/{id}")

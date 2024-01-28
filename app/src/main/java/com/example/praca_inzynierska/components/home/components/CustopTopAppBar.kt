@@ -12,9 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.screens.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

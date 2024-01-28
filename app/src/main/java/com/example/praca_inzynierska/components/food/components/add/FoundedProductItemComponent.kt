@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.food.components
+package com.example.praca_inzynierska.components.food.components.add
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -15,12 +15,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.components.food.components.add.AddFoodButton
-import com.example.praca_inzynierska.components.food.components.add.DescriptionValueComponent
-import com.example.praca_inzynierska.components.food.components.add.GramsTextFieldComponent
 import com.example.praca_inzynierska.requests.NutritionRequest
 import com.example.praca_inzynierska.view.models.food.AddFoodViewModel
 
@@ -31,7 +27,7 @@ fun FoundedProductItemComponent(
     meal: String
 ) {
 
-     val addFoodViewModel = remember {AddFoodViewModel()}
+    val addFoodViewModel = remember { AddFoodViewModel() }
     onInit(addFoodViewModel, nutritionRequest, date, meal)
     val context = LocalContext.current
 
@@ -77,10 +73,10 @@ fun FoundedProductItemComponent(
         ) {
             GramsTextFieldComponent(addFoodViewModel = addFoodViewModel)
             DescriptionValueComponent("Product Name", addFoodViewModel.state.productName)
-            DescriptionValueComponent("Kcal", addFoodViewModel.state.kcal.toString())
-            DescriptionValueComponent("Fat", addFoodViewModel.state.fat.toString())
-            DescriptionValueComponent("Carbs", addFoodViewModel.state.carbs.toString())
-            DescriptionValueComponent("Proteins", addFoodViewModel.state.proteins.toString())
+            DescriptionValueComponent("Kcal", addFoodViewModel.state.kcal)
+            DescriptionValueComponent("Fat", addFoodViewModel.state.fat)
+            DescriptionValueComponent("Carbs", addFoodViewModel.state.carbs)
+            DescriptionValueComponent("Proteins", addFoodViewModel.state.proteins)
             AddFoodButton { addFoodViewModel.onSubmit() }
         }
     }

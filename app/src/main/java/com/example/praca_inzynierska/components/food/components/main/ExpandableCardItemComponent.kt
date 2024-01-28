@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.food.components
+package com.example.praca_inzynierska.components.food.components.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,17 +26,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praca_inzynierska.components.DeleteDialog
 import com.example.praca_inzynierska.data.Food
-import com.example.praca_inzynierska.view.models.food.DeleteFoodViewModel
+import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 
 @Composable
 fun ExpandableCardItemComponent(
-    food: Food
+    food: Food,
+    viewModel: FoodScreenViewModel
 ) {
-
-    val deleteFoodViewModel = viewModel<DeleteFoodViewModel>()
 
     Row(
         modifier = Modifier,
@@ -55,7 +53,7 @@ fun ExpandableCardItemComponent(
                         showDialog = false
                     },
                     onConfirmation = {
-                        deleteFoodViewModel.onClick(food.id)
+                        viewModel.deleteFood(food.id)
                         showDialog = false
                     })
             }

@@ -5,11 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.api_service.foodApiService
+import com.example.praca_inzynierska.service.foodApiService
 import com.example.praca_inzynierska.states.FoodState
 import kotlinx.coroutines.launch
 
-class FetchFoodViewModel(
+class FoodScreenViewModel(
     var date: String
 ) : ViewModel() {
 
@@ -19,6 +19,17 @@ class FetchFoodViewModel(
 
     init {
         fetchFood()
+    }
+
+    fun deleteFood(foodId: Long) {
+        viewModelScope.launch {
+            try {
+                foodApiService.deleteFood("Bearer ${Global.token}", foodId)
+                fetchFood()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun fetchFood() {

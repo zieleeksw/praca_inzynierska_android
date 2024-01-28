@@ -18,7 +18,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.components.ConfirmButtonComponent
 import com.example.praca_inzynierska.components.diet_configuration.ActivityLevelChooserComponent

@@ -9,12 +9,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.components.home.components.comments.AddCommentTextField
 import com.example.praca_inzynierska.components.home.components.comments.CommentSectionComponent
-import com.example.praca_inzynierska.view.models.comments.CommentsScreenViewModel
+import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
 
 @Composable
 fun CommentsScreen(

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.data.Food
+import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 
 import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 

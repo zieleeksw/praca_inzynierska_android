@@ -5,11 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.api_service.userService
 import com.example.praca_inzynierska.enums.ActivityLevel
 import com.example.praca_inzynierska.enums.Gender
 import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
+import com.example.praca_inzynierska.service.userService
 import com.example.praca_inzynierska.states.DietConfigurationFormState
 import com.example.praca_inzynierska.validators.diet.configuration.DateOfBirthValidator
 import com.example.praca_inzynierska.validators.diet.configuration.HeightValidator
@@ -24,8 +25,6 @@ class DietConfigurationViewModel : ViewModel() {
     var state by mutableStateOf(DietConfigurationFormState())
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
-    var userId by mutableStateOf<Long?>(null)
-    var token by mutableStateOf("")
 
     fun onSubmit() {
         val dateResult =
@@ -75,7 +74,11 @@ class DietConfigurationViewModel : ViewModel() {
         )
 
         try {
-            userService.addNutritionConfiguration(userId!!, "Bearer $token", userNutritionConfig)
+            userService.addNutritionConfiguration(
+                Global.currentUserId,
+                "Bearer ${Global.token}",
+                userNutritionConfig
+            )
         } catch (e: Exception) {
             validationEventChannel.send(ValidationEvent.Failure)
             return

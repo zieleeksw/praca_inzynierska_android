@@ -28,7 +28,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.components.food.components.FoundedProductSectionComponent
+import com.example.praca_inzynierska.components.food.components.add.FoundedProductSectionComponent
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.requests.NutritionRequest
 import com.example.praca_inzynierska.view.models.FetchFoodViewModel

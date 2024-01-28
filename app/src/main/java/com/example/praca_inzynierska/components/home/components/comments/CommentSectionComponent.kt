@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.data.Comment
-import com.example.praca_inzynierska.view.models.comments.CommentsScreenViewModel
+import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
 
 @Composable
 fun CommentSectionComponent(

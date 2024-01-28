@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.api_service.foodApiServiceExt
+import com.example.praca_inzynierska.service.foodApiServiceExt
 import com.example.praca_inzynierska.states.NutritionState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

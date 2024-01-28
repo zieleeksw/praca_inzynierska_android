@@ -1,7 +1,7 @@
-package com.example.praca_inzynierska.api_service
+package com.example.praca_inzynierska.service
 
 import com.example.praca_inzynierska.LoginRequest
-import com.example.praca_inzynierska.api_service.Retrofit.retrofit
+import com.example.praca_inzynierska.service.Retrofit.retrofit
 import com.example.praca_inzynierska.data.User
 import com.example.praca_inzynierska.requests.UserNutritionConfigRequest
 import com.example.praca_inzynierska.requests.UserRegisterRequest
@@ -14,7 +14,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-val userService = retrofit.create(UserApiService::class.java)
+val userService: UserApiService = retrofit.create(UserApiService::class.java)
 
 interface UserApiService {
 

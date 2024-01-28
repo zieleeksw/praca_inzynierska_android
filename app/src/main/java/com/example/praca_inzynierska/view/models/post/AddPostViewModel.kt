@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.api_service.postService
 import com.example.praca_inzynierska.requests.PostRequest
+import com.example.praca_inzynierska.service.postService
 import com.example.praca_inzynierska.states.AddPostState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

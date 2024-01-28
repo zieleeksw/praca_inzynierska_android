@@ -20,7 +20,7 @@ import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.home.components.TimestampWithDeleteComponent
 import com.example.praca_inzynierska.data.Comment
-import com.example.praca_inzynierska.view.models.comments.CommentsScreenViewModel
+import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
 
 @Composable
 fun CommentItemComponent(

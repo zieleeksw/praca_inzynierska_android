@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.api_service.postService
 import com.example.praca_inzynierska.requests.FollowPostRequest
+import com.example.praca_inzynierska.service.postService
 import kotlinx.coroutines.launch
 
 class FollowClickViewModel(

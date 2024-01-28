@@ -8,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.LoginRequest
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.api_service.userService
 import com.example.praca_inzynierska.data.User
+import com.example.praca_inzynierska.service.userService
 import com.example.praca_inzynierska.states.LoginFormState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.api_service
+package com.example.praca_inzynierska.service
 
 import com.example.praca_inzynierska.requests.NutritionRequest
 import retrofit2.Response
@@ -7,7 +7,8 @@ import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
-val foodApiServiceExt = Retrofit.foodRetrofit.create(FoodApiServiceExt::class.java)
+val foodApiServiceExt: FoodApiServiceExt =
+    Retrofit.foodRetrofit.create(FoodApiServiceExt::class.java)
 
 interface FoodApiServiceExt {
 

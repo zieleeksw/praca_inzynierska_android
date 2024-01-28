@@ -1,9 +1,9 @@
-package com.example.praca_inzynierska.api_service
+package com.example.praca_inzynierska.service
 
-import com.example.praca_inzynierska.api_service.Retrofit.retrofit
 import com.example.praca_inzynierska.data.Post
 import com.example.praca_inzynierska.requests.FollowPostRequest
 import com.example.praca_inzynierska.requests.PostRequest
+import com.example.praca_inzynierska.service.Retrofit.retrofit
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -13,7 +13,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-val postService = retrofit.create(PostApiService::class.java)
+val postService: PostApiService = retrofit.create(PostApiService::class.java)
 
 interface PostApiService {
 

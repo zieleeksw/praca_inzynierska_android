@@ -18,13 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.screens.Screens
-import com.example.praca_inzynierska.view.models.comments.AddCommentViewModel
-import com.example.praca_inzynierska.view.models.comments.CommentsScreenViewModel
+import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
 
 @Composable
 fun AddCommentTextField(

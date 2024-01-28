@@ -1,9 +1,8 @@
-package com.example.praca_inzynierska.view.models.food
+package com.example.praca_inzynierska.helpers
 
-import androidx.lifecycle.ViewModel
 import com.example.praca_inzynierska.data.Food
 
-class CalculateValuesViewModel : ViewModel() {
+class FoodValuesCalculator {
 
     fun filterFoodByMeal(meal: String, foods: List<Food>): List<Food> {
         return foods.filter { it.meal == meal }
