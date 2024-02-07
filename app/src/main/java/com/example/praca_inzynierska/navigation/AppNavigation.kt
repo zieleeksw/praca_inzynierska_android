@@ -26,13 +26,15 @@ import com.example.praca_inzynierska.screens.AddPostScreen
 import com.example.praca_inzynierska.screens.AddProductScreen
 import com.example.praca_inzynierska.screens.CommentsScreen
 import com.example.praca_inzynierska.screens.DietConfigurationScreen
+import com.example.praca_inzynierska.screens.ExerciseScreen
 import com.example.praca_inzynierska.screens.FoodScreen
+import com.example.praca_inzynierska.screens.HandleExerciseScreen
 import com.example.praca_inzynierska.screens.HomeScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
 import com.example.praca_inzynierska.screens.Screens
 import com.example.praca_inzynierska.screens.SettingsScreen
-import com.example.praca_inzynierska.screens.TrainingScreen
+import com.example.praca_inzynierska.screens.training.TrainingScreen
 
 @Composable
 fun AppNavigation() {
@@ -141,10 +143,35 @@ fun MainContent(
                 AddProductScreen(mainNavController, date!!, meal!!)
             }
             composable(route = Screens.ExerciseScreen.name) {
-                TrainingScreen()
+                TrainingScreen(mainNavController)
             }
             composable(route = Screens.SettingsScreen.name) {
                 SettingsScreen()
+            }
+            composable(
+                route = "${Screens.ExercisesScreen.name}/{date}",
+                arguments = listOf(
+                    navArgument("date") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                val date = backStackEntry.arguments?.getString("date")
+                ExerciseScreen(mainNavController, date!!)
+            }
+            composable(route = "${Screens.HandleExerciseScreen.name}/{date}/{name}",
+                arguments = listOf(
+                    navArgument("date") {
+                        type = NavType.StringType
+                    },
+                    navArgument("name") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                val date = backStackEntry.arguments?.getString("date")
+                val name = backStackEntry.arguments?.getString("name")
+                HandleExerciseScreen(mainNavController, date!!, name!!)
             }
         }
     }

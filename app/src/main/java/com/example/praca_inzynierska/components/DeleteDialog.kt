@@ -3,7 +3,6 @@ package com.example.praca_inzynierska.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -54,10 +53,8 @@ fun DeleteDialog(
             }
         },
         modifier = Modifier.background(
-            color = MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(28.dp)
+            color = colorResource(id = R.color.light_gray), shape = RoundedCornerShape(28.dp)
         )
-
-
     )
 }
 

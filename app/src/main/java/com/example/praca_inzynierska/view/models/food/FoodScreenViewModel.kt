@@ -36,7 +36,7 @@ class FoodScreenViewModel(
         }
     }
 
-    private fun fetchFood() {
+    fun fetchFood() {
         viewModelScope.launch {
             try {
                 val foodResponse =

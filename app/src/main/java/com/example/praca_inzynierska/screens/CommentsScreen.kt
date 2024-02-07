@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
-import com.example.praca_inzynierska.components.OnErrorComponent
+import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.components.home.components.comments.AddCommentTextField
 import com.example.praca_inzynierska.components.home.components.comments.CommentSectionComponent
@@ -38,7 +38,7 @@ fun CommentsScreen(
                     CustomCircularProgressIndicator()
 
                 commentState.value.error != null ->
-                    OnErrorComponent()
+                    OnFetchDataErrorComponent()
 
                 else -> {
                     CommentSectionComponent(

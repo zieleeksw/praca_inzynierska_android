@@ -17,7 +17,7 @@ fun DateSelectorWithErrorComponent(
     viewModel: DietConfigurationViewModel
 ) {
     DateSelectorComponent(viewModel)
-    ErrorTextComponent(viewModel.state.dateOfBirthError, 118, 0)
+    ErrorTextComponent(viewModel.state.dateOfBirthError, 0, 0)
 }
 
 @Composable

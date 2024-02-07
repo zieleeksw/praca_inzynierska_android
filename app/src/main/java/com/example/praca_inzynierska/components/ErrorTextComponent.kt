@@ -1,6 +1,5 @@
 package com.example.praca_inzynierska.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +22,6 @@ fun ErrorTextComponent(
         color = Color.Red,
         fontSize = 12.sp,
         modifier = Modifier
-            .fillMaxWidth()
             .padding(start = start.dp, end = end.dp),
     )
 }

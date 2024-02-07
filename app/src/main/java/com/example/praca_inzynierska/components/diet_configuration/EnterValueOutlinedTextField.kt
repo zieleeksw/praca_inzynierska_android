@@ -26,7 +26,7 @@ fun EnterValueOutlinedTextFieldWithError(
         value,
         onTextFieldChanged = onTextFieldChanged
     )
-    ErrorTextComponent(error = errorString, start = 118, end = 0)
+    ErrorTextComponent(error = errorString, start = 0, end = 0)
 }
 
 @Composable

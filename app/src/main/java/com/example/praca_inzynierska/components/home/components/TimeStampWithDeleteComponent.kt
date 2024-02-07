@@ -1,8 +1,9 @@
 package com.example.praca_inzynierska.components.home.components
 
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -42,13 +43,13 @@ fun TimestampWithDeleteComponent(
             })
     }
 
-    Row(modifier = Modifier.padding(top = 4.dp, end = 4.dp)) {
+    Row {
         Text(
             text = text,
             fontSize = 14.sp,
             color = Color.Gray,
         )
-
+        Spacer(modifier = Modifier.width(2.dp))
         if (deleteButton) {
             IconButton(
                 onClick = {

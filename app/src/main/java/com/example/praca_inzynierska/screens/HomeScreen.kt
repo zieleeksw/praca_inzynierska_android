@@ -21,7 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
-import com.example.praca_inzynierska.components.OnErrorComponent
+import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
 import com.example.praca_inzynierska.components.home.components.posts.ActionWithDropDownMenuComponent
 import com.example.praca_inzynierska.components.home.components.posts.PostSectionComponent
 import com.example.praca_inzynierska.view.models.post.HomeScreenViewModel
@@ -67,7 +67,7 @@ fun HomeScreen(
                 CustomCircularProgressIndicator()
 
             postState.value.error != null -> {
-                OnErrorComponent()
+                OnFetchDataErrorComponent()
             }
 
             else -> {

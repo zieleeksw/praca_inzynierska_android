@@ -11,5 +11,7 @@ enum class Screens {
     DietConfigurationScreen,
     CommentsScreen,
     AddPostScreen,
-    AddProductScreen
+    AddProductScreen,
+    ExercisesScreen,
+    HandleExerciseScreen
 }
