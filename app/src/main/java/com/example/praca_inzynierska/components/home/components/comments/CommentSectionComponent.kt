@@ -6,10 +6,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.data.Comment
 import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
 
@@ -21,7 +22,7 @@ fun CommentSectionComponent(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.background)
+            .background(color = colorResource(id = R.color.light_gray))
             .padding(16.dp)
     ) {
         LazyColumn {

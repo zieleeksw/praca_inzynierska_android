@@ -1,6 +1,7 @@
 package com.example.praca_inzynierska.components.home.components.comments
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -59,6 +60,7 @@ fun AddCommentTextField(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
             .fillMaxWidth()
+            .background(color = colorResource(id = R.color.light_gray))
             .padding(8.dp),
     ) {
         OutlinedTextField(

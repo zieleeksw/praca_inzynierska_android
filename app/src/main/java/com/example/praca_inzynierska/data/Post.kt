@@ -7,5 +7,5 @@ data class Post(
     val author: String,
     val content: String,
     val timestamp: String,
-    val followers: List<Long>
+    var followers: List<Long>
 )

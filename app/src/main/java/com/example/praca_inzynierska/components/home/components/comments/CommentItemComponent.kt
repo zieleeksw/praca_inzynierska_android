@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -13,12 +14,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.home.components.TimestampWithDeleteComponent
 import com.example.praca_inzynierska.data.Comment
 import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
@@ -36,15 +36,19 @@ fun CommentItemComponent(
             .fillMaxWidth()
             .padding(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.primary_color),
-            contentColor = Color.White
-        )
+            containerColor = Color.White,
+            contentColor = Color.Gray
+        ),
+        elevation = CardDefaults.elevatedCardElevation(
+            defaultElevation = 4.dp
+        ),
+        shape = RoundedCornerShape(4.dp)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 8.dp, end = 8.dp, bottom = 8.dp)
-                .background(color = colorResource(id = R.color.primary_color))
+                .background(color = Color.White)
         ) {
             Row(
                 modifier = Modifier
@@ -61,6 +65,7 @@ fun CommentItemComponent(
                     },
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
+                    color = Color.Black
                 )
                 TimestampWithDeleteComponent(
                     text = comment.timestamp,
@@ -69,7 +74,7 @@ fun CommentItemComponent(
                     onConfirm = {
                         viewModel.deleteComment(comment.id)
                     },
-                    buttonColor = Color.White
+                    buttonColor = Color.Gray
                 )
             }
             Text(text = comment.content)

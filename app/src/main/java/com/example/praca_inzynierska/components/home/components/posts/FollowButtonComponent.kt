@@ -2,6 +2,7 @@ package com.example.praca_inzynierska.components.home.components.posts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.heightIn
@@ -47,21 +48,5 @@ fun FollowButtonComponent(
         ) {
             Text(text = getFollowText(followClickViewModel = followClickViewModel, post = post))
         }
-    }
-}
-
-@Composable
-fun getPostColor(followClickViewModel: FollowClickViewModel, post: Post): Color {
-    return when {
-        followClickViewModel.id == post.id && followClickViewModel.state -> colorResource(id = R.color.secondary_color)
-        else -> colorResource(id = R.color.primary_color)
-    }
-}
-
-fun getFollowText(followClickViewModel: FollowClickViewModel, post: Post): String {
-    return if (followClickViewModel.id == post.id && followClickViewModel.state) {
-        "Followed!"
-    } else {
-        "Follow!"
     }
 }

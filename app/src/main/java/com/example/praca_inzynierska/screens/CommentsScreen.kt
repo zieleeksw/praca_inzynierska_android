@@ -1,12 +1,15 @@
 package com.example.praca_inzynierska.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.navigation.NavHostController
+import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
 import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
@@ -30,7 +33,8 @@ fun CommentsScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it),
+                .padding(it)
+                .background(color = colorResource(id = R.color.light_gray)),
         ) {
 
             when {
