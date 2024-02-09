@@ -9,4 +9,6 @@ data class AddFoodState(
     var fat: String = "",
     var carbs: String = "",
     var proteins: String = "",
+    val error: String? = null,
+    val isSuccessful: Boolean = false
 )

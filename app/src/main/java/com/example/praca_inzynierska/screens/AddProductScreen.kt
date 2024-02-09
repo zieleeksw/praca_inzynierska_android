@@ -1,37 +1,37 @@
 package com.example.praca_inzynierska.screens
 
-import android.widget.Toast
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.components.food.components.add.FoundedProductSectionComponent
+import com.example.praca_inzynierska.components.SearchTextField
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
-import com.example.praca_inzynierska.requests.NutritionRequest
-import com.example.praca_inzynierska.view.models.FetchFoodViewModel
+import com.example.praca_inzynierska.data.AppFoodModel
+import com.example.praca_inzynierska.view.models.AddProductScreenViewModel
 
 @Composable
 fun AddProductScreen(
@@ -40,73 +40,91 @@ fun AddProductScreen(
     meal: String
 ) {
 
-    val viewModel = viewModel<FetchFoodViewModel>()
-    var nutritionRequestList by remember { mutableStateOf(emptyList<NutritionRequest>()) }
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = context) {
-        viewModel.validationEvents.collect { event ->
-            when (event) {
-                is ValidationEvent.Success -> {
-                    nutritionRequestList = viewModel.nutritionState.value.list!!
-                    Toast.makeText(
-                        context, "Fetched successful",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                else ->
-                    Toast.makeText(
-                        context, "Something went wrong. Try again later",
-                        Toast.LENGTH_LONG
-                    ).show()
-            }
-        }
-    }
+    val viewModel = viewModel<AddProductScreenViewModel>()
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
 
     Scaffold(
-        topBar = {
-            CustomTopAppBar(text = "Find and add Food!") { navController.navigate(Screens.FoodScreen.name) }
-        },
+        topBar = { CustomTopAppBar(text = "Add food!") { navController.popBackStack() } },
     ) {
+
+        val food = viewModel.foodState.value.list
+
         Column(
             modifier = Modifier
                 .padding(it)
-                .padding(vertical = 8.dp, horizontal = 32.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            OutlinedTextField(
-                value = viewModel.foodToSearchState,
-                onValueChange = { foodToSearch -> viewModel.onFoodToSearchState(foodToSearch) },
-                placeholder = { Text("Look for a product...") },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = colorResource(id = R.color.primary_color),
-                    focusedBorderColor = colorResource(id = R.color.secondary_color),
-                    focusedLabelColor = colorResource(id = R.color.secondary_color),
-                    cursorColor = colorResource(id = R.color.secondary_color)
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 8.dp, horizontal = 32.dp),
-                trailingIcon = {
-                    IconButton(onClick = {
-                        viewModel.fetchNutrition()
-                    }) {
-                        Icon(
-                            imageVector = Icons.Outlined.Search,
-                            contentDescription = null,
-                            tint = colorResource(id = R.color.primary_color)
-                        )
-                    }
+            SearchTextField(state = textState, placeHolder = "Search here...")
+            LazyColumn {
+                items(items = food.filter {
+                    it.productName.contains(textState.value.text, ignoreCase = true)
+                }, key = { it.productName }) { food ->
+                    FoodColumnItem(
+                        food = food
+                    ) { navController.navigate("${Screens.HandleProductScreen.name}/${date}/${meal}/${food.productName}") }
                 }
-            )
-            FoundedProductSectionComponent(nutritionRequestList, date, meal)
+            }
         }
     }
 }
 
 @Composable
-@Preview
-fun AddProductPreview() {
-    AddProductScreen(navController = rememberNavController(), "", "")
+fun FoodColumnItem(
+    food: AppFoodModel,
+    onFoodLabelClick: () -> Unit
+) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onFoodLabelClick() }
+            .padding(10.dp)
+    ) {
+        Row(
+            modifier = Modifier,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = food.productName,
+                style = TextStyle(
+                    color = Color.Black,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center
+                ),
+            )
+
+        }
+        Row(
+            modifier = Modifier
+                .widthIn(260.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "${food.kcal}kcal",
+                style = TextStyle(
+                    color = Color.Gray
+                )
+            )
+            Text(
+                text = "P ${food.proteins}",
+                style = TextStyle(
+                    color = Color.Gray
+                )
+            )
+            Text(
+                text = "C ${food.carbs}", style = TextStyle(
+                    color = Color.Gray
+                )
+            )
+            Text(
+                text = "F ${food.fat}", style = TextStyle(
+                    color = Color.Gray
+                )
+            )
+        }
+    }
+    Divider()
 }

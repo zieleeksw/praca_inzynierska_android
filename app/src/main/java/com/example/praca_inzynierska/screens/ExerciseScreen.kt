@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.praca_inzynierska.components.SearchTextField
+import com.example.praca_inzynierska.components.SearchTextFieldWithColumnItem
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.view.models.BaseAppExercisesScreenViewModel
 
@@ -34,11 +34,10 @@ fun ExerciseScreen(
             modifier = Modifier
                 .padding(it)
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SearchTextField(
-                modifier = Modifier,
+            SearchTextFieldWithColumnItem(
                 list = exercisesNames,
                 navController = navController,
                 date = date

@@ -1,20 +1,23 @@
 package com.example.praca_inzynierska.components.food.components.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.shape.AbsoluteCutCornerShape
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,33 +25,41 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.components.food.components.add.AddButtonAndExpandableButtons
 import com.example.praca_inzynierska.helpers.FoodValuesCalculator
+import com.example.praca_inzynierska.screens.Screens
 import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 
 @Composable
-fun ExpandableCard(
+fun FoodCard(
     cardTitle: String,
     viewModel: FoodScreenViewModel,
     date: String,
     navController: NavHostController
 ) {
 
-    var expanded by remember { mutableStateOf(false) }
     val calculator = FoodValuesCalculator()
 
     Card(
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.primary_color)),
-        shape = AbsoluteCutCornerShape(0.dp)
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        ),
+        shape = RoundedCornerShape(4.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -56,8 +67,8 @@ fun ExpandableCard(
                 Text(
                     text = cardTitle,
                     style = TextStyle(
-                        color = Color.White,
-                        fontSize = 20.sp,
+                        color = Color.Gray,
+                        fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     ),
@@ -74,7 +85,7 @@ fun ExpandableCard(
                             )
                         }kcal",
                         style = TextStyle(
-                            color = Color.White
+                            color = Color.Gray
                         )
                     )
                     Text(
@@ -85,7 +96,7 @@ fun ExpandableCard(
                             )
                         }",
                         style = TextStyle(
-                            color = Color.White
+                            color = Color.Gray
                         )
                     )
                     Text(
@@ -95,7 +106,7 @@ fun ExpandableCard(
                                 viewModel.foodState.value.list
                             )
                         }", style = TextStyle(
-                            color = Color.White
+                            color = Color.Gray
                         )
                     )
                     Text(
@@ -105,23 +116,48 @@ fun ExpandableCard(
                                 viewModel.foodState.value.list
                             )
                         }", style = TextStyle(
-                            color = Color.White
+                            color = Color.Gray
                         )
                     )
                 }
             }
-            AddButtonAndExpandableButtons(
-                expanded = expanded,
-                onToggleExpanded = { expanded = !expanded },
-                navController = navController,
-                date = date,
-                meal = cardTitle
+            IconButton(
+                onClick = {
+                    navController.navigate(
+                        "${Screens.AddProductScreen.name}/${date}/${cardTitle}"
+                    )
+                },
+                content = {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Icon",
+                        tint = Color.White,
+                        modifier = Modifier
+                            .background(
+                                color = colorResource(id = R.color.secondary_color),
+                                shape = CircleShape
+                            )
+                    )
+                }
             )
         }
-        ExpandableContent(
-            expanded,
-            calculator.filterFoodByMeal(cardTitle, viewModel.foodState.value.list),
-            viewModel
-        )
     }
+    val foodList = calculator.filterFoodByMeal(cardTitle, viewModel.foodState.value.list)
+    foodList.forEach { food ->
+        FoodCardItemComponent(food, viewModel)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewExpandableCard() {
+    val mockNavController = rememberNavController()
+    val mockViewModel = FoodScreenViewModel("2024-02-08")
+
+    FoodCard(
+        cardTitle = "Przykładowy Posiłek",
+        viewModel = mockViewModel,
+        date = "2024-02-08",
+        navController = mockNavController
+    )
 }

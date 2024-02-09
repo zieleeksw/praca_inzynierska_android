@@ -6,33 +6,28 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.requests.FoodRequest
 import com.example.praca_inzynierska.service.foodApiService
 import com.example.praca_inzynierska.states.AddFoodState
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class AddFoodViewModel : ViewModel() {
 
     var state by mutableStateOf(AddFoodState())
-    private val validationEventChannel = Channel<ValidationEvent>()
-    val validationEvents = validationEventChannel.receiveAsFlow()
 
     fun onSubmit() {
         viewModelScope.launch {
             try {
                 submit()
             } catch (e: Exception) {
-                validationEventChannel.send(ValidationEvent.Failure)
+                e.printStackTrace()
             }
         }
     }
 
     private suspend fun submit() {
-        if (state.grams.isBlank()) {
-            validationEventChannel.send(ValidationEvent.BadCredentials)
+        if (state.grams.isBlank() || state.grams == "0") {
+            state = state.copy(error = "Enter correct value")
             return
         }
         addNewFood()
@@ -41,15 +36,15 @@ class AddFoodViewModel : ViewModel() {
     private suspend fun addNewFood() {
         val foodRequest = FoodRequest(state)
         if (state.grams.toInt() == 0) {
-            validationEventChannel.send(ValidationEvent.BadCredentials)
             return
         }
         try {
-            foodApiService.addFood("Bearer ${Global.token}", foodRequest)
-            validationEventChannel.send(ValidationEvent.Success)
+            val response = foodApiService.addFood("Bearer ${Global.token}", foodRequest)
+            if (response.isSuccessful) {
+                state = state.copy(error = null, isSuccessful = true)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
-            validationEventChannel.send(ValidationEvent.Failure)
         }
     }
 
@@ -66,19 +61,29 @@ class AddFoodViewModel : ViewModel() {
     }
 
     fun onGramsChanged(
-        grams: String?,
-        calories: Int,
-        fat: Int,
-        carbs: Int,
-        proteins: Int
+        grams: String,
+        calories: String,
+        fat: String,
+        carbs: String,
+        proteins: String
     ) {
-        val gramsInt = grams?.toIntOrNull() ?: 0
-        state = state.copy(
-            grams = gramsInt.toString(),
-            kcal = ((calories * gramsInt) / 100).toString(),
-            fat = ((fat * gramsInt) / 100).toString(),
-            carbs = ((carbs * gramsInt) / 100).toString(),
-            proteins = ((proteins * gramsInt) / 100).toString()
-        )
+        if (grams.isBlank()) {
+            state = state.copy(
+                grams = "",
+                kcal = "",
+                fat = "",
+                carbs = "",
+                proteins = ""
+            )
+        } else {
+            val gramsInt = grams.toInt()
+            state = state.copy(
+                grams = gramsInt.toString(),
+                kcal = (((calories.toIntOrNull() ?: 0) * gramsInt) / 100).toString(),
+                fat = (((fat.toIntOrNull() ?: 0) * gramsInt) / 100).toString(),
+                carbs = (((carbs.toIntOrNull() ?: 0) * gramsInt) / 100).toString(),
+                proteins = (((proteins.toIntOrNull() ?: 0) * gramsInt) / 100).toString()
+            )
+        }
     }
 }

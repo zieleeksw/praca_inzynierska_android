@@ -21,7 +21,7 @@ fun DescriptionValueComponent(
             .fillMaxWidth()
             .padding(bottom = 8.dp),
     ) {
-        Text(label, color = Color.White)
-        Text(value, color = Color.White)
+        Text(label, color = Color.Gray)
+        Text(value, color = Color.Gray)
     }
 }

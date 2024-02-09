@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.service
 
+import com.example.praca_inzynierska.data.AppFoodModel
 import com.example.praca_inzynierska.data.Food
 import com.example.praca_inzynierska.requests.FoodRequest
 import retrofit2.Response
@@ -14,6 +15,17 @@ import retrofit2.http.Path
 val foodApiService: FoodApiService = Retrofit.retrofit.create(FoodApiService::class.java)
 
 interface FoodApiService {
+
+    @GET("/api/base_app_food")
+    suspend fun fetchAllBaseAppFood(
+        @Header("Authorization") authorization: String
+    ): List<AppFoodModel>
+
+    @GET("/api/base_app_food/{name}")
+    suspend fun fetchBaseAppFoodByName(
+        @Header("Authorization") authorization: String,
+        @Path("name") userId: String,
+    ): Response<AppFoodModel>
 
     @POST("/api/food")
     suspend fun addFood(

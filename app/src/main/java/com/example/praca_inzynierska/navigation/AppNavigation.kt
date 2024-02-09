@@ -29,6 +29,7 @@ import com.example.praca_inzynierska.screens.DietConfigurationScreen
 import com.example.praca_inzynierska.screens.ExerciseScreen
 import com.example.praca_inzynierska.screens.FoodScreen
 import com.example.praca_inzynierska.screens.HandleExerciseScreen
+import com.example.praca_inzynierska.screens.HandleProductScreen
 import com.example.praca_inzynierska.screens.HomeScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
@@ -173,12 +174,24 @@ fun MainContent(
                 val name = backStackEntry.arguments?.getString("name")
                 HandleExerciseScreen(mainNavController, date!!, name!!)
             }
+            composable(route = "${Screens.HandleProductScreen.name}/{date}/{meal}/{foodName}",
+                arguments = listOf(
+                    navArgument("date") {
+                        type = NavType.StringType
+                    },
+                    navArgument("meal") {
+                        type = NavType.StringType
+                    },
+                    navArgument("foodName") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                val date = backStackEntry.arguments?.getString("date")
+                val meal = backStackEntry.arguments?.getString("meal")
+                val foodName = backStackEntry.arguments?.getString("foodName")
+                HandleProductScreen(mainNavController, date!!, meal!!, foodName!!)
+            }
         }
     }
-}
-
-@Composable
-@Preview
-fun MainPreview() {
-    MainContent()
 }

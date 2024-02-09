@@ -1,8 +1,10 @@
 package com.example.praca_inzynierska.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -21,7 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
 import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
-import com.example.praca_inzynierska.components.food.components.main.ExpandableCard
+import com.example.praca_inzynierska.components.food.components.main.FoodCard
 import com.example.praca_inzynierska.components.food.components.main.FoodBottomBar
 import com.example.praca_inzynierska.components.general.DateSelector
 import com.example.praca_inzynierska.enums.Meal
@@ -58,6 +60,7 @@ fun FoodScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
+                .background(color = colorResource(id = R.color.light_gray))
         ) {
 
             when {
@@ -74,24 +77,35 @@ fun FoodScreen(
                     DateSelector(
                         currentDate
                     ) { foodScreenViewModel.fetchFood() }
-                    ExpandableCard(
-                        cardTitle = Meal.BREAKFAST.displayName,
-                        foodScreenViewModel,
-                        date = currentDate.value.toString(),
-                        navController
-                    )
-                    ExpandableCard(
-                        cardTitle = Meal.DINNER.displayName,
-                        foodScreenViewModel,
-                        date = currentDate.value.toString(),
-                        navController
-                    )
-                    ExpandableCard(
-                        cardTitle = Meal.LUNCH.displayName,
-                        foodScreenViewModel,
-                        date = currentDate.value.toString(),
-                        navController
-                    )
+
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        item {
+                            FoodCard(
+                                cardTitle = Meal.BREAKFAST.displayName,
+                                viewModel = foodScreenViewModel,
+                                date = currentDate.value.toString(),
+                                navController = navController
+                            )
+                        }
+                        item {
+                            FoodCard(
+                                cardTitle = Meal.DINNER.displayName,
+                                viewModel = foodScreenViewModel,
+                                date = currentDate.value.toString(),
+                                navController = navController
+                            )
+                        }
+                        item {
+                            FoodCard(
+                                cardTitle = Meal.LUNCH.displayName,
+                                viewModel = foodScreenViewModel,
+                                date = currentDate.value.toString(),
+                                navController = navController
+                            )
+                        }
+                    }
                 }
             }
         }

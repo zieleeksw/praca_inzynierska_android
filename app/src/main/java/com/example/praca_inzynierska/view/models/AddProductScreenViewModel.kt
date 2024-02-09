@@ -5,31 +5,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.service.exercisesApiService
-import com.example.praca_inzynierska.states.BaseAppExercisesState
+import com.example.praca_inzynierska.data.AppFoodModel
+import com.example.praca_inzynierska.service.foodApiService
+import com.example.praca_inzynierska.states.ResourceState
 import kotlinx.coroutines.launch
 
-class BaseAppExercisesScreenViewModel : ViewModel() {
+class AddProductScreenViewModel : ViewModel() {
 
-    private val _exercisesState = mutableStateOf(BaseAppExercisesState())
-    val exercisesState: State<BaseAppExercisesState> = _exercisesState
+
+    private val _foodState = mutableStateOf(ResourceState<AppFoodModel>())
+    val foodState: State<ResourceState<AppFoodModel>> = _foodState
 
     init {
-        fetchAllBaseAppExercises()
+        fetchAllBaseAppFood()
     }
 
-    private fun fetchAllBaseAppExercises() {
+    private fun fetchAllBaseAppFood() {
         viewModelScope.launch {
             try {
                 val response =
-                    exercisesApiService.fetchAllBaseAppExercises("Bearer ${Global.token}")
-                _exercisesState.value = _exercisesState.value.copy(
+                    foodApiService.fetchAllBaseAppFood("Bearer ${Global.token}")
+                _foodState.value = _foodState.value.copy(
                     list = response,
                     loading = false,
                     error = null
                 )
             } catch (e: Exception) {
-                _exercisesState.value = _exercisesState.value.copy(
+                _foodState.value = _foodState.value.copy(
                     loading = false,
                     error = "Error fetching Posts ${e.message}"
                 )

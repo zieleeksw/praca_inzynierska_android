@@ -3,11 +3,10 @@ package com.example.praca_inzynierska.components.food.components.add
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,41 +23,44 @@ fun GramsTextFieldComponent(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 8.dp),
+            .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        OutlinedTextField(
+        TextField(
             value = addFoodViewModel.state.grams,
             onValueChange = {
+                val filteredInput =
+                    it.filterNot { char -> char == '.' || char == ',' || char == '-' || char == ' ' }
                 addFoodViewModel.onGramsChanged(
-                    grams = it,
-                    calories = addFoodViewModel.state.kcal.toInt(),
-                    fat = addFoodViewModel.state.fat.toInt(),
-                    carbs = addFoodViewModel.state.carbs.toInt(),
-                    proteins = addFoodViewModel.state.proteins.toInt()
+                    grams = filteredInput,
+                    calories = addFoodViewModel.state.kcal,
+                    fat = addFoodViewModel.state.fat,
+                    carbs = addFoodViewModel.state.carbs,
+                    proteins = addFoodViewModel.state.proteins
                 )
             },
+            isError = addFoodViewModel.state.error != null,
             modifier = Modifier
                 .weight(1f)
-                .height(50.dp)
-                .padding(end = 8.dp),
+                .height(50.dp),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-            colors = OutlinedTextFieldDefaults.colors(
+            colors = TextFieldDefaults.colors(
                 unfocusedContainerColor = Color.White,
                 focusedContainerColor = Color.White,
-                focusedTextColor = colorResource(id = R.color.secondary_color),
-                unfocusedTextColor = Color.Gray,
-                unfocusedSupportingTextColor = Color.Gray,
-                focusedBorderColor = colorResource(id = R.color.secondary_color),
-                unfocusedBorderColor = Color.Gray,
-                unfocusedLabelColor = Color.Gray,
-                focusedLabelColor = colorResource(id = R.color.secondary_color)
-            )
+                disabledContainerColor = Color.White,
+                errorContainerColor = Color.White,
+                disabledIndicatorColor = Color.LightGray,
+                unfocusedIndicatorColor = Color.LightGray,
+                focusedIndicatorColor = colorResource(id = R.color.secondary_color),
+                unfocusedTextColor = Color.Black,
+                focusedTextColor = Color.Black,
+                disabledTextColor = Color.Black,
+                cursorColor = Color.Black
+            ),
         )
         Text(
             text = "g",
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
         )

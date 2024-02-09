@@ -1,58 +1,42 @@
 package com.example.praca_inzynierska.components.food.components.add
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.requests.NutritionRequest
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.praca_inzynierska.components.ErrorTextComponent
+import com.example.praca_inzynierska.data.AppFoodModel
 import com.example.praca_inzynierska.view.models.food.AddFoodViewModel
 
 @Composable
 fun FoundedProductItemComponent(
-    nutritionRequest: NutritionRequest,
+    navController: NavHostController,
     date: String,
-    meal: String
+    meal: String,
+    appFoodModel: AppFoodModel
 ) {
 
     val addFoodViewModel = remember { AddFoodViewModel() }
-    onInit(addFoodViewModel, nutritionRequest, date, meal)
-    val context = LocalContext.current
+    onInit(addFoodViewModel, appFoodModel, date, meal)
 
-    LaunchedEffect(key1 = context) {
-        addFoodViewModel.validationEvents.collect { event ->
-            when (event) {
-                is ValidationEvent.Success -> {
-                    Toast.makeText(
-                        context, "Successfully added food",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                is ValidationEvent.BadCredentials ->
-                    Toast.makeText(
-                        context, "You have to enter grams",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                is ValidationEvent.Failure ->
-                    Toast.makeText(
-                        context, "Something went wrong. Try again later",
-                        Toast.LENGTH_LONG
-                    ).show()
-            }
+    LaunchedEffect(addFoodViewModel.state) {
+        val state = addFoodViewModel.state.isSuccessful
+        if (state) {
+            navController.navigate("FoodScreen")
         }
     }
 
@@ -61,7 +45,7 @@ fun FoundedProductItemComponent(
             .fillMaxWidth()
             .padding(4.dp),
         colors = CardDefaults.cardColors(
-            containerColor = colorResource(id = R.color.primary_color),
+            containerColor = Color.White,
             contentColor = Color.White
         )
     ) {
@@ -69,10 +53,12 @@ fun FoundedProductItemComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp, horizontal = 32.dp)
-                .background(color = colorResource(id = R.color.primary_color))
+                .background(color = Color.White)
         ) {
             GramsTextFieldComponent(addFoodViewModel = addFoodViewModel)
-            DescriptionValueComponent("Product Name", addFoodViewModel.state.productName)
+            ErrorTextComponent(addFoodViewModel.state.error, 0, 0)
+            Spacer(modifier = Modifier.height(8.dp))
+            DescriptionValueComponent("Name", addFoodViewModel.state.productName)
             DescriptionValueComponent("Kcal", addFoodViewModel.state.kcal)
             DescriptionValueComponent("Fat", addFoodViewModel.state.fat)
             DescriptionValueComponent("Carbs", addFoodViewModel.state.carbs)
@@ -84,32 +70,32 @@ fun FoundedProductItemComponent(
 
 fun onInit(
     addFoodViewModel: AddFoodViewModel,
-    nutritionRequest: NutritionRequest,
+    appFoodModel: AppFoodModel,
     date: String,
     meal: String
 ) {
     addFoodViewModel.initConstStateValues(
         date = date,
         meal = meal,
-        name = nutritionRequest.name
+        name = appFoodModel.productName
     )
     onGramsChanged(
         addFoodViewModel,
         addFoodViewModel.state.grams,
-        nutritionRequest
+        appFoodModel
     )
 }
 
 fun onGramsChanged(
     addFoodViewModel: AddFoodViewModel,
     grams: String,
-    nutritionRequest: NutritionRequest
+    appFoodModel: AppFoodModel
 ) {
     addFoodViewModel.onGramsChanged(
         grams = grams,
-        calories = nutritionRequest.calories.toInt(),
-        fat = nutritionRequest.fat_total_g.toInt(),
-        carbs = nutritionRequest.carbohydrates_total_g.toInt(),
-        proteins = nutritionRequest.protein_g.toInt()
+        calories = appFoodModel.kcal.toString(),
+        fat = appFoodModel.fat.toString(),
+        carbs = appFoodModel.carbs.toString(),
+        proteins = appFoodModel.proteins.toString()
     )
 }

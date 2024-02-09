@@ -2,7 +2,6 @@ package com.example.praca_inzynierska.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -33,8 +32,7 @@ import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.screens.Screens
 
 @Composable
-fun SearchTextField(
-    modifier: Modifier = Modifier,
+fun SearchTextFieldWithColumnItem(
     list: List<String>,
     navController: NavHostController,
     date: String
@@ -42,22 +40,21 @@ fun SearchTextField(
 
     val textState = remember { mutableStateOf(TextFieldValue("")) }
 
-    Column(modifier.fillMaxSize()) {
-        SearchTextField(state = textState, placeHolder = "Search here...", modifier = modifier)
-        LazyColumn {
-            items(items = list.filter {
-                it.contains(textState.value.text, ignoreCase = true)
-            }, key = { it }) { item ->
-                ColumnItem(
-                    item = item
-                ) { navController.navigate("${Screens.HandleExerciseScreen.name}/${date}/${item}") }
-            }
+    SearchTextField(state = textState, placeHolder = "Search here...")
+    LazyColumn {
+        items(items = list.filter {
+            it.contains(textState.value.text, ignoreCase = true)
+        }, key = { it }) { item ->
+            ExerciseColumnItem(
+                item = item
+            ) { navController.navigate("${Screens.HandleExerciseScreen.name}/${date}/${item}") }
         }
     }
+
 }
 
 @Composable
-fun ColumnItem(item: String, onClick: () -> Unit) {
+fun ExerciseColumnItem(item: String, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .clickable(onClick = onClick)
@@ -74,8 +71,7 @@ fun ColumnItem(item: String, onClick: () -> Unit) {
 @Composable
 fun SearchTextField(
     state: MutableState<TextFieldValue>,
-    placeHolder: String,
-    modifier: Modifier
+    placeHolder: String
 ) {
 
     val focusRequester = remember { FocusRequester() }
@@ -87,7 +83,7 @@ fun SearchTextField(
     TextField(
         value = state.value,
         onValueChange = { value -> state.value = value },
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .focusRequester(focusRequester),
         placeholder = { Text(text = placeHolder) },

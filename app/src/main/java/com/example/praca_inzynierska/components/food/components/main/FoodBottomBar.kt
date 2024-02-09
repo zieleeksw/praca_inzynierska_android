@@ -42,7 +42,7 @@ fun FoodBottomBar(
                 caloricNeeds
             )
             Spacer(modifier = Modifier.width(8.dp))
-            val currentProtein = calculator.calculateCarbs("", foodList)
+            val currentProtein = calculator.calculateProtein("", foodList)
             val proteinNeeds =
                 viewModel.userConfigState.value.userNutritionConfig?.proteinNeeds.toString()
             CustomProgressBar(
