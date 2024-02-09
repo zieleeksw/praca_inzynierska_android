@@ -5,14 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.data.Post
 import com.example.praca_inzynierska.service.postService
-import com.example.praca_inzynierska.states.PostState
+import com.example.praca_inzynierska.states.ResourceState
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel : ViewModel() {
 
-    private val _postState = mutableStateOf(PostState())
-    val postState: State<PostState> = _postState
+    private val _postState = mutableStateOf(ResourceState<Post>())
+    val postState: State<ResourceState<Post>> = _postState
     private var token: String = Global.token
 
     init {

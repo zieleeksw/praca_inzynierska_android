@@ -8,9 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.data.Comment
 import com.example.praca_inzynierska.requests.CommentRequest
 import com.example.praca_inzynierska.service.commentService
-import com.example.praca_inzynierska.states.CommentState
+import com.example.praca_inzynierska.states.ResourceState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -19,8 +20,8 @@ class CommentsScreenViewModel(
     private val postId: Long
 ) : ViewModel() {
 
-    private val _commentState = mutableStateOf(CommentState())
-    val commentState: MutableState<CommentState> = _commentState
+    private val _commentState = mutableStateOf(ResourceState<Comment>())
+    val commentState: MutableState<ResourceState<Comment>> = _commentState
     var addCommentState by mutableStateOf("")
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()

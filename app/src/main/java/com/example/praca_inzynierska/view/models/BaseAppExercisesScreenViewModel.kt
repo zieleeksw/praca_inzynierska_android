@@ -5,14 +5,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.data.training.BaseAppExercises
 import com.example.praca_inzynierska.service.exercisesApiService
-import com.example.praca_inzynierska.states.BaseAppExercisesState
+import com.example.praca_inzynierska.states.ResourceState
 import kotlinx.coroutines.launch
 
 class BaseAppExercisesScreenViewModel : ViewModel() {
 
-    private val _exercisesState = mutableStateOf(BaseAppExercisesState())
-    val exercisesState: State<BaseAppExercisesState> = _exercisesState
+    private val _exercisesState = mutableStateOf(ResourceState<BaseAppExercises>())
+    val exercisesState: State<ResourceState<BaseAppExercises>> = _exercisesState
 
     init {
         fetchAllBaseAppExercises()

@@ -5,9 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.data.Food
 import com.example.praca_inzynierska.service.foodApiService
 import com.example.praca_inzynierska.service.userService
-import com.example.praca_inzynierska.states.FoodState
+import com.example.praca_inzynierska.states.ResourceState
 import com.example.praca_inzynierska.states.UserConfigState
 import kotlinx.coroutines.launch
 
@@ -15,8 +16,8 @@ class FoodScreenViewModel(
     var date: String
 ) : ViewModel() {
 
-    private val _foodState = mutableStateOf(FoodState())
-    val foodState: State<FoodState> = _foodState
+    private val _foodState = mutableStateOf(ResourceState<Food>())
+    val foodState: State<ResourceState<Food>> = _foodState
     private val _userConfigState = mutableStateOf(UserConfigState())
     val userConfigState: State<UserConfigState> = _userConfigState
     private var token: String = Global.token
