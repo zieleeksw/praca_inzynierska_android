@@ -8,7 +8,7 @@ import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.data.Food
 import com.example.praca_inzynierska.service.foodApiService
 import com.example.praca_inzynierska.service.userService
-import com.example.praca_inzynierska.states.ResourceState
+import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.states.UserConfigState
 import kotlinx.coroutines.launch
 

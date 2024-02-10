@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.praca_inzynierska.components.DeleteDialog
+import com.example.praca_inzynierska.commons.components.DeleteDialog
 
 @Composable
 fun TimestampWithDeleteComponent(

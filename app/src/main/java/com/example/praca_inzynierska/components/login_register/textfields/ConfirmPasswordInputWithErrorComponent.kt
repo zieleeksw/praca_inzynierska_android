@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.components.ErrorTextComponent
+import com.example.praca_inzynierska.commons.components.ErrorTextComponent
 import com.example.praca_inzynierska.components.getVisibilityDescription
 import com.example.praca_inzynierska.components.getVisibilityIcon
 import com.example.praca_inzynierska.components.getVisualTransformation

@@ -7,8 +7,4 @@ object Retrofit {
     val retrofit: Retrofit = Retrofit.Builder().baseUrl("http://192.168.1.10:8080")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    val foodRetrofit: Retrofit = Retrofit.Builder().baseUrl("https://api.api-ninjas.com")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
 }

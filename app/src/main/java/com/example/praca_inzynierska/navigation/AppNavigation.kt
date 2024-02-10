@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -26,16 +25,16 @@ import com.example.praca_inzynierska.screens.AddPostScreen
 import com.example.praca_inzynierska.screens.AddProductScreen
 import com.example.praca_inzynierska.screens.CommentsScreen
 import com.example.praca_inzynierska.screens.DietConfigurationScreen
-import com.example.praca_inzynierska.screens.ExerciseScreen
 import com.example.praca_inzynierska.screens.FoodScreen
-import com.example.praca_inzynierska.screens.HandleExerciseScreen
 import com.example.praca_inzynierska.screens.HandleProductScreen
 import com.example.praca_inzynierska.screens.HomeScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
 import com.example.praca_inzynierska.screens.Screens
 import com.example.praca_inzynierska.screens.SettingsScreen
-import com.example.praca_inzynierska.screens.training.TrainingScreen
+import com.example.praca_inzynierska.training.screens.HandleExerciseScreen
+import com.example.praca_inzynierska.training.screens.PickExerciseScreen
+import com.example.praca_inzynierska.training.screens.TrainingScreen
 
 @Composable
 fun AppNavigation() {
@@ -150,7 +149,7 @@ fun MainContent(
                 SettingsScreen()
             }
             composable(
-                route = "${Screens.ExercisesScreen.name}/{date}",
+                route = "${Screens.PickExerciseScreen.name}/{date}",
                 arguments = listOf(
                     navArgument("date") {
                         type = NavType.StringType
@@ -158,7 +157,7 @@ fun MainContent(
                 )
             ) { backStackEntry ->
                 val date = backStackEntry.arguments?.getString("date")
-                ExerciseScreen(mainNavController, date!!)
+                PickExerciseScreen(mainNavController, date!!)
             }
             composable(route = "${Screens.HandleExerciseScreen.name}/{date}/{name}",
                 arguments = listOf(

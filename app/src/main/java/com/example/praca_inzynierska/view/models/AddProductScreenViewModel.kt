@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.data.AppFoodModel
 import com.example.praca_inzynierska.service.foodApiService
-import com.example.praca_inzynierska.states.ResourceState
+import com.example.praca_inzynierska.commons.states.ResourceState
 import kotlinx.coroutines.launch
 
 class AddProductScreenViewModel : ViewModel() {

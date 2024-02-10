@@ -23,12 +23,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.praca_inzynierska.components.SearchTextField
+import com.example.praca_inzynierska.commons.components.SearchTextField
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.data.AppFoodModel
 import com.example.praca_inzynierska.view.models.AddProductScreenViewModel
@@ -56,11 +55,11 @@ fun AddProductScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            SearchTextField(state = textState, placeHolder = "Search here...")
+            SearchTextField(state = textState)
             LazyColumn {
-                items(items = food.filter {
-                    it.productName.contains(textState.value.text, ignoreCase = true)
-                }, key = { it.productName }) { food ->
+                items(items = food.filter { food ->
+                    food.productName.contains(textState.value.text, ignoreCase = true)
+                }, key = { food -> food.productName }) { food ->
                     FoodColumnItem(
                         food = food
                     ) { navController.navigate("${Screens.HandleProductScreen.name}/${date}/${meal}/${food.productName}") }

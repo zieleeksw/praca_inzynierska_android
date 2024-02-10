@@ -12,7 +12,7 @@ enum class Screens {
     CommentsScreen,
     AddPostScreen,
     AddProductScreen,
-    ExercisesScreen,
+    PickExerciseScreen,
     HandleExerciseScreen,
     HandleProductScreen
 }

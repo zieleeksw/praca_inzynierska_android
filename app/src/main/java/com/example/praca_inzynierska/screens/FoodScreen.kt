@@ -23,9 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
 import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
-import com.example.praca_inzynierska.components.food.components.main.FoodCard
 import com.example.praca_inzynierska.components.food.components.main.FoodBottomBar
-import com.example.praca_inzynierska.components.general.DateSelector
+import com.example.praca_inzynierska.components.food.components.main.FoodCard
 import com.example.praca_inzynierska.enums.Meal
 import com.example.praca_inzynierska.view.models.food.FoodScreenViewModel
 import java.time.LocalDate
@@ -74,9 +73,10 @@ fun FoodScreen(
                 }
 
                 else -> {
-                    DateSelector(
-                        currentDate
-                    ) { foodScreenViewModel.fetchFood() }
+                    //TODO: POPRAW
+//                    DateSelector(
+//                        currentDate
+//                    ) { foodScreenViewModel.fetchFood() }
 
                     LazyColumn(
                         modifier = Modifier.fillMaxSize()

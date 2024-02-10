@@ -3,7 +3,7 @@ package com.example.praca_inzynierska.components.general
 import androidx.compose.runtime.Composable
 import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
 import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
-import com.example.praca_inzynierska.states.ResourceState
+import com.example.praca_inzynierska.commons.states.ResourceState
 
 @Composable
 fun ResourceStateHandler(
