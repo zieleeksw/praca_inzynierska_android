@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.praca_inzynierska.components.general.ResourceStateHandler
+import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
 import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
 import com.example.praca_inzynierska.training.composables.pick_exercise.PickExerciseScreenContent
 import com.example.praca_inzynierska.training.vm.PickExerciseScreenViewModel
@@ -23,7 +23,6 @@ fun PickExerciseScreen(
 ) {
 
     val viewModel = viewModel<PickExerciseScreenViewModel>()
-    val exercisesNames = viewModel.exercisesState.value.list.map { exercise -> exercise.name }
 
     LaunchedEffect(Unit) {
         viewModel.fetchAllBaseAppExercises()
@@ -41,7 +40,7 @@ fun PickExerciseScreen(
         ) {
             ResourceStateHandler(
                 resourceState = viewModel.exercisesState.value,
-                content = { PickExerciseScreenContent(exercisesNames, navController, date) }
+                content = { PickExerciseScreenContent(navController, viewModel, date) }
             )
         }
     }

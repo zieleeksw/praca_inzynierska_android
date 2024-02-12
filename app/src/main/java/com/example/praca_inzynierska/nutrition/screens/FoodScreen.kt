@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.training.screens
+package com.example.praca_inzynierska.nutrition.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,22 +18,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.commons.components.AddIconButton
-import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
-import com.example.praca_inzynierska.screens.Screens
-import com.example.praca_inzynierska.training.composables.training.TrainingScreenContent
-import com.example.praca_inzynierska.training.vm.TrainingScreenViewModel
+import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
+import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
+import com.example.praca_inzynierska.nutrition.composables.food.FoodScreenContent
+import com.example.praca_inzynierska.nutrition.vm.FoodScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TrainingScreen(
+fun FoodScreen(
     navController: NavHostController
 ) {
 
-    val viewModel = viewModel<TrainingScreenViewModel>()
+    val viewModel = viewModel<FoodScreenViewModel>()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchUserExercisesByDate()
+        viewModel.fetchNecessaryData()
     }
 
     Scaffold(
@@ -41,7 +40,7 @@ fun TrainingScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Training",
+                        text = "Control your calories!",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -49,26 +48,30 @@ fun TrainingScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = colorResource(id = R.color.primary_color),
                     actionIconContentColor = Color.White
-                ),
-                actions = {
-                    AddIconButton {
-                        navController.navigate("${Screens.PickExerciseScreen.name}/${viewModel.date.value}")
-                    }
-                }
-            )
-        },
-        content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(it)
-                    .background(color = colorResource(id = R.color.light_gray))
-            ) {
-                ResourceStateHandler(
-                    resourceState = viewModel.userExercisesState.value,
-                    content = { TrainingScreenContent(viewModel, navController) }
                 )
+            )
+        }) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .background(color = colorResource(id = R.color.light_gray))
+        ) {
+
+            when {
+                viewModel.foodState.value.loading
+                        || viewModel.userConfigState.value.loading ->
+                    CustomCircularProgressIndicator()
+
+                viewModel.foodState.value.error != null
+                        || viewModel.userConfigState.value.error != null -> {
+                    OnFetchDataErrorComponent()
+                }
+
+                else -> {
+                    FoodScreenContent(viewModel = viewModel, navController = navController)
+                }
             }
         }
-    )
+    }
 }

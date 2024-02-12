@@ -21,7 +21,6 @@ class HandleExerciseScreenViewModel : ViewModel() {
 
     var exerciseState by mutableStateOf(ExerciseState())
 
-
     fun fetchUserExercisesByDateAndName(date: String, name: String) {
         viewModelScope.launch {
             try {

@@ -21,12 +21,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.nutrition.screens.FoodScreen
+import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
+import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
 import com.example.praca_inzynierska.screens.AddPostScreen
-import com.example.praca_inzynierska.screens.AddProductScreen
 import com.example.praca_inzynierska.screens.CommentsScreen
 import com.example.praca_inzynierska.screens.DietConfigurationScreen
-import com.example.praca_inzynierska.screens.FoodScreen
-import com.example.praca_inzynierska.screens.HandleProductScreen
 import com.example.praca_inzynierska.screens.HomeScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
@@ -128,7 +128,7 @@ fun MainContent(
             composable(route = Screens.FoodScreen.name) {
                 FoodScreen(mainNavController)
             }
-            composable(route = "${Screens.AddProductScreen.name}/{date}/{meal}",
+            composable(route = "${Screens.PickFoodScreen.name}/{date}/{meal}",
                 arguments = listOf(
                     navArgument("date") {
                         type = NavType.StringType
@@ -140,7 +140,7 @@ fun MainContent(
             ) { backStackEntry ->
                 val date = backStackEntry.arguments?.getString("date")
                 val meal = backStackEntry.arguments?.getString("meal")
-                AddProductScreen(mainNavController, date!!, meal!!)
+                PickFoodScreen(mainNavController, date!!, meal!!)
             }
             composable(route = Screens.ExerciseScreen.name) {
                 TrainingScreen(mainNavController)

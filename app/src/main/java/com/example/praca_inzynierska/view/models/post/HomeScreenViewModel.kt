@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.data.Post
 import com.example.praca_inzynierska.service.postService
-import com.example.praca_inzynierska.commons.states.ResourceState
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel : ViewModel() {

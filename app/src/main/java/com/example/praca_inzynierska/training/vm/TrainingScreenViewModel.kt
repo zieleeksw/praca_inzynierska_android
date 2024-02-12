@@ -14,10 +14,8 @@ import java.time.LocalDate
 
 class TrainingScreenViewModel : ViewModel() {
 
-
     private val _userExercisesState = mutableStateOf(ResourceState<Exercise>())
     val userExercisesState: State<ResourceState<Exercise>> = _userExercisesState
-
 
     private val _date = mutableStateOf(LocalDate.now())
     val date: State<LocalDate> = _date

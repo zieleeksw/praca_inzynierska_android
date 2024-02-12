@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global.token
+import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.training.data.BaseAppExercises
 import com.example.praca_inzynierska.training.service.exercisesService
@@ -15,18 +15,35 @@ class PickExerciseScreenViewModel : ViewModel() {
     private val _exercisesState = mutableStateOf(ResourceState<BaseAppExercises>())
     val exercisesState: State<ResourceState<BaseAppExercises>> = _exercisesState
 
+    private val _searchText = mutableStateOf("")
+    val searchText: State<String> = _searchText
+
+    private val _filteredExercises = mutableStateOf(listOf<String>())
+    val filteredExercises: State<List<String>> = _filteredExercises
+
     fun fetchAllBaseAppExercises() {
         viewModelScope.launch {
             _exercisesState.value = ResourceState(loading = true)
             try {
-                val token = "Bearer $token"
-                val response = exercisesService.fetchAllBaseAppExercises(token)
+                val response = exercisesService.fetchAllBaseAppExercises("Bearer ${Global.token}")
                 _exercisesState.value = ResourceState(loading = false, list = response)
+                filterExercises(_searchText.value)
             } catch (e: Exception) {
                 _exercisesState.value = ResourceState(
                     loading = false, error = "Błąd pobierania ćwiczeń: ${e.message}"
                 )
             }
         }
+    }
+
+    fun onSearchTextChanged(newSearchText: String) {
+        _searchText.value = newSearchText
+        filterExercises(newSearchText)
+    }
+
+    private fun filterExercises(filter: String) {
+        _filteredExercises.value = _exercisesState.value.list.filter {
+            it.name.contains(filter, ignoreCase = true)
+        }.map { it.name }
     }
 }

@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.data.Comment
 import com.example.praca_inzynierska.requests.CommentRequest
 import com.example.praca_inzynierska.service.commentService
-import com.example.praca_inzynierska.commons.states.ResourceState
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

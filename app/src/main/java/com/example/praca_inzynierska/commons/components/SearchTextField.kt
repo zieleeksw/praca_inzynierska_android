@@ -10,7 +10,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -18,12 +17,12 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.input.TextFieldValue
 import com.example.praca_inzynierska.R
 
 @Composable
 fun SearchTextField(
-    state: MutableState<TextFieldValue>
+    value: String,
+    onValueChanged: (String) -> Unit
 ) {
 
     val focusRequester = remember { FocusRequester() }
@@ -33,8 +32,8 @@ fun SearchTextField(
     }
 
     TextField(
-        value = state.value,
-        onValueChange = { value -> state.value = value },
+        value = value,
+        onValueChange = { onValueChanged(it) },
         modifier = Modifier
             .fillMaxWidth()
             .focusRequester(focusRequester),
