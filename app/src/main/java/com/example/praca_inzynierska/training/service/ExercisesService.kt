@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.training.service
 
-import com.example.praca_inzynierska.service.Retrofit
+import com.example.praca_inzynierska.commons.services.Retrofit
 import com.example.praca_inzynierska.training.data.BaseAppExercises
 import com.example.praca_inzynierska.training.data.Exercise
 import com.example.praca_inzynierska.training.requests.ExerciseRequest

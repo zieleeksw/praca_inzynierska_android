@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.training.requests
 
-import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Global
 
 data class ExerciseRequest(
     val userId: Long = Global.currentUserId,

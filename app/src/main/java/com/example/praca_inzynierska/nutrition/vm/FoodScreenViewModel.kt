@@ -4,13 +4,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global.currentUserId
-import com.example.praca_inzynierska.Global.token
+import com.example.praca_inzynierska.commons.objects.Global.currentUserId
+import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
+import com.example.praca_inzynierska.diet_configuration.services.userNutritionService
 import com.example.praca_inzynierska.nutrition.data.Food
 import com.example.praca_inzynierska.nutrition.services.foodService
-import com.example.praca_inzynierska.service.userService
-import com.example.praca_inzynierska.states.UserConfigState
+import com.example.praca_inzynierska.diet_configuration.states.UserConfigState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -68,7 +68,7 @@ class FoodScreenViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val userConfigResponse =
-                    userService.fetchNutritionConfiguration(currentUserId, "Bearer $token")
+                    userNutritionService.fetchNutritionConfiguration(currentUserId, "Bearer $token")
                 _userConfigState.value = _userConfigState.value.copy(
                     loading = false,
                     error = null,

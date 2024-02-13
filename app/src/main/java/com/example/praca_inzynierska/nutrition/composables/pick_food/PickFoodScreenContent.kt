@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.commons.components.SearchTextField
 import com.example.praca_inzynierska.nutrition.vm.PickFoodScreenViewModel
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun PickFoodScreenContent(

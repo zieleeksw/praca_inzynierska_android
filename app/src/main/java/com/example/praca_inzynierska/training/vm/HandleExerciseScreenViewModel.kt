@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.training.data.Exercise
 import com.example.praca_inzynierska.training.requests.ExerciseRequest

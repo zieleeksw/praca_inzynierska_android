@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.validators.diet.configuration
 
+import com.example.praca_inzynierska.diet_configuration.validators.DateOfBirthValidator
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 

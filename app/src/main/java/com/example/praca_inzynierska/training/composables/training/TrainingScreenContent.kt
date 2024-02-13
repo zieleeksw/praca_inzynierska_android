@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.commons.components.DateSelector
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.training.vm.TrainingScreenViewModel
 import java.time.LocalDate
 

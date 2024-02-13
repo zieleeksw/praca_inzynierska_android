@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.validators.register
 
-import com.example.praca_inzynierska.validators.login.register.PasswordValidator
+import com.example.praca_inzynierska.auth.validators.PasswordValidator
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
 import org.junit.Test

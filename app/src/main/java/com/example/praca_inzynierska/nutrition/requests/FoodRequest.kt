@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.nutrition.requests
 
-import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.nutrition.states.AddFoodState
 
 data class FoodRequest(

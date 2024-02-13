@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global.token
+import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.SingleResourceState
 import com.example.praca_inzynierska.nutrition.data.AppFoodModel
 import com.example.praca_inzynierska.nutrition.requests.FoodRequest

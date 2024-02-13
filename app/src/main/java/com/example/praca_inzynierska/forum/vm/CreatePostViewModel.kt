@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.forum.states.CreatePostState
-import com.example.praca_inzynierska.requests.PostRequest
-import com.example.praca_inzynierska.service.postService
+import com.example.praca_inzynierska.forum.requests.PostRequest
+import com.example.praca_inzynierska.forum.services.postService
 import kotlinx.coroutines.launch
 
 class CreatePostViewModel : ViewModel() {

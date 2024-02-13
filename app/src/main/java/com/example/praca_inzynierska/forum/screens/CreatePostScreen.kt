@@ -9,11 +9,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
+import com.example.praca_inzynierska.commons.components.CustomTopAppBar
 import com.example.praca_inzynierska.forum.components.create_post.CreatePostButtonComponent
 import com.example.praca_inzynierska.forum.components.create_post.CreatePostContentComponent
 import com.example.praca_inzynierska.forum.vm.CreatePostViewModel
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun CreatePostScreen(

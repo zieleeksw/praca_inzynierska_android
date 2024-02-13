@@ -20,7 +20,7 @@ import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.AddIconButton
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.training.composables.training.TrainingScreenContent
 import com.example.praca_inzynierska.training.vm.TrainingScreenViewModel
 

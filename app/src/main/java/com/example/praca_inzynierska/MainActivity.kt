@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.praca_inzynierska.navigation.AppNavigation
+import com.example.praca_inzynierska.commons.navigation.AppNavigation
 import com.example.praca_inzynierska.ui.theme.PracaInzynierskaTheme
 
 class MainActivity : ComponentActivity() {

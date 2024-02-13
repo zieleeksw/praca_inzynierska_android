@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.validators.diet.configuration
 
+import com.example.praca_inzynierska.diet_configuration.validators.HeightValidator
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertNull

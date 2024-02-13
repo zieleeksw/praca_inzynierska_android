@@ -3,7 +3,7 @@ package com.example.praca_inzynierska.nutrition.services
 import com.example.praca_inzynierska.nutrition.data.AppFoodModel
 import com.example.praca_inzynierska.nutrition.data.Food
 import com.example.praca_inzynierska.nutrition.requests.FoodRequest
-import com.example.praca_inzynierska.service.Retrofit
+import com.example.praca_inzynierska.commons.services.Retrofit
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE

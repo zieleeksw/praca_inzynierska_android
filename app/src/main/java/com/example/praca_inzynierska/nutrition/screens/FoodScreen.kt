@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.components.CustomCircularProgressIndicator
-import com.example.praca_inzynierska.components.OnFetchDataErrorComponent
+import com.example.praca_inzynierska.commons.components.resource_loaders.CustomCircularProgressIndicator
+import com.example.praca_inzynierska.commons.components.resource_loaders.OnFetchDataErrorComponent
 import com.example.praca_inzynierska.nutrition.composables.food.FoodScreenContent
 import com.example.praca_inzynierska.nutrition.vm.FoodScreenViewModel
 

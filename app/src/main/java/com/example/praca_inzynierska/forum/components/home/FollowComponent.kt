@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.forum.data.Post
 import com.example.praca_inzynierska.forum.vm.HomeScreenViewModel

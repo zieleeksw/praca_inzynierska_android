@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
-import com.example.praca_inzynierska.components.home.components.CustomTopAppBar
+import com.example.praca_inzynierska.commons.components.CustomTopAppBar
 import com.example.praca_inzynierska.training.composables.handle_exercise.HandleExerciseScreenContent
 import com.example.praca_inzynierska.training.vm.HandleExerciseScreenViewModel
 

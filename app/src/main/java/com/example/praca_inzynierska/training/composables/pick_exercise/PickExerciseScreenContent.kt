@@ -5,7 +5,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.commons.components.SearchTextField
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.training.vm.PickExerciseScreenViewModel
 
 @Composable

@@ -23,7 +23,7 @@ import com.example.praca_inzynierska.commons.components.resource_loaders.Resourc
 import com.example.praca_inzynierska.forum.components.home.ActionWithDropDownMenuComponent
 import com.example.praca_inzynierska.forum.components.home.PostSectionComponent
 import com.example.praca_inzynierska.forum.vm.HomeScreenViewModel
-import com.example.praca_inzynierska.screens.Screens
+import com.example.praca_inzynierska.commons.screens.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

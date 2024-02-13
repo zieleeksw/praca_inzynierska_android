@@ -6,13 +6,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.Global.token
+import com.example.praca_inzynierska.commons.objects.Global
+import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.forum.data.Comment
 import com.example.praca_inzynierska.forum.states.CreateCommentState
-import com.example.praca_inzynierska.requests.CommentRequest
-import com.example.praca_inzynierska.service.commentService
+import com.example.praca_inzynierska.forum.requests.CommentRequest
+import com.example.praca_inzynierska.forum.services.commentService
 import kotlinx.coroutines.launch
 
 class CommentsScreenViewModel : ViewModel() {

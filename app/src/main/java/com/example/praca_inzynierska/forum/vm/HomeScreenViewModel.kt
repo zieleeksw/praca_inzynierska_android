@@ -5,11 +5,11 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.Global.currentUserId
-import com.example.praca_inzynierska.Global.token
+import com.example.praca_inzynierska.commons.objects.Global.currentUserId
+import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.forum.data.Post
-import com.example.praca_inzynierska.service.postService
+import com.example.praca_inzynierska.forum.services.postService
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel : ViewModel() {
