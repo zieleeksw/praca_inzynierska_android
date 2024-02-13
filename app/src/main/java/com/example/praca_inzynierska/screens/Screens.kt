@@ -10,7 +10,7 @@ enum class Screens {
     RegisterScreen,
     DietConfigurationScreen,
     CommentsScreen,
-    AddPostScreen,
+    CreatePostScreen,
     PickFoodScreen,
     PickExerciseScreen,
     HandleExerciseScreen,

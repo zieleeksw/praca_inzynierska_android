@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.service
 
-import com.example.praca_inzynierska.data.Comment
+import com.example.praca_inzynierska.forum.data.Comment
 import com.example.praca_inzynierska.requests.CommentRequest
 import com.example.praca_inzynierska.service.Retrofit.retrofit
 import retrofit2.Response

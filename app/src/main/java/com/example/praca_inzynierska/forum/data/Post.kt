@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.data
+package com.example.praca_inzynierska.forum.data
 
 
 data class Post(

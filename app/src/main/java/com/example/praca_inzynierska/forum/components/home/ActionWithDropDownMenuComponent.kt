@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.home.components.posts
+package com.example.praca_inzynierska.forum.components.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,14 +16,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.praca_inzynierska.forum.vm.HomeScreenViewModel
 
 @Composable
 fun ActionWithDropDownMenuComponent(
-    onOptionSelected: (String) -> Unit
+    viewModel: HomeScreenViewModel
 ) {
 
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf("Newest") }
 
     Column {
         IconButton(onClick = { expanded = true }) {
@@ -36,26 +36,22 @@ fun ActionWithDropDownMenuComponent(
                 .background(Color.White)
         ) {
             DropdownMenuItem(text = { Text("Newest") }, onClick = {
-                selectedOption = "Newest"
                 expanded = false
-                onOptionSelected(selectedOption)
+                viewModel.onFilterChanged("Newest")
             })
             DropdownMenuItem(text = {
                 Text(text = "Followed")
             }, onClick = {
-                selectedOption = "Followed"
                 expanded = false
-                onOptionSelected(selectedOption)
+                viewModel.onFilterChanged("Followed")
             })
             DropdownMenuItem(text = { Text("Oldest") }, onClick = {
-                selectedOption = "Oldest"
                 expanded = false
-                onOptionSelected(selectedOption)
+                viewModel.onFilterChanged("Oldest")
             })
             DropdownMenuItem(text = { Text("Mine") }, onClick = {
-                selectedOption = "Mine"
                 expanded = false
-                onOptionSelected(selectedOption)
+                viewModel.onFilterChanged("Mine")
             })
         }
     }

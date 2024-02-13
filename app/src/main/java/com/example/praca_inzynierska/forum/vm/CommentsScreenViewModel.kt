@@ -1,41 +1,34 @@
-package com.example.praca_inzynierska.view.models
+package com.example.praca_inzynierska.forum.vm
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.Global
-import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
-import com.example.praca_inzynierska.data.Comment
+import com.example.praca_inzynierska.forum.data.Comment
+import com.example.praca_inzynierska.forum.states.CreateCommentState
 import com.example.praca_inzynierska.requests.CommentRequest
 import com.example.praca_inzynierska.service.commentService
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-class CommentsScreenViewModel(
-    private val postId: Long
-) : ViewModel() {
+class CommentsScreenViewModel : ViewModel() {
 
     private val _commentState = mutableStateOf(ResourceState<Comment>())
-    val commentState: MutableState<ResourceState<Comment>> = _commentState
-    var addCommentState by mutableStateOf("")
-    private val validationEventChannel = Channel<ValidationEvent>()
-    val validationEvents = validationEventChannel.receiveAsFlow()
-    private var token: String = Global.token
+    val commentState: State<ResourceState<Comment>> = _commentState
+    var createCommentState by mutableStateOf(CreateCommentState())
 
-    init {
-        fetchComments()
-    }
-
-    fun deleteComment(commentId: Long) {
+    fun deleteComment(
+        commentId: Long,
+        postId: Long
+    ) {
         viewModelScope.launch {
             try {
-                commentService.deleteComment("Bearer ${Global.token}", commentId)
-                fetchComments()
+                commentService.deleteComment("Bearer $token", commentId)
+                fetchComments(postId)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -47,38 +40,39 @@ class CommentsScreenViewModel(
             try {
                 checkAndAddComment(postId)
             } catch (e: Exception) {
-                validationEventChannel.send(ValidationEvent.Failure)
+                e.printStackTrace()
             }
         }
     }
 
     fun onContentChanged(content: String) {
-        addCommentState = content
+        createCommentState = createCommentState.copy(content = content)
     }
 
     private suspend fun checkAndAddComment(postId: Long) {
-        if (addCommentState.isBlank()) {
-            validationEventChannel.send(ValidationEvent.BadCredentials)
-            return
+        if (createCommentState.content.isBlank()) {
+            createCommentState = createCommentState.copy(contentError = "You need text")
+        } else {
+            createCommentState = createCommentState.copy(contentError = null)
+            addNewComment(postId)
         }
-        addNewComment(postId)
     }
 
     private suspend fun addNewComment(postId: Long) {
-        val commentRequest = CommentRequest(postId, addCommentState)
+        val commentRequest = CommentRequest(postId, createCommentState.content)
         try {
-            commentService.addComment("Bearer ${Global.token}", commentRequest)
-            addCommentState = ""
-            fetchComments()
-            validationEventChannel.send(ValidationEvent.Success)
+            val response = commentService.addComment("Bearer $token", commentRequest)
+            if (response.isSuccessful) {
+                createCommentState = createCommentState.copy(content = "")
+                fetchComments(postId)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
-            validationEventChannel.send(ValidationEvent.Failure)
             return
         }
     }
 
-    private fun fetchComments() {
+    fun fetchComments(postId: Long) {
         viewModelScope.launch {
             try {
                 val response = commentService.fetchAllComments("Bearer $token", postId)
@@ -93,6 +87,14 @@ class CommentsScreenViewModel(
                     error = "Error fetching Posts ${e.message}"
                 )
             }
+        }
+    }
+
+    fun getAuthorText(comment: Comment): String {
+        return if (comment.authorId == Global.currentUserId) {
+            "${comment.username} (You)"
+        } else {
+            comment.username
         }
     }
 }

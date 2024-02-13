@@ -21,13 +21,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.forum.screens.CommentsScreen
+import com.example.praca_inzynierska.forum.screens.CreatePostScreen
+import com.example.praca_inzynierska.forum.screens.HomeScreen
 import com.example.praca_inzynierska.nutrition.screens.FoodScreen
 import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
 import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
-import com.example.praca_inzynierska.screens.AddPostScreen
-import com.example.praca_inzynierska.screens.CommentsScreen
 import com.example.praca_inzynierska.screens.DietConfigurationScreen
-import com.example.praca_inzynierska.screens.HomeScreen
 import com.example.praca_inzynierska.screens.LoginScreen
 import com.example.praca_inzynierska.screens.RegisterScreen
 import com.example.praca_inzynierska.screens.Screens
@@ -112,8 +112,8 @@ fun MainContent(
             {
                 HomeScreen(mainNavController)
             }
-            composable(route = Screens.AddPostScreen.name) {
-                AddPostScreen(mainNavController)
+            composable(route = Screens.CreatePostScreen.name) {
+                CreatePostScreen(mainNavController)
             }
             composable(route = "${Screens.CommentsScreen.name}/{postId}",
                 arguments = listOf(

@@ -1,7 +1,6 @@
 package com.example.praca_inzynierska.service
 
-import com.example.praca_inzynierska.data.Post
-import com.example.praca_inzynierska.requests.FollowPostRequest
+import com.example.praca_inzynierska.forum.data.Post
 import com.example.praca_inzynierska.requests.PostRequest
 import com.example.praca_inzynierska.service.Retrofit.retrofit
 import retrofit2.Response
@@ -26,10 +25,11 @@ interface PostApiService {
         @Body postRequest: PostRequest
     ): Response<Void>
 
-    @POST("/api/posts/follow")
+    @POST("/api/posts/follow/userId/{userId}/postId/{postId}")
     suspend fun followPost(
         @Header("Authorization") authorization: String,
-        @Body followPostRequest: FollowPostRequest
+        @Path("userId") userId: Long,
+        @Path("postId") postId: Long,
     ): Response<Void>
 
     @DELETE("/api/posts/{id}")

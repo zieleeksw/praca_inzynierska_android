@@ -1,6 +1,5 @@
-package com.example.praca_inzynierska.components.home.components.comments
+package com.example.praca_inzynierska.forum.components.comments
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,48 +13,17 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
+import com.example.praca_inzynierska.forum.vm.CommentsScreenViewModel
 
 @Composable
 fun AddCommentTextField(
     postId: Long,
     viewModel: CommentsScreenViewModel
 ) {
-
-    val context = LocalContext.current
-
-    LaunchedEffect(key1 = context) {
-        viewModel.validationEvents.collect { event ->
-            when (event) {
-                is ValidationEvent.Success -> {
-                    Toast.makeText(
-                        context, "Successfully added new comment",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-
-                is ValidationEvent.BadCredentials ->
-                    Toast.makeText(
-                        context, "You have enter correct comment content",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                is ValidationEvent.Failure ->
-                    Toast.makeText(
-                        context, "Somethig went wrong. Try again later",
-                        Toast.LENGTH_LONG
-                    ).show()
-            }
-        }
-    }
-
     Column(
         verticalArrangement = Arrangement.Bottom,
         modifier = Modifier
@@ -64,7 +32,8 @@ fun AddCommentTextField(
             .padding(8.dp),
     ) {
         OutlinedTextField(
-            value = viewModel.addCommentState,
+            value = viewModel.createCommentState.content,
+            isError = viewModel.createCommentState.contentError != null,
             onValueChange = { viewModel.onContentChanged(it) },
             placeholder = { Text("Add a comment...") },
             colors = OutlinedTextFieldDefaults.colors(

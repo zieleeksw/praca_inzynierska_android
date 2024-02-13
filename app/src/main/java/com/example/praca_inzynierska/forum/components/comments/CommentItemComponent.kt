@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.components.home.components.comments
+package com.example.praca_inzynierska.forum.components.comments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -18,17 +17,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.praca_inzynierska.Global
+import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.components.home.components.TimestampWithDeleteComponent
-import com.example.praca_inzynierska.data.Comment
-import com.example.praca_inzynierska.view.models.CommentsScreenViewModel
+import com.example.praca_inzynierska.forum.data.Comment
+import com.example.praca_inzynierska.forum.vm.CommentsScreenViewModel
 
 @Composable
 fun CommentItemComponent(
     comment: Comment,
-    viewModel: CommentsScreenViewModel
+    viewModel: CommentsScreenViewModel,
+    postId: Long
 ) {
-
-    val isCommentOwner = comment.authorId == Global.currentUserId
 
     Card(
         modifier = Modifier
@@ -36,12 +35,10 @@ fun CommentItemComponent(
             .padding(4.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
-            contentColor = Color.Gray
+            contentColor = Color.Black
         ),
-        elevation = CardDefaults.elevatedCardElevation(
-            defaultElevation = 4.dp
-        ),
-        shape = RoundedCornerShape(4.dp)
+        elevation = CardDefaults.elevatedCardElevation(defaultElevation = Ui.DEFAULT_CARD_ELEVATION),
+        shape = Ui.DEFAULT_ROUNDED_CORNER_SHAPE
     ) {
         Column(
             modifier = Modifier
@@ -57,11 +54,7 @@ fun CommentItemComponent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (isCommentOwner) {
-                        "${comment.username} (You)"
-                    } else {
-                        comment.username
-                    },
+                    text = viewModel.getAuthorText(comment),
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     color = Color.Black
@@ -70,9 +63,7 @@ fun CommentItemComponent(
                     text = comment.timestamp,
                     deleteButton = comment.authorId == Global.currentUserId,
                     deleteString = "comment",
-                    onConfirm = {
-                        viewModel.deleteComment(comment.id)
-                    },
+                    onConfirm = { viewModel.deleteComment(comment.id, postId) },
                     buttonColor = Color.Gray
                 )
             }
