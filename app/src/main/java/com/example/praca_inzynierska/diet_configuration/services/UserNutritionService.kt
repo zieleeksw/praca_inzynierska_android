@@ -1,8 +1,8 @@
 package com.example.praca_inzynierska.diet_configuration.services
 
+import com.example.praca_inzynierska.commons.services.Retrofit
 import com.example.praca_inzynierska.diet_configuration.data.UserNutritionConfig
 import com.example.praca_inzynierska.diet_configuration.requests.UserNutritionConfigRequest
-import com.example.praca_inzynierska.commons.services.Retrofit
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

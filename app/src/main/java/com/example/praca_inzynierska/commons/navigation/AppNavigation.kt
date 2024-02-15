@@ -21,17 +21,18 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.auth.screens.LoginScreen
+import com.example.praca_inzynierska.auth.screens.RegisterScreen
+import com.example.praca_inzynierska.commons.screens.Screens
+import com.example.praca_inzynierska.diet_configuration.screens.DietConfigurationScreen
 import com.example.praca_inzynierska.forum.screens.CommentsScreen
 import com.example.praca_inzynierska.forum.screens.CreatePostScreen
 import com.example.praca_inzynierska.forum.screens.HomeScreen
 import com.example.praca_inzynierska.nutrition.screens.FoodScreen
 import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
 import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
-import com.example.praca_inzynierska.diet_configuration.screens.DietConfigurationScreen
-import com.example.praca_inzynierska.auth.screens.LoginScreen
-import com.example.praca_inzynierska.auth.screens.RegisterScreen
-import com.example.praca_inzynierska.commons.screens.Screens
-import com.example.praca_inzynierska.SettingsScreen
+import com.example.praca_inzynierska.settings.screens.HandleUserExercisesScreen
+import com.example.praca_inzynierska.settings.screens.SettingsScreen
 import com.example.praca_inzynierska.training.screens.HandleExerciseScreen
 import com.example.praca_inzynierska.training.screens.PickExerciseScreen
 import com.example.praca_inzynierska.training.screens.TrainingScreen
@@ -146,7 +147,10 @@ fun MainContent(
                 TrainingScreen(mainNavController)
             }
             composable(route = Screens.SettingsScreen.name) {
-                SettingsScreen()
+                SettingsScreen(mainNavController)
+            }
+            composable(route = Screens.HandleUserExercisesScreen.name) {
+                HandleUserExercisesScreen()
             }
             composable(
                 route = "${Screens.PickExerciseScreen.name}/{date}",

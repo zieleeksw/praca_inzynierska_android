@@ -10,9 +10,9 @@ import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.forum.data.Comment
-import com.example.praca_inzynierska.forum.states.CreateCommentState
 import com.example.praca_inzynierska.forum.requests.CommentRequest
 import com.example.praca_inzynierska.forum.services.commentService
+import com.example.praca_inzynierska.forum.states.CreateCommentState
 import kotlinx.coroutines.launch
 
 class CommentsScreenViewModel : ViewModel() {

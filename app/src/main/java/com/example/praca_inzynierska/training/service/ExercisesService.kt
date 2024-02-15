@@ -1,7 +1,6 @@
 package com.example.praca_inzynierska.training.service
 
 import com.example.praca_inzynierska.commons.services.Retrofit
-import com.example.praca_inzynierska.training.data.BaseAppExercises
 import com.example.praca_inzynierska.training.data.Exercise
 import com.example.praca_inzynierska.training.requests.ExerciseRequest
 import retrofit2.Response
@@ -13,15 +12,14 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 
-val exercisesService: ExercisesService =
-    Retrofit.retrofit.create(ExercisesService::class.java)
+val exercisesService: ExercisesService = Retrofit.retrofit.create(ExercisesService::class.java)
 
 interface ExercisesService {
 
-    @GET("/api/base_app_exercises")
-    suspend fun fetchAllBaseAppExercises(
+    @GET("/api/exercise/available")
+    suspend fun fetchAvailableExercises(
         @Header("Authorization") authorization: String
-    ): List<BaseAppExercises>
+    ): List<String>
 
     @GET("/api/exercise/user/{id}/date/{date}/name/{name}")
     suspend fun fetchUserExercisesByDateAndName(

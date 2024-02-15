@@ -1,7 +1,7 @@
 package com.example.praca_inzynierska.auth.services
 
-import com.example.praca_inzynierska.auth.requests.LoginRequest
 import com.example.praca_inzynierska.auth.data.User
+import com.example.praca_inzynierska.auth.requests.LoginRequest
 import com.example.praca_inzynierska.auth.requests.UserRegisterRequest
 import com.example.praca_inzynierska.commons.services.Retrofit.retrofit
 import okhttp3.ResponseBody

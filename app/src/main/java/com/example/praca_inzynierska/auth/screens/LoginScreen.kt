@@ -20,14 +20,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
-import com.example.praca_inzynierska.commons.components.ConfirmButtonComponent
-import com.example.praca_inzynierska.auth.components.EmailInputWithErrorComponent
-import com.example.praca_inzynierska.auth.components.PasswordInputWithErrorComponent
 import com.example.praca_inzynierska.auth.components.CenteredHeadingComponent
 import com.example.praca_inzynierska.auth.components.CenteredNormalTextComponent
 import com.example.praca_inzynierska.auth.components.ClickableLoginTextComponent
 import com.example.praca_inzynierska.auth.components.DividerTextComponent
+import com.example.praca_inzynierska.auth.components.EmailInputWithErrorComponent
+import com.example.praca_inzynierska.auth.components.PasswordInputWithErrorComponent
 import com.example.praca_inzynierska.auth.vm.LoginViewModel
+import com.example.praca_inzynierska.commons.components.ConfirmButtonComponent
 import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable

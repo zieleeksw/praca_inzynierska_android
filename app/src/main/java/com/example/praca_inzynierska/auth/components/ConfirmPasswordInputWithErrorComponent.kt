@@ -20,12 +20,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
+import com.example.praca_inzynierska.auth.vm.RegisterViewModel
 import com.example.praca_inzynierska.commons.components.ErrorTextComponent
 import com.example.praca_inzynierska.commons.components.getVisibilityDescription
 import com.example.praca_inzynierska.commons.components.getVisibilityIcon
 import com.example.praca_inzynierska.commons.components.getVisualTransformation
 import com.example.praca_inzynierska.commons.components.togglePasswordVisibility
-import com.example.praca_inzynierska.auth.vm.RegisterViewModel
 
 @Composable
 fun ConfirmPasswordInputWithErrorComponent(

@@ -1,7 +1,7 @@
 package com.example.praca_inzynierska.diet_configuration.validators
 
-import com.example.praca_inzynierska.commons.validator.Validator
 import com.example.praca_inzynierska.auth.validators.ValidationResult
+import com.example.praca_inzynierska.commons.validator.Validator
 
 class WeightValidator(
     private val weight: String

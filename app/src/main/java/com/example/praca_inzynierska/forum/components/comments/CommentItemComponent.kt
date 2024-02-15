@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.praca_inzynierska.commons.components.TimestampWithDeleteComponent
 import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.commons.objects.Ui
-import com.example.praca_inzynierska.commons.components.TimestampWithDeleteComponent
 import com.example.praca_inzynierska.forum.data.Comment
 import com.example.praca_inzynierska.forum.vm.CommentsScreenViewModel
 

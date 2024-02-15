@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.commons.components.resource_loaders.SingleResourceStateHandler
 import com.example.praca_inzynierska.commons.components.CustomTopAppBar
+import com.example.praca_inzynierska.commons.components.resource_loaders.SingleResourceStateHandler
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.nutrition.composables.handle_product.HandleProductScreenContent
 import com.example.praca_inzynierska.nutrition.vm.HandleFoodScreenViewModel
-import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun HandleProductScreen(

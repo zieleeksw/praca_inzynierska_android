@@ -18,13 +18,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.commons.components.TimestampWithDeleteComponent
+import com.example.praca_inzynierska.commons.objects.Global
+import com.example.praca_inzynierska.commons.objects.Ui
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.forum.data.Post
 import com.example.praca_inzynierska.forum.vm.HomeScreenViewModel
-import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun PostItemComponent(

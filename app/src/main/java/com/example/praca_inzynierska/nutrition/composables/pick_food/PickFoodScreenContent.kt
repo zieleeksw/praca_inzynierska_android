@@ -5,8 +5,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.praca_inzynierska.commons.components.SearchTextField
-import com.example.praca_inzynierska.nutrition.vm.PickFoodScreenViewModel
 import com.example.praca_inzynierska.commons.screens.Screens
+import com.example.praca_inzynierska.nutrition.vm.PickFoodScreenViewModel
 
 @Composable
 fun PickFoodScreenContent(

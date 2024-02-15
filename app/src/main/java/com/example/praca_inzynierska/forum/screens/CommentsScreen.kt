@@ -12,12 +12,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
 import com.example.praca_inzynierska.commons.components.CustomTopAppBar
+import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.forum.components.comments.AddCommentTextField
 import com.example.praca_inzynierska.forum.components.comments.CommentSectionComponent
 import com.example.praca_inzynierska.forum.vm.CommentsScreenViewModel
-import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun CommentsScreen(

@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.praca_inzynierska.commons.objects.Global
-import com.example.praca_inzynierska.forum.states.CreatePostState
 import com.example.praca_inzynierska.forum.requests.PostRequest
 import com.example.praca_inzynierska.forum.services.postService
+import com.example.praca_inzynierska.forum.states.CreatePostState
 import kotlinx.coroutines.launch
 
 class CreatePostViewModel : ViewModel() {

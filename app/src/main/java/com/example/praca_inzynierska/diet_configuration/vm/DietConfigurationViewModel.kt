@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.ValidationEvent
+import com.example.praca_inzynierska.commons.objects.Global
 import com.example.praca_inzynierska.diet_configuration.enums.ActivityLevel
 import com.example.praca_inzynierska.diet_configuration.enums.Gender
 import com.example.praca_inzynierska.diet_configuration.requests.UserNutritionConfigRequest

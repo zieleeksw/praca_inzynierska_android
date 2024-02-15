@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.objects.Ui
+import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.nutrition.composables.commons.FoodNutritionInfoLabel
 import com.example.praca_inzynierska.nutrition.vm.FoodScreenViewModel
-import com.example.praca_inzynierska.commons.screens.Screens
 
 @Composable
 fun FoodCard(

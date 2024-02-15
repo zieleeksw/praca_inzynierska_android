@@ -8,9 +8,9 @@ import com.example.praca_inzynierska.commons.objects.Global.currentUserId
 import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.diet_configuration.services.userNutritionService
+import com.example.praca_inzynierska.diet_configuration.states.UserConfigState
 import com.example.praca_inzynierska.nutrition.data.Food
 import com.example.praca_inzynierska.nutrition.services.foodService
-import com.example.praca_inzynierska.diet_configuration.states.UserConfigState
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 

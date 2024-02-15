@@ -1,8 +1,8 @@
 package com.example.praca_inzynierska.forum.services
 
+import com.example.praca_inzynierska.commons.services.Retrofit.retrofit
 import com.example.praca_inzynierska.forum.data.Post
 import com.example.praca_inzynierska.forum.requests.PostRequest
-import com.example.praca_inzynierska.commons.services.Retrofit.retrofit
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
