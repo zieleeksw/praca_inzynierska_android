@@ -57,7 +57,7 @@ fun FoodCard(
                 Text(
                     text = cardTitle,
                     style = TextStyle(
-                        color = Color.Gray,
+                        color = Color.Black,
                         fontSize = MaterialTheme.typography.bodyMedium.fontSize,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center

@@ -19,7 +19,7 @@ fun FoodDescriptionValueComponent(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 8.dp),
+            .padding(bottom = 8.dp, end = 24.dp, start = 8.dp),
     ) {
         Text(label, color = Color.Gray)
         Text(value, color = Color.Gray)

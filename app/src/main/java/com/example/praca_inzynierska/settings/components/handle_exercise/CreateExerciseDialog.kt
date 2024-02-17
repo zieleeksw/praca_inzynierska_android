@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.settings.components
+package com.example.praca_inzynierska.settings.components.handle_exercise
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -27,11 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.ErrorTextComponent
-import com.example.praca_inzynierska.settings.vm.CreateUserExerciseScreenViewModel
+import com.example.praca_inzynierska.settings.vm.HandleUserExerciseScreenViewModel
 
 @Composable
 fun CreateExerciseDialog(
-    viewModel: CreateUserExerciseScreenViewModel,
+    viewModel: HandleUserExerciseScreenViewModel,
     onDismissRequest: () -> Unit
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
@@ -109,5 +109,5 @@ fun CreateExerciseDialog(
 @Preview
 @Composable
 fun Previeww() {
-    CreateExerciseDialog(CreateUserExerciseScreenViewModel(), {})
+    CreateExerciseDialog(HandleUserExerciseScreenViewModel(), {})
 }

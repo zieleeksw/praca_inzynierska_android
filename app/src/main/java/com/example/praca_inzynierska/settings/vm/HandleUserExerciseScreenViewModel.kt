@@ -15,7 +15,7 @@ import com.example.praca_inzynierska.settings.services.userExercisesService
 import com.example.praca_inzynierska.settings.states.UserExerciseState
 import kotlinx.coroutines.launch
 
-class CreateUserExerciseScreenViewModel : ViewModel() {
+class HandleUserExerciseScreenViewModel : ViewModel() {
 
     private val _userExercisesState = mutableStateOf(ResourceState<UserExercise>())
     val userExercisesState: State<ResourceState<UserExercise>> = _userExercisesState

@@ -16,9 +16,10 @@ val exercisesService: ExercisesService = Retrofit.retrofit.create(ExercisesServi
 
 interface ExercisesService {
 
-    @GET("/api/exercise/available")
+    @GET("/api/exercise/available/{userId}")
     suspend fun fetchAvailableExercises(
-        @Header("Authorization") authorization: String
+        @Header("Authorization") authorization: String,
+        @Path("userId") userId: Long
     ): List<String>
 
     @GET("/api/exercise/user/{id}/date/{date}/name/{name}")

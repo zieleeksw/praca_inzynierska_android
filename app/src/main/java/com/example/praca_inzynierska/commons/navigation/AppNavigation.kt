@@ -32,6 +32,7 @@ import com.example.praca_inzynierska.nutrition.screens.FoodScreen
 import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
 import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserExercisesScreen
+import com.example.praca_inzynierska.settings.screens.HandleUserFoodScreen
 import com.example.praca_inzynierska.settings.screens.SettingsScreen
 import com.example.praca_inzynierska.training.screens.HandleExerciseScreen
 import com.example.praca_inzynierska.training.screens.PickExerciseScreen
@@ -151,6 +152,9 @@ fun MainContent(
             }
             composable(route = Screens.HandleUserExercisesScreen.name) {
                 HandleUserExercisesScreen()
+            }
+            composable(route = Screens.HandleUserFoodScreen.name) {
+                HandleUserFoodScreen()
             }
             composable(
                 route = "${Screens.PickExerciseScreen.name}/{date}",

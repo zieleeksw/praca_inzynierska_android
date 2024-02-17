@@ -38,7 +38,7 @@ fun FoodCardItemComponent(
 
     if (showDialog) {
         DeleteDialog(
-            deleteString = "Post",
+            deleteString = "food",
             onDismissRequest = {
                 showDialog = false
             },
@@ -62,7 +62,7 @@ fun FoodCardItemComponent(
                 Text(
                     text = "${food.productName}  ${food.grams}g",
                     style = TextStyle(
-                        color = Color.Black,
+                        color = Color.Gray,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center

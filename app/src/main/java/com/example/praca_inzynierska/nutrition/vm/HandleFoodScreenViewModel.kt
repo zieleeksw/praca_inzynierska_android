@@ -28,12 +28,14 @@ class HandleFoodScreenViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                val response = foodService.fetchBaseAppFoodByName("Bearer $token", name)
+                val response = foodService.fetchFoodByName("Bearer $token", name)
                 if (response.isSuccessful && response.body() != null) {
                     _foodByNameState.value = _foodByNameState.value.copy(
                         resource = response.body()!!,
                         loading = false
                     )
+                    addState =
+                        addState.copy(productName = _foodByNameState.value.resource!!.productName)
                     onGramsChanged(addState.grams)
                 }
             } catch (e: Exception) {

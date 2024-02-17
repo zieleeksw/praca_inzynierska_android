@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.praca_inzynierska.commons.objects.Global.currentUserId
 import com.example.praca_inzynierska.commons.objects.Global.token
 import com.example.praca_inzynierska.commons.states.ResourceState
 import com.example.praca_inzynierska.nutrition.data.AppFoodModel
@@ -25,7 +26,7 @@ class PickFoodScreenViewModel : ViewModel() {
         viewModelScope.launch {
             _foodState.value = ResourceState(loading = true)
             try {
-                val response = foodService.fetchAllBaseAppFood("Bearer $token")
+                val response = foodService.fetchAvailableFood("Bearer $token", currentUserId)
                 _foodState.value = ResourceState(loading = false, list = response)
                 filteredFood(_searchText.value)
             } catch (e: Exception) {

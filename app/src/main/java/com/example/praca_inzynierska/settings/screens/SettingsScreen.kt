@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.commons.screens.Screens
-import com.example.praca_inzynierska.settings.components.CustomOutlinedButton
+import com.example.praca_inzynierska.settings.components.handle_exercise.CustomOutlinedButton
 
 
 @Composable
@@ -33,7 +33,9 @@ fun SettingsScreen(
             CustomOutlinedButton(text = "Create own exercise!", onClick = {
                 navController.navigate(Screens.HandleUserExercisesScreen.name)
             })
-            CustomOutlinedButton(text = "Add Food", onClick = { /* Implement action */ })
+            CustomOutlinedButton(text = "Create own product!", onClick = {
+                navController.navigate(Screens.HandleUserFoodScreen.name)
+            })
             CustomOutlinedButton(text = "Exercise Chart", onClick = { /* Implement action */ })
             CustomOutlinedButton(text = "Food Chart", onClick = { /* Implement action */ })
         }

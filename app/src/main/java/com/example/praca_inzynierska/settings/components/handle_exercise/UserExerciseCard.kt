@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.settings.components
+package com.example.praca_inzynierska.settings.components.handle_exercise
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.components.DeleteDialog
 import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.settings.data.UserExercise
-import com.example.praca_inzynierska.settings.vm.CreateUserExerciseScreenViewModel
+import com.example.praca_inzynierska.settings.vm.HandleUserExerciseScreenViewModel
 
 
 @Composable
 fun UserExerciseCard(
     userExercise: UserExercise,
-    viewModel: CreateUserExerciseScreenViewModel
+    viewModel: HandleUserExerciseScreenViewModel
 ) {
 
     var showDialog by remember { mutableStateOf(false) }
@@ -84,6 +84,6 @@ fun UserExerciseCard(
 fun Preview() {
     UserExerciseCard(
         userExercise = UserExercise(1, "NANA2154125125125125125125125125125N"),
-        viewModel = CreateUserExerciseScreenViewModel()
+        viewModel = HandleUserExerciseScreenViewModel()
     )
 }

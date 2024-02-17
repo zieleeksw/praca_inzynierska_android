@@ -24,7 +24,10 @@ class PickExerciseScreenViewModel : ViewModel() {
         viewModelScope.launch {
             _exercisesState.value = ResourceState(loading = true)
             try {
-                val response = exercisesService.fetchAvailableExercises("Bearer ${Global.token}")
+                val response = exercisesService.fetchAvailableExercises(
+                    "Bearer ${Global.token}",
+                    Global.currentUserId
+                )
                 _exercisesState.value = ResourceState(loading = false, list = response)
                 filterExercises(_searchText.value)
             } catch (e: Exception) {

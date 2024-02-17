@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.settings.components
+package com.example.praca_inzynierska.settings.components.handle_exercise
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth

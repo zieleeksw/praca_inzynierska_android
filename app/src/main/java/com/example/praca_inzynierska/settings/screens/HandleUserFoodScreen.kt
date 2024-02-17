@@ -23,35 +23,29 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.AddIconButton
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
-import com.example.praca_inzynierska.settings.components.CreateExerciseDialog
-import com.example.praca_inzynierska.settings.components.CreateUserExerciseScreenContent
-import com.example.praca_inzynierska.settings.vm.CreateUserExerciseScreenViewModel
+import com.example.praca_inzynierska.settings.components.handle_food.CreateFoodDialog
+import com.example.praca_inzynierska.settings.components.handle_food.CreateUserFoodScreenContent
+import com.example.praca_inzynierska.settings.vm.HandleUserFoodScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HandleUserExercisesScreen() {
+fun HandleUserFoodScreen() {
 
-    val viewModel = viewModel<CreateUserExerciseScreenViewModel>()
+    val viewModel = viewModel<HandleUserFoodScreenViewModel>()
     var showDialog by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        viewModel.fetchUserExercises()
-    }
-
-    LaunchedEffect(viewModel.exerciseState.onError) {
-        if (viewModel.exerciseState.onError == null && showDialog) {
-            showDialog = false
-        }
-    }
-
     if (showDialog) {
-        CreateExerciseDialog(
+        CreateFoodDialog(
             viewModel = viewModel,
-            onDismissRequest = {
+            onDismiss = {
                 showDialog = false
                 viewModel.onDismiss()
             },
         )
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchUserFood()
     }
 
     Scaffold(
@@ -59,7 +53,7 @@ fun HandleUserExercisesScreen() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Add own exercise !",
+                        text = "Add own food !",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -81,8 +75,8 @@ fun HandleUserExercisesScreen() {
                 .background(color = colorResource(id = R.color.light_gray))
         ) {
             ResourceStateHandler(
-                resourceState = viewModel.userExercisesState.value,
-                content = { CreateUserExerciseScreenContent(viewModel) }
+                resourceState = viewModel.userFoodState.value,
+                content = { CreateUserFoodScreenContent(viewModel) }
             )
         }
     }

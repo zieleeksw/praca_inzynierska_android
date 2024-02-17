@@ -17,13 +17,14 @@ val foodService: FoodService = Retrofit.retrofit.create(FoodService::class.java)
 
 interface FoodService {
 
-    @GET("/api/base_app_food")
-    suspend fun fetchAllBaseAppFood(
-        @Header("Authorization") authorization: String
+    @GET("/api/food/available/{userId}")
+    suspend fun fetchAvailableFood(
+        @Header("Authorization") authorization: String,
+        @Path("userId") userId: Long
     ): List<AppFoodModel>
 
-    @GET("/api/base_app_food/{name}")
-    suspend fun fetchBaseAppFoodByName(
+    @GET("/api/food/{name}")
+    suspend fun fetchFoodByName(
         @Header("Authorization") authorization: String,
         @Path("name") userId: String,
     ): Response<AppFoodModel>
