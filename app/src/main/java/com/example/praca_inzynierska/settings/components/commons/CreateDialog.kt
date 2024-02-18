@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.settings.components.handle_exercise
+package com.example.praca_inzynierska.settings.components.commons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,17 +22,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.ErrorTextComponent
-import com.example.praca_inzynierska.settings.vm.HandleUserExerciseScreenViewModel
 
 @Composable
-fun CreateExerciseDialog(
-    viewModel: HandleUserExerciseScreenViewModel,
-    onDismissRequest: () -> Unit
+fun CreateDialog(
+    value: String,
+    onValueChanged: (String) -> Unit,
+    error: String?,
+    onDismissRequest: () -> Unit,
+    onAdd: () -> Unit,
+    name: String
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Surface(
@@ -56,13 +58,13 @@ fun CreateExerciseDialog(
                 Text(
                     modifier = Modifier.padding(12.dp),
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    text = "Do you want to delete add exercise?",
+                    text = "Do you want to add ${name}?",
                     color = Color.Black,
                 )
                 TextField(
-                    value = viewModel.exerciseState.name,
-                    onValueChange = { viewModel.onNameChanged(it) },
-                    isError = viewModel.exerciseState.onError != null,
+                    value = value,
+                    onValueChange = { onValueChanged(it) },
+                    isError = error != null,
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -82,7 +84,7 @@ fun CreateExerciseDialog(
                         cursorColor = Color.Black
                     )
                 )
-                ErrorTextComponent(error = viewModel.exerciseState.onError, start = 8, end = 0)
+                ErrorTextComponent(error = error, start = 8, end = 0)
                 Spacer(modifier = Modifier.height(24.dp))
                 Row(
                     modifier = Modifier
@@ -93,21 +95,12 @@ fun CreateExerciseDialog(
                         Text(text = "Dismiss", color = colorResource(id = R.color.secondary_color))
                     }
                     Spacer(modifier = Modifier.width(8.dp))
-                    TextButton(onClick = {
-                        viewModel.addExercise {
-                            onDismissRequest()
-                        }
-                    }) {
+                    TextButton(onClick = { onAdd() })
+                    {
                         Text("OK", color = colorResource(id = R.color.secondary_color))
                     }
                 }
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun Previeww() {
-    CreateExerciseDialog(HandleUserExerciseScreenViewModel(), {})
 }

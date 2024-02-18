@@ -69,7 +69,7 @@ fun PostItemComponent(
             Text(
                 text = post.content,
                 fontSize = 16.sp,
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 4.dp),
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp, bottom = 4.dp),
             )
             Divider(
                 thickness = 1.dp,
@@ -81,7 +81,7 @@ fun PostItemComponent(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .padding(start = 8.dp, end = 8.dp, bottom = 4.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 FollowComponent(

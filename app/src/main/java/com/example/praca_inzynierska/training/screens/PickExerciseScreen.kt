@@ -19,13 +19,13 @@ import com.example.praca_inzynierska.training.vm.PickExerciseScreenViewModel
 @Composable
 fun PickExerciseScreen(
     navController: NavHostController,
-    date: String
+    unusualKey: String
 ) {
 
     val viewModel = viewModel<PickExerciseScreenViewModel>()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchAllBaseAppExercises()
+        viewModel.fetchAvailableExercises()
     }
 
     Scaffold(
@@ -40,7 +40,7 @@ fun PickExerciseScreen(
         ) {
             ResourceStateHandler(
                 resourceState = viewModel.exercisesState.value,
-                content = { PickExerciseScreenContent(navController, viewModel, date) }
+                content = { PickExerciseScreenContent(navController, viewModel, unusualKey) }
             )
         }
     }

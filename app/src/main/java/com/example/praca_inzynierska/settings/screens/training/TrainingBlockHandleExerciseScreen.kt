@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.training.screens
+package com.example.praca_inzynierska.settings.screens.training
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,20 +12,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.commons.components.CustomTopAppBar
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
+import com.example.praca_inzynierska.settings.vm.TrainingBlockHandleExerciseScreenViewModel
 import com.example.praca_inzynierska.training.composables.handle_exercise.HandleExerciseScreenContent
-import com.example.praca_inzynierska.training.vm.HandleExerciseScreenViewModel
 
 @Composable
-fun HandleExerciseScreen(
+fun TrainingBlockHandleExerciseScreen(
     navController: NavHostController,
-    date: String,
+    trainingId: Long,
     name: String
 ) {
 
-    val viewModel = viewModel<HandleExerciseScreenViewModel>()
+    val viewModel = viewModel<TrainingBlockHandleExerciseScreenViewModel>()
 
     LaunchedEffect(Unit) {
-        viewModel.fetchUserExercisesByDateAndName(date, name)
+        viewModel.fetchExercisesByTrainingIdAndName(trainingId, name)
     }
 
     Scaffold(
@@ -48,8 +48,14 @@ fun HandleExerciseScreen(
                         viewModel.exerciseState.repetitionError,
                         viewModel.exerciseState.weightError,
                         viewModel.userExercisesState.value.list,
-                        { exerciseId -> viewModel.deleteExercise(exerciseId, name, date) },
-                        { viewModel.addExercise(date, name) },
+                        { exerciseId ->
+                            viewModel.deleteExerciseFromTraining(
+                                exerciseId,
+                                name,
+                                trainingId
+                            )
+                        },
+                        { viewModel.addExerciseToTraining(name, trainingId) },
                         { viewModel.onClear() }
                     )
                 }

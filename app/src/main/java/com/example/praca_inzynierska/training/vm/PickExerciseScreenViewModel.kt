@@ -20,7 +20,7 @@ class PickExerciseScreenViewModel : ViewModel() {
     private val _filteredExercises = mutableStateOf(listOf<String>())
     val filteredExercises: State<List<String>> = _filteredExercises
 
-    fun fetchAllBaseAppExercises() {
+    fun fetchAvailableExercises() {
         viewModelScope.launch {
             _exercisesState.value = ResourceState(loading = true)
             try {

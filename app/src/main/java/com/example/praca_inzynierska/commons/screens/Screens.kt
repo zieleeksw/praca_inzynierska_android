@@ -16,5 +16,8 @@ enum class Screens {
     HandleExerciseScreen,
     HandleProductScreen,
     HandleUserExercisesScreen,
-    HandleUserFoodScreen
+    HandleUserFoodScreen,
+    TrainingBlockScreen,
+    TrainingBlockExercisesScreen,
+    TrainingBlockHandleExerciseScreen
 }

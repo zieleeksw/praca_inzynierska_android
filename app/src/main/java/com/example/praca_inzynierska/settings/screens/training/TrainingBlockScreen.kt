@@ -1,4 +1,4 @@
-package com.example.praca_inzynierska.settings.screens
+package com.example.praca_inzynierska.settings.screens.training
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -20,39 +20,44 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.AddIconButton
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
 import com.example.praca_inzynierska.settings.components.commons.CreateDialog
-import com.example.praca_inzynierska.settings.components.handle_exercise.CreateUserExerciseScreenContent
-import com.example.praca_inzynierska.settings.vm.HandleUserExerciseScreenViewModel
+import com.example.praca_inzynierska.settings.components.training_block.TrainingBlockScreenContent
+import com.example.praca_inzynierska.settings.vm.TrainingBlockScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HandleUserExercisesScreen() {
+fun TrainingBlockScreen(
+    navController: NavHostController
+) {
 
-    val viewModel = viewModel<HandleUserExerciseScreenViewModel>()
+    val viewModel = viewModel<TrainingBlockScreenViewModel>()
     var showDialog by remember { mutableStateOf(false) }
-
-    LaunchedEffect(Unit) {
-        viewModel.fetchUserExercises()
-    }
 
     if (showDialog) {
         CreateDialog(
-            value = viewModel.exerciseState.name,
+            value = viewModel.nameState.name,
             onValueChanged = { viewModel.onNameChanged(it) },
-            error = viewModel.exerciseState.onError,
+            error = viewModel.nameState.onError,
             onDismissRequest = {
                 showDialog = false
                 viewModel.onDismiss()
             },
             onAdd = {
-                viewModel.addExercise {
+                viewModel.addTraining {
                     showDialog = false
                     viewModel.onDismiss()
                 }
-            }, name = "exercise")
+            },
+            name = "training"
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.fetchTrainings()
     }
 
     Scaffold(
@@ -60,7 +65,7 @@ fun HandleUserExercisesScreen() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Add own exercise !",
+                        text = "Add own training!",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -82,8 +87,8 @@ fun HandleUserExercisesScreen() {
                 .background(color = colorResource(id = R.color.light_gray))
         ) {
             ResourceStateHandler(
-                resourceState = viewModel.userExercisesState.value,
-                content = { CreateUserExerciseScreenContent(viewModel) }
+                resourceState = viewModel.trainingState.value,
+                content = { TrainingBlockScreenContent(viewModel, navController) }
             )
         }
     }

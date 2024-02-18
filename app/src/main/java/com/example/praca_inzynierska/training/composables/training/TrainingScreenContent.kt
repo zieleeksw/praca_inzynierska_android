@@ -22,15 +22,16 @@ fun TrainingScreenContent(
     DateSelector(viewModel.date.value, { viewModel.onDateChanged(LocalDate.parse(it)) }) {
         viewModel.fetchUserExercisesByDate()
     }
+
     Spacer(modifier = Modifier.height(4.dp))
     LazyColumn {
         items(viewModel.getExercisesGroups()) { exerciseGroup ->
             ExerciseCard(
-                viewModel = viewModel,
                 exerciseGroup = exerciseGroup,
                 onCardClick = {
                     navController.navigate("${Screens.HandleExerciseScreen.name}/${viewModel.date.value}/${exerciseGroup.title}")
-                }
+                },
+                onDelete = { viewModel.deleteExerciseByDateAndName(exerciseGroup.title) }
             )
         }
     }

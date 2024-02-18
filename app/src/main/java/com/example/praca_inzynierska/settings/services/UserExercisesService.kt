@@ -22,7 +22,7 @@ interface UserExercisesService {
         @Path("userId") userId: Long,
     ): List<UserExercise>
 
-    @POST("/api/user/{userId}/exercises")
+    @POST("/api/user/exercises")
     suspend fun addUserExercise(
         @Header("Authorization") authorization: String,
         @Body userExerciseRequest: UserExerciseRequest

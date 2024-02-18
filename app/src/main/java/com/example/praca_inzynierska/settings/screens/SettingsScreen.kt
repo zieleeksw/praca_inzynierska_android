@@ -29,15 +29,18 @@ fun SettingsScreen(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.align(Alignment.Center)
         ) {
-            CustomOutlinedButton(text = "Add Block", onClick = { /* Implement action */ })
-            CustomOutlinedButton(text = "Create own exercise!", onClick = {
+            CustomOutlinedButton(text = "Training blocks", onClick = {
+            navController.navigate(Screens.TrainingBlockScreen.name) })
+            CustomOutlinedButton(text = "Create own exercise", onClick = {
                 navController.navigate(Screens.HandleUserExercisesScreen.name)
             })
-            CustomOutlinedButton(text = "Create own product!", onClick = {
+            CustomOutlinedButton(text = "Create own product", onClick = {
                 navController.navigate(Screens.HandleUserFoodScreen.name)
             })
+            CustomOutlinedButton(text = "Add body dimensions", onClick = { /* Implement action */ })
             CustomOutlinedButton(text = "Exercise Chart", onClick = { /* Implement action */ })
             CustomOutlinedButton(text = "Food Chart", onClick = { /* Implement action */ })
+
         }
 
         Column(

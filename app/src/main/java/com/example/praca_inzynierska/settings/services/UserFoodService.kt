@@ -22,7 +22,7 @@ interface UserFoodService {
         @Path("userId") userId: Long,
     ): List<AppFoodModel>
 
-    @POST("/api/user/{userId}/food")
+    @POST("/api/user/food")
     suspend fun addUserFood(
         @Header("Authorization") authorization: String,
         @Body userFoodRequest: UserFoodRequest

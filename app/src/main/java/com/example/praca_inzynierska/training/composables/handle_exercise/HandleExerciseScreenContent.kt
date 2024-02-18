@@ -17,13 +17,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
-import com.example.praca_inzynierska.training.vm.HandleExerciseScreenViewModel
+import com.example.praca_inzynierska.training.data.Exercise
 
 @Composable
 fun HandleExerciseScreenContent(
-    viewModel: HandleExerciseScreenViewModel,
-    date: String,
-    name: String
+    name: String,
+    repsText: String,
+    weightText: String,
+    onRepsChanged: (String) -> Unit,
+    onWeightChanged: (String) -> Unit,
+    onRepsError: String?,
+    onWeightError: String?,
+    exerciseList: List<Exercise>,
+    onDelete: (Long) -> Unit,
+    onSave: () -> Unit,
+    onClear: () -> Unit
 ) {
     Text(
         text = name,
@@ -41,27 +49,27 @@ fun HandleExerciseScreenContent(
         Spacer(modifier = Modifier.height(16.dp))
         IncreaseDecreaseComponent(
             "Reps",
-            1.0, true, viewModel.exerciseState.repetition,
-            onError = viewModel.exerciseState.repetitionError
-        ) { reps -> viewModel.onRepetitionChanged(reps) }
+            1.0, true, repsText,
+            onError = onRepsError
+        ) { onRepsChanged(it) }
         Spacer(modifier = Modifier.height(4.dp))
         IncreaseDecreaseComponent(
             "Weight (kgs)", 2.5, false,
-            viewModel.exerciseState.weight,
-            onError = viewModel.exerciseState.weightError
-        ) { viewModel.onWeightChanged(it) }
+            weightText,
+            onError = onWeightError
+        ) { onWeightChanged(it) }
         Spacer(modifier = Modifier.height(4.dp))
         CustomButtons(
-            onSave = { viewModel.addExercise(date, name) },
-            onClear = { viewModel.onClear() }
+            onSave = { onSave() },
+            onClear = { onClear() }
         )
         LazyColumn {
-            itemsIndexed(viewModel.userExercisesState.value.list) { index, exercise ->
+            itemsIndexed(exerciseList) { index, exercise ->
                 ExercisesList(
                     index = index,
                     exercise = exercise,
                     onCancelClick = {
-                        viewModel.deleteExercise(exercise.id, name, date)
+                        onDelete(exercise.id)
                     }
                 )
             }

@@ -34,6 +34,9 @@ import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserExercisesScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserFoodScreen
 import com.example.praca_inzynierska.settings.screens.SettingsScreen
+import com.example.praca_inzynierska.settings.screens.training.TrainingBlockExercisesScreen
+import com.example.praca_inzynierska.settings.screens.training.TrainingBlockHandleExerciseScreen
+import com.example.praca_inzynierska.settings.screens.training.TrainingBlockScreen
 import com.example.praca_inzynierska.training.screens.HandleExerciseScreen
 import com.example.praca_inzynierska.training.screens.PickExerciseScreen
 import com.example.praca_inzynierska.training.screens.TrainingScreen
@@ -155,6 +158,34 @@ fun MainContent(
             }
             composable(route = Screens.HandleUserFoodScreen.name) {
                 HandleUserFoodScreen()
+            }
+            composable(route = Screens.TrainingBlockScreen.name) {
+                TrainingBlockScreen(mainNavController)
+            }
+            composable(
+                route = "${Screens.TrainingBlockExercisesScreen.name}/{trainingId}",
+                arguments = listOf(
+                    navArgument("trainingId") {
+                        type = NavType.LongType
+                    }
+                )
+            ) { backstackEntry ->
+                val trainingId = backstackEntry.arguments?.getLong("trainingId")
+                TrainingBlockExercisesScreen(mainNavController, trainingId!!)
+            }
+            composable(route = "${Screens.TrainingBlockHandleExerciseScreen.name}/{trainingId}/{name}",
+                arguments = listOf(
+                    navArgument("trainingId") {
+                        type = NavType.LongType
+                    },
+                    navArgument("name") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backStackEntry ->
+                val trainingId = backStackEntry.arguments?.getLong("trainingId")
+                val name = backStackEntry.arguments?.getString("name")
+                TrainingBlockHandleExerciseScreen(mainNavController, trainingId!!, name!!)
             }
             composable(
                 route = "${Screens.PickExerciseScreen.name}/{date}",
