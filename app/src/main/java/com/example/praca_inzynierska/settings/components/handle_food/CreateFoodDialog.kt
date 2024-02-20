@@ -82,10 +82,11 @@ fun CreateFoodDialog(
         }
     }
 }
+
 @Preview
 @Composable
 fun CreateFood() {
     CreateFoodDialog(viewModel = HandleUserFoodScreenViewModel()) {
-        
+
     }
 }

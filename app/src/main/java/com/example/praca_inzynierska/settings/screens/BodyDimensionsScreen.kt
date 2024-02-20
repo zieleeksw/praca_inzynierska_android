@@ -1,6 +1,6 @@
 package com.example.praca_inzynierska.settings.screens
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -23,36 +24,28 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.AddIconButton
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
-import com.example.praca_inzynierska.settings.components.commons.CreateDialog
-import com.example.praca_inzynierska.settings.components.handle_exercise.CreateUserExerciseScreenContent
-import com.example.praca_inzynierska.settings.vm.HandleUserExerciseScreenViewModel
+import com.example.praca_inzynierska.settings.components.body_dimensions.BodyDimensionsContent
+import com.example.praca_inzynierska.settings.components.body_dimensions.CreateBodyDimensionsDialog
+import com.example.praca_inzynierska.settings.vm.BodyDimensionsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HandleUserExercisesScreen() {
+fun BodyDimensionsScreen() {
 
-    val viewModel = viewModel<HandleUserExerciseScreenViewModel>()
+    val viewModel = viewModel<BodyDimensionsViewModel>()
     var showDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        viewModel.fetchUserExercises()
+        viewModel.fetchDimensions()
     }
 
     if (showDialog) {
-        CreateDialog(
-            value = viewModel.exerciseState.name,
-            onValueChanged = { viewModel.onNameChanged(it) },
-            error = viewModel.exerciseState.onError,
-            onDismissRequest = {
-                showDialog = false
-                viewModel.onDismiss()
-            },
-            onAdd = {
-                viewModel.addExercise {
-                    showDialog = false
-                    viewModel.onDismiss()
-                }
-            }, name = "exercise"
+        CreateBodyDimensionsDialog(
+            viewModel = viewModel,
+            onDismissRequest = { showDialog = false },
+            onSave = {
+                viewModel.addBodyDimensions { showDialog = false }
+            }
         )
     }
 
@@ -61,7 +54,7 @@ fun HandleUserExercisesScreen() {
             TopAppBar(
                 title = {
                     Text(
-                        text = "Add own exercise !",
+                        text = "Body Dimensions",
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
@@ -78,13 +71,14 @@ fun HandleUserExercisesScreen() {
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(it)
-                .background(color = colorResource(id = R.color.light_gray))
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ResourceStateHandler(
-                resourceState = viewModel.userExercisesState.value,
-                content = { CreateUserExerciseScreenContent(viewModel) }
+                resourceState = viewModel.bodyDimensions.value,
+                content = { BodyDimensionsContent(viewModel) }
             )
         }
     }

@@ -20,7 +20,6 @@ class TrainingBlockScreenViewModel : ViewModel() {
     val trainingState: State<ResourceState<Training>> = _trainingState
     var nameState by mutableStateOf(TrainingState())
 
-
     fun deleteUserExercise(
         trainingId: Long
     ) {

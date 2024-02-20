@@ -1,6 +1,5 @@
-package com.example.praca_inzynierska.training.composables.training
+package com.example.praca_inzynierska.settings.components.body_dimensions
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -26,29 +24,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.components.DeleteDialog
 import com.example.praca_inzynierska.commons.components.SecondaryColorDivider
 import com.example.praca_inzynierska.commons.objects.Ui
-import com.example.praca_inzynierska.training.data.ExerciseGroup
+import com.example.praca_inzynierska.settings.data.BodyDimensions
 
 @Composable
-fun ExerciseCard(
-    exerciseGroup: ExerciseGroup,
-    onCardClick: () -> Unit,
-    onDelete: () -> Unit
+fun BodyDimensionsCard(
+    bodyDimensions: BodyDimensions,
+    onDelete: (Long) -> Unit
 ) {
 
     var showDialog by remember { mutableStateOf(false) }
 
     if (showDialog) {
         DeleteDialog(
-            deleteString = "Exercise",
+            deleteString = "dimensions",
             onDismissRequest = {
                 showDialog = false
             },
             onConfirmation = {
-                onDelete()
+                onDelete(bodyDimensions.id)
                 showDialog = false
             })
     }
@@ -56,8 +54,7 @@ fun ExerciseCard(
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .fillMaxWidth()
-            .clickable { onCardClick() },
+            .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = Ui.DEFAULT_CARD_ELEVATION),
         shape = Ui.DEFAULT_ROUNDED_CORNER_SHAPE,
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -71,7 +68,7 @@ fun ExerciseCard(
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    text = exerciseGroup.title, fontWeight = FontWeight.Bold,
+                    text = bodyDimensions.date, fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .weight(1f)
                         .wrapContentWidth(Alignment.Start),
@@ -82,19 +79,28 @@ fun ExerciseCard(
             }
             SecondaryColorDivider()
             Spacer(modifier = Modifier.height(6.dp))
-            exerciseGroup.exercises.forEach { exercise ->
-                Row(
-                    horizontalArrangement = Arrangement.Start,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                ) {
-                    Text(text = "${exercise.repetition} reps ", modifier = Modifier.width(64.dp))
-                    Spacer(modifier = Modifier.width(64.dp))
-                    Text(text = "${exercise.weight} kg")
-                }
-            }
+            BodyDimensionsRow(name = "Arm", value = bodyDimensions.arm.toString())
+            BodyDimensionsRow(name = "Chest", value = bodyDimensions.chest.toString())
+            BodyDimensionsRow(name = "Waist", value = bodyDimensions.waist.toString())
+            BodyDimensionsRow(name = "Leg", value = bodyDimensions.leg.toString())
+            BodyDimensionsRow(name = "Calf", value = bodyDimensions.calf.toString())
             Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewBodyDimensionsCard() {
+    val sampleBodyDimensions = BodyDimensions(
+        id = 1L,
+        date = "2022-01-01",
+        arm = 32,
+        chest = 102,
+        waist = 82,
+        leg = 54,
+        calf = 35
+    )
+    BodyDimensionsCard(bodyDimensions = sampleBodyDimensions, onDelete = {})
+}
+

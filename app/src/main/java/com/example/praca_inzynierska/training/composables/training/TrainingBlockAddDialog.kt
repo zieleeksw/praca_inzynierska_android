@@ -19,7 +19,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -97,7 +96,7 @@ fun TrainingBlockAddDialog(
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     TextButton(onClick = {
-                        selectedBlock?.id?.let() { onOk(it)}
+                        selectedBlock?.id?.let { onOk(it) }
                     })
                     {
                         Text("OK", color = colorResource(id = R.color.secondary_color))
