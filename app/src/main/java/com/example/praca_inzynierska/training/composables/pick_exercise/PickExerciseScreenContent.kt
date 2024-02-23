@@ -29,10 +29,14 @@ fun PickExerciseScreenContent(
 
 fun onClick(unusualKey: String, navController: NavHostController, exerciseName: String) {
     val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-    try {
-        dateFormat.parse(unusualKey)
-        navController.navigate("${Screens.HandleExerciseScreen.name}/$unusualKey/$exerciseName")
-    } catch (e: Exception) {
-        navController.navigate("${Screens.TrainingBlockHandleExerciseScreen.name}/$unusualKey/$exerciseName")
+    if (unusualKey == "CHART") {
+        navController.navigate("${Screens.ExercisesChartScreen.name}/$exerciseName")
+    } else {
+        try {
+            dateFormat.parse(unusualKey)
+            navController.navigate("${Screens.HandleExerciseScreen.name}/$unusualKey/$exerciseName")
+        } catch (e: Exception) {
+            navController.navigate("${Screens.TrainingBlockHandleExerciseScreen.name}/$unusualKey/$exerciseName")
+        }
     }
 }

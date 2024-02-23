@@ -32,6 +32,7 @@ import com.example.praca_inzynierska.nutrition.screens.FoodScreen
 import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
 import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
 import com.example.praca_inzynierska.settings.screens.BodyDimensionsScreen
+import com.example.praca_inzynierska.settings.screens.ExercisesChartScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserExercisesScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserFoodScreen
 import com.example.praca_inzynierska.settings.screens.SettingsScreen
@@ -165,6 +166,23 @@ fun MainContent(
             }
             composable(route = Screens.BodyDimensionsScreen.name) {
                 BodyDimensionsScreen()
+            }
+            composable(
+                route = Screens.ExercisesChartScreen.name
+            ) {
+                ExercisesChartScreen(mainNavController, null)
+            }
+
+            composable(
+                route = "${Screens.ExercisesChartScreen.name}/{exerciseName}",
+                arguments = listOf(
+                    navArgument("exerciseName") {
+                        type = NavType.StringType
+                    }
+                )
+            ) { backstackEntry ->
+                val exerciseName = backstackEntry.arguments?.getString("exerciseName")
+                ExercisesChartScreen(mainNavController, exerciseName)
             }
             composable(
                 route = "${Screens.TrainingBlockExercisesScreen.name}/{trainingId}",

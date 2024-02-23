@@ -41,12 +41,14 @@ fun SettingsScreen(
             CustomOutlinedButton(text = "Body dimensions", onClick = {
                 navController.navigate(Screens.BodyDimensionsScreen.name)
             })
-            CustomOutlinedButton(text = "Exercise Chart", onClick = { /* Implement action */ })
+            CustomOutlinedButton(text = "Exercise Chart", onClick = {
+                navController.navigate(Screens.ExercisesChartScreen.name)
+            })
             CustomOutlinedButton(text = "Food Chart", onClick = { /* Implement action */ })
         }
 
         Column(
-            modifier = Modifier.align(Alignment.BottomCenter) // Umieszczenie   dole  Box
+            modifier = Modifier.align(Alignment.BottomCenter)
         ) {
             CustomOutlinedButton(text = "Logout", onClick = { /* Implement action */ })
         }
