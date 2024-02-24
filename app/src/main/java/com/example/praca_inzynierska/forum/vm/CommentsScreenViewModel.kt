@@ -35,10 +35,13 @@ class CommentsScreenViewModel : ViewModel() {
         }
     }
 
-    fun addComment(postId: Long) {
+    fun addComment(
+        postId: Long,
+        onAdded: () -> Unit
+    ) {
         viewModelScope.launch {
             try {
-                checkAndAddComment(postId)
+                checkAndAddComment(postId, onAdded)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -49,22 +52,26 @@ class CommentsScreenViewModel : ViewModel() {
         createCommentState = createCommentState.copy(content = content)
     }
 
-    private suspend fun checkAndAddComment(postId: Long) {
+    private suspend fun checkAndAddComment(
+        postId: Long,
+        onAdded: () -> Unit
+    ) {
         if (createCommentState.content.isBlank()) {
             createCommentState = createCommentState.copy(contentError = "You need text")
         } else {
             createCommentState = createCommentState.copy(contentError = null)
-            addNewComment(postId)
+            addNewComment(postId, onAdded)
         }
     }
 
-    private suspend fun addNewComment(postId: Long) {
+    private suspend fun addNewComment(postId: Long, onAdded: () -> Unit) {
         val commentRequest = CommentRequest(postId, createCommentState.content)
         try {
             val response = commentService.addComment("Bearer $token", commentRequest)
             if (response.isSuccessful) {
                 createCommentState = createCommentState.copy(content = "")
                 fetchComments(postId)
+                onAdded()
             }
         } catch (e: Exception) {
             e.printStackTrace()

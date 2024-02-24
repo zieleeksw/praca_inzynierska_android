@@ -389,7 +389,13 @@ bapp/src/main/java/com/example/praca_inzynierska/settings/components/food_chart/
 [app/src/main/java/com/example/praca_inzynierska/settings/components/food_chart/FoodChart.kt,6\c\6cd50cbaa997e36c2cbdb389844cd4b719f51567
 Ü
 Vapp/src/main/java/com/example/praca_inzynierska/settings/enums/SelectedNutrientType.kt,9\8\98bf3f7324b6804db4bd9f55d3bbc6974dd7141b
-ç
-]app/src/main/java/com/example/praca_inzynierska/settings/components/food_chart/ChartColumn.kt,8\d\8d84ac9ab740e29ffe1d017e8537401a97599201
-á
-Wapp/src/main/java/com/example/praca_inzynierska/settings/components/food_chart/Chart.kt,3\7\37713bae53650ca30551685adf9a28c7f5ad7246
+Å
+Qapp/src/main/java/com/example/praca_inzynierska/auth/validators/EmailValidator.kt,7\9\79cf5ec3c91991996311b219d04b83a1c7546595
+û
+napp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/GenderSelectorButtonComponent.kt,c\8\c8aea0ae457d9755521732a2443fc265ef095c6d
+ú
+lapp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/EnterValueOutlinedTextField.kt,0\9\0950eb71c61569ec406daae583b6abc97e4c026a
+ô
+iapp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/WeightTextFieldComponent.kt,c\1\c157b10b5bde9323848b8c7d0a4c6fc7e7d71db8
+í
+bapp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/WeightRowCoponent.kt,b\8\b838318c8dc98cbb5d6b1a87deaee62ca2bce566

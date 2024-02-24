@@ -16,13 +16,13 @@ class EmailValidator(
 
     private fun setResultIfEmailIsBlank() {
         if (email.isBlank()) {
-            updateResultIfNotError("The email can't be Blank")
+            updateResultIfNotError("The email can't be blank")
         }
     }
 
     private fun setResultIfEmailIsNotValid() {
         if (!PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()) {
-            updateResultIfNotError("That's not a valid email")
+            updateResultIfNotError("The email is not valid")
         }
     }
 }

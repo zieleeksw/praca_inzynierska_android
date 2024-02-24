@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.settings.components.commons.MonthDateSelector
 import com.example.praca_inzynierska.settings.components.exercise_chart.LockedFieldsComponents
+import com.example.praca_inzynierska.settings.enums.SelectedNutrientType
 import com.example.praca_inzynierska.settings.vm.FoodChartViewModel
 import java.time.LocalDate
 
@@ -26,6 +27,41 @@ fun FoodChartScreenContent(
         { viewModel.onDateChanged(LocalDate.parse(it)) },
         { viewModel.fetchFoodByYearMonth() }
     )
+
+    val maxLabelTitle: String
+    val maxLabelValue: String
+    val avgLabelTitle: String
+    val avgLabelValue: String
+
+    when (viewModel.selectedNutrientType.value) {
+        SelectedNutrientType.Kcal -> {
+            maxLabelTitle = "Max kcal"
+            maxLabelValue = viewModel.maxKcal()
+            avgLabelTitle = "Average kcal"
+            avgLabelValue = viewModel.averageKcal()
+        }
+
+        SelectedNutrientType.Protein -> {
+            maxLabelTitle = "Max protein"
+            maxLabelValue = viewModel.maxProtein()
+            avgLabelTitle = "Average protein"
+            avgLabelValue = viewModel.averageProtein()
+        }
+
+        SelectedNutrientType.Carbs -> {
+            maxLabelTitle = "Max carbs"
+            maxLabelValue = viewModel.maxCarbs()
+            avgLabelTitle = "Average carbs"
+            avgLabelValue = viewModel.averageCarbs()
+        }
+
+        SelectedNutrientType.Fat -> {
+            maxLabelTitle = "Max fat"
+            maxLabelValue = viewModel.maxFat()
+            avgLabelTitle = "Average fat"
+            avgLabelValue = viewModel.averageFat()
+        }
+    }
 
     Column {
         Card(
@@ -43,31 +79,10 @@ fun FoodChartScreenContent(
         DropDownMenuFood(viewModel)
         Spacer(modifier = Modifier.height(8.dp))
         LockedFieldsComponents(
-            leftLabelTitle = "Max kcal",
-            leftLabelValue = viewModel.maxKcal(),
-            rightLabelTitle = "Average kcal",
-            rightLabelValue = viewModel.averageKcal()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LockedFieldsComponents(
-            leftLabelTitle = "Max protein",
-            leftLabelValue = viewModel.maxProtein(),
-            rightLabelTitle = "Average protein",
-            rightLabelValue = viewModel.averageProtein()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LockedFieldsComponents(
-            leftLabelTitle = "Max carbs",
-            leftLabelValue = viewModel.maxCarbs(),
-            rightLabelTitle = "Average carbs",
-            rightLabelValue = viewModel.averageCarbs()
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LockedFieldsComponents(
-            leftLabelTitle = "Max fat",
-            leftLabelValue = viewModel.maxFat(),
-            rightLabelTitle = "Average fat",
-            rightLabelValue = viewModel.averageFat()
+            leftLabelTitle = maxLabelTitle,
+            leftLabelValue = maxLabelValue,
+            rightLabelTitle = avgLabelTitle,
+            rightLabelValue = avgLabelValue
         )
         Spacer(modifier = Modifier.height(8.dp))
         LockedFieldsComponents(

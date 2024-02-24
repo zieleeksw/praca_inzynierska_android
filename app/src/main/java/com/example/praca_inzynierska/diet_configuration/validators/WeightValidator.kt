@@ -29,7 +29,7 @@ class WeightValidator(
     }
 
     private fun isTwoDigitDecimalNumber(): Boolean {
-        return weight.matches(Regex("\\d{2}[.,]\\d*"))
+        return weight.matches(Regex("\\d{2}[.]\\d*"))
     }
 
     private fun isThreeDigitNumber(): Boolean {
@@ -37,6 +37,6 @@ class WeightValidator(
     }
 
     private fun isThreeDigitDecimalNumber(): Boolean {
-        return weight.matches(Regex("\\d{3}[.,]\\d"))
+        return weight.matches(Regex("\\d{3}[.]\\d"))
     }
 }

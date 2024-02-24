@@ -2,10 +2,13 @@ package com.example.praca_inzynierska.nutrition.composables.food
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.nutrition.data.NutritionItem
 import com.example.praca_inzynierska.nutrition.vm.FoodScreenViewModel
@@ -40,7 +43,7 @@ fun CalculatedNutritionComponent(
                 .background(color = colorResource(id = R.color.light_gray))
         ) {
             nutritionValues.chunked(2).forEach { rowValues ->
-                NutritionRow(rowValues)
+                NutritionRow(rowValues, Modifier.weight(1f))
             }
         }
     }

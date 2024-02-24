@@ -23,14 +23,6 @@ class WeightValidatorTest {
     }
 
     @Test
-    fun `should return success for two-digit decimal number weight with comma separator`() {
-        val validator = WeightValidator("67,8")
-        val result = validator.validate()
-        assertEquals(true, result.successful)
-        assertEquals(null, result.errorMessage)
-    }
-
-    @Test
     fun `should return error for invalid weight format`() {
         val validator = WeightValidator("abc")
         val result = validator.validate()
@@ -73,14 +65,6 @@ class WeightValidatorTest {
     @Test
     fun `should return true for weight with three digits number and one after dot`() {
         val validator = WeightValidator("100.1")
-        val result = validator.validate()
-        assertEquals(true, result.successful)
-        assertEquals(null, result.errorMessage)
-    }
-
-    @Test
-    fun `should return true for weight with three digits number and one after comma`() {
-        val validator = WeightValidator("100,7")
         val result = validator.validate()
         assertEquals(true, result.successful)
         assertEquals(null, result.errorMessage)

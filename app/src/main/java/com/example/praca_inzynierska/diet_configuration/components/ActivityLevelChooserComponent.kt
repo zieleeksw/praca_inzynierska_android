@@ -100,7 +100,7 @@ fun ActivityLevelChooserComponent(
                     isExpanded = false
                     viewModel.onActivityLevelChanged(ActivityLevel.LOW)
                 })
-                DropdownMenuItem(text = { Text("Moderately") }, onClick = {
+                DropdownMenuItem(text = { Text("Average") }, onClick = {
                     isExpanded = false
                     viewModel.onActivityLevelChanged(ActivityLevel.MODERATELY)
                 })

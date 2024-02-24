@@ -52,7 +52,7 @@ fun TrainingBlockScreen(
                     viewModel.onDismiss()
                 }
             },
-            name = "training"
+            name = "training block"
         )
     }
 

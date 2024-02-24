@@ -58,7 +58,7 @@ fun CreateDialog(
                 Text(
                     modifier = Modifier.padding(12.dp),
                     fontSize = MaterialTheme.typography.bodyLarge.fontSize,
-                    text = "Do you want to add ${name}?",
+                    text = "Enter $name name",
                     color = Color.Black,
                 )
                 TextField(

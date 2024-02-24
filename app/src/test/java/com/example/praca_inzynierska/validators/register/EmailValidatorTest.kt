@@ -20,7 +20,7 @@ class EmailValidatorTest {
         val validator = EmailValidator("")
         val result = validator.validate()
         assertEquals(false, result.successful)
-        assertEquals("The email can't be Blank", result.errorMessage)
+        assertEquals("The email can't be blank", result.errorMessage)
     }
 
     @Test
@@ -28,6 +28,6 @@ class EmailValidatorTest {
         val validator = EmailValidator("invalid-email")
         val result = validator.validate()
         assertEquals(false, result.successful)
-        assertEquals("That's not a valid email", result.errorMessage)
+        assertEquals("The email is not valid", result.errorMessage)
     }
 }

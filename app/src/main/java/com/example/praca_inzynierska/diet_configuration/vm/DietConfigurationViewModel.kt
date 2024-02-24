@@ -110,10 +110,14 @@ class DietConfigurationViewModel : ViewModel() {
     }
 
     fun onCurrentWeightChanged(currentWeight: String) {
-        state = state.copy(currentWeight = currentWeight)
+        if (!currentWeight.contains(",")) {
+            state = state.copy(currentWeight = currentWeight)
+        }
     }
 
     fun onTargetWeightChanged(targetWeight: String) {
-        state = state.copy(targetWeight = targetWeight)
+        if (!targetWeight.contains(",")) {
+            state = state.copy(targetWeight = targetWeight)
+        }
     }
 }

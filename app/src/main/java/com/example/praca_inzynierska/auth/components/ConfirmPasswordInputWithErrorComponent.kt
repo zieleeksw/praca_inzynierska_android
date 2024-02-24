@@ -53,7 +53,7 @@ private fun ConfirmPasswordFieldComponent(
         leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
         visualTransformation = getVisualTransformation(passwordVisible.value),
         onValueChange = { viewModel.onConfirmPasswordChanged(it) },
-        label = { Text(text = stringResource(id = R.string.confirm_password)) },
+        label = { Text(text = stringResource(id = R.string.confirm)) },
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = primaryColor,
             focusedBorderColor = secondaryColor,

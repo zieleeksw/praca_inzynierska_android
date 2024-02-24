@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Male
+import androidx.compose.material.icons.filled.Man
 import androidx.compose.material.icons.filled.Woman
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -28,7 +29,7 @@ fun GenderSelectorButtonComponent(
     onClick: () -> Unit
 ) {
 
-    val icon = if (gender == Gender.FEMALE) Icons.Default.Woman else Icons.Default.Male
+    val icon = if (gender == Gender.FEMALE) Icons.Default.Woman else Icons.Default.Man
     val backgroundColor = colorResource(
         id = if (isSelected) R.color.secondary_color else R.color.primary_color
     )

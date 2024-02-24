@@ -82,7 +82,7 @@ fun BodyDimensionsCard(
             BodyDimensionsRow(name = "Arm", value = bodyDimensions.arm.toString())
             BodyDimensionsRow(name = "Chest", value = bodyDimensions.chest.toString())
             BodyDimensionsRow(name = "Waist", value = bodyDimensions.waist.toString())
-            BodyDimensionsRow(name = "Leg", value = bodyDimensions.leg.toString())
+            BodyDimensionsRow(name = "Thigh", value = bodyDimensions.leg.toString())
             BodyDimensionsRow(name = "Calf", value = bodyDimensions.calf.toString())
             Spacer(modifier = Modifier.height(6.dp))
         }

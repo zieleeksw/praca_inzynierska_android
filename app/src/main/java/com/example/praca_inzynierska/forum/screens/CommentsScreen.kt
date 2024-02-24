@@ -1,6 +1,7 @@
 package com.example.praca_inzynierska.forum.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,6 +9,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -26,6 +29,8 @@ fun CommentsScreen(
 ) {
 
     val viewModel = viewModel<CommentsScreenViewModel>()
+    val focusManager = LocalFocusManager.current
+
 
     LaunchedEffect(Unit) {
         viewModel.fetchComments(postId)
@@ -33,13 +38,17 @@ fun CommentsScreen(
 
     Scaffold(
         topBar = { CustomTopAppBar(text = "Comments!") { navController.navigate(Screens.HomeScreen.name) } },
-        bottomBar = { AddCommentTextField(postId, viewModel) })
+        bottomBar = { AddCommentTextField(postId, viewModel, focusManager) })
     {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(color = colorResource(id = R.color.light_gray)),
+                .background(color = colorResource(id = R.color.light_gray))
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { focusManager.clearFocus() })
+                },
         ) {
             ResourceStateHandler(resourceState = viewModel.commentState.value) {
                 CommentSectionComponent(viewModel, postId)

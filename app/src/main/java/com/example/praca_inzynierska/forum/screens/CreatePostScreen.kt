@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.forum.screens
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -7,6 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.praca_inzynierska.commons.components.CustomTopAppBar
@@ -21,6 +24,7 @@ fun CreatePostScreen(
 ) {
 
     val viewModel = viewModel<CreatePostViewModel>()
+    val focusManager = LocalFocusManager.current
 
     LaunchedEffect(viewModel.isAddedState) {
         if (viewModel.isAddedState) {
@@ -37,6 +41,10 @@ fun CreatePostScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(it)
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = { focusManager.clearFocus() })
+                }
         ) {
             CreatePostContentComponent(viewModel)
         }

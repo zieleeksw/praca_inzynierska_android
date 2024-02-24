@@ -21,7 +21,7 @@ fun GenderSelectorComponent(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
     ) {
         HeaderTextConfigurationScreenComponent(text = "Choose Your Gender")
         Spacer(modifier = Modifier.height(8.dp))

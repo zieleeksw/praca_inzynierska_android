@@ -14,6 +14,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
@@ -22,7 +23,8 @@ import com.example.praca_inzynierska.forum.vm.CommentsScreenViewModel
 @Composable
 fun AddCommentTextField(
     postId: Long,
-    viewModel: CommentsScreenViewModel
+    viewModel: CommentsScreenViewModel,
+    focusManager: FocusManager
 ) {
     Column(
         verticalArrangement = Arrangement.Bottom,
@@ -47,7 +49,9 @@ fun AddCommentTextField(
                 .padding(bottom = 8.dp, start = 8.dp, end = 8.dp),
             trailingIcon = {
                 IconButton(onClick = {
-                    viewModel.addComment(postId)
+                    viewModel.addComment(postId) {
+                        focusManager.clearFocus()
+                    }
                 }) {
                     Icon(
                         imageVector = Icons.Outlined.Send,

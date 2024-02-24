@@ -3,7 +3,6 @@ package com.example.praca_inzynierska.nutrition.composables.food
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,13 +16,14 @@ import com.example.praca_inzynierska.R
 fun NutritionProgressBar(
     title: String,
     currentValue: Int,
-    targetValue: Int
+    targetValue: Int,
+    modifier: Modifier
 ) {
 
     val progress = currentValue.toFloat() / targetValue.toFloat()
     val progressBarColor = getProgressBarColor(progress)
 
-    Column(modifier = Modifier.widthIn(150.dp, 175.dp)) {
+    Column(modifier = modifier) {
         Text(text = "$title: $currentValue / $targetValue")
         Spacer(modifier = Modifier.height(2.dp))
         LinearProgressIndicator(
