@@ -44,9 +44,10 @@ fun SettingsScreen(
             CustomOutlinedButton(text = "Exercise Chart", onClick = {
                 navController.navigate(Screens.ExercisesChartScreen.name)
             })
-            CustomOutlinedButton(text = "Food Chart", onClick = { /* Implement action */ })
+            CustomOutlinedButton(text = "Food Chart", onClick = {
+                navController.navigate(Screens.FoodChartScreen.name)
+            })
         }
-
         Column(
             modifier = Modifier.align(Alignment.BottomCenter)
         ) {

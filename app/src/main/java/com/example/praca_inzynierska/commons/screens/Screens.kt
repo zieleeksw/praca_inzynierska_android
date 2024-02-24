@@ -21,5 +21,6 @@ enum class Screens {
     TrainingBlockExercisesScreen,
     TrainingBlockHandleExerciseScreen,
     BodyDimensionsScreen,
-    ExercisesChartScreen
+    ExercisesChartScreen,
+    FoodChartScreen
 }
