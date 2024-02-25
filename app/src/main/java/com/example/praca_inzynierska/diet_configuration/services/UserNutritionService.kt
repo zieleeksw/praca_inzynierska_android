@@ -27,4 +27,26 @@ interface UserNutritionService {
         @Path("userId") userId: Long,
         @Header("Authorization") authorization: String,
     ): UserNutritionConfig
+
+    @POST("/api/user-nutrition-config/{userId}/activity_level/{activity_level}")
+    suspend fun changeActivityLevel(
+        @Header("Authorization") authorization: String,
+        @Path("userId") userId: Long,
+        @Path("activity_level") activityLevel: String
+    ): Response<Void>
+
+    @POST("/api/user-nutrition-config/{userId}/current_weight/{current_weight}")
+    suspend fun updateCurrentWeight(
+        @Header("Authorization") authorization: String,
+        @Path("userId") userId: Long,
+        @Path("current_weight") currentWeight: Double
+    ): Response<Void>
+
+    @POST("/api/user-nutrition-config/{userId}/target_weight/{target_weight}")
+    suspend fun updateTargetWeight(
+        @Header("Authorization") authorization: String,
+        @Path("userId") userId: Long,
+        @Path("target_weight") targetWeight: Double
+    ): Response<Void>
+
 }

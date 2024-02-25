@@ -21,7 +21,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.components.DeleteDialog
 import com.example.praca_inzynierska.commons.objects.Ui
@@ -76,14 +75,4 @@ fun UserExerciseCard(
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-fun Preview() {
-    UserExerciseCard(
-        userExercise = UserExercise(1, "NANA2154125125125125125125125125125N"),
-        viewModel = HandleUserExerciseScreenViewModel()
-    )
 }

@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.objects.Ui
@@ -69,7 +68,9 @@ fun DropDownMenuFood(viewModel: FoodChartViewModel) {
             }
             DropdownMenu(
                 expanded = expanded,
-                onDismissRequest = { expanded = false }
+                onDismissRequest = { expanded = false },
+                modifier = Modifier
+                    .background(Color.White)
             ) {
                 items.forEach { item ->
                     DropdownMenuItem(
@@ -84,10 +85,4 @@ fun DropDownMenuFood(viewModel: FoodChartViewModel) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun DropDownMenu() {
-    DropDownMenuFood(FoodChartViewModel())
 }

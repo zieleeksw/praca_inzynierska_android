@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.auth.requests.UserRegisterRequest
 import com.example.praca_inzynierska.auth.services.userService
 import com.example.praca_inzynierska.auth.states.RegistrationFormState
@@ -14,29 +13,25 @@ import com.example.praca_inzynierska.auth.validators.EmailValidator
 import com.example.praca_inzynierska.auth.validators.PasswordValidator
 import com.example.praca_inzynierska.auth.validators.UsernameValidator
 import com.example.praca_inzynierska.auth.validators.ValidationResult
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel : ViewModel() {
 
     var state by mutableStateOf(RegistrationFormState())
-    private val validationEventChannel = Channel<ValidationEvent>()
-    val validationEvents = validationEventChannel.receiveAsFlow()
 
-    fun onSubmit() {
+    fun onSubmit(onSuccess: () -> Unit) {
         viewModelScope.launch {
             try {
-                validate()
+                validate(onSuccess)
             } catch (e: Exception) {
-                validationEventChannel.send(ValidationEvent.Failure)
+                e.printStackTrace()
             }
         }
     }
 
-    private suspend fun validate() {
+    private suspend fun validate(afterSuccess: () -> Unit) {
         val usernameResponse = userService.isUsernameAvailable(state.username)
-        val emailResponse = userService.isEmailAvailable()
+        val emailResponse = userService.isEmailAvailable(state.email)
         if (usernameResponse.isSuccessful && emailResponse.isSuccessful) {
             val usernameResult = validateUsername(usernameResponse.body())
             val emailResult = validateEmail(emailResponse.body())
@@ -57,10 +52,8 @@ class RegisterViewModel : ViewModel() {
                     confirmPasswordResult
                 )
             } else {
-                onSuccess()
+                onSuccess(afterSuccess)
             }
-        } else {
-            validationEventChannel.send(ValidationEvent.Failure)
         }
     }
 
@@ -108,19 +101,21 @@ class RegisterViewModel : ViewModel() {
         ).any { !it.successful }
     }
 
-    private suspend fun onSuccess() {
-        registerNewUser()
+    private suspend fun onSuccess(afterSuccess: () -> Unit) {
+        registerNewUser(afterSuccess)
         state = RegistrationFormState()
-        validationEventChannel.send(ValidationEvent.Success)
     }
 
 
-    private suspend fun registerNewUser() {
+    private suspend fun registerNewUser(afterSuccess: () -> Unit) {
         val user = UserRegisterRequest(state.username, state.email, state.password)
         try {
-            userService.registerUser(user)
+            val response = userService.registerUser(user)
+            if (response.isSuccessful) {
+                afterSuccess()
+            }
         } catch (e: Exception) {
-            validationEventChannel.send(ValidationEvent.Failure)
+            e.printStackTrace()
             return
         }
     }

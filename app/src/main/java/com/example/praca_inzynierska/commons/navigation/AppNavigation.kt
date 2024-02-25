@@ -32,6 +32,7 @@ import com.example.praca_inzynierska.nutrition.screens.FoodScreen
 import com.example.praca_inzynierska.nutrition.screens.HandleProductScreen
 import com.example.praca_inzynierska.nutrition.screens.PickFoodScreen
 import com.example.praca_inzynierska.settings.screens.BodyDimensionsScreen
+import com.example.praca_inzynierska.settings.screens.DietSettingsScreen
 import com.example.praca_inzynierska.settings.screens.ExercisesChartScreen
 import com.example.praca_inzynierska.settings.screens.FoodChartScreen
 import com.example.praca_inzynierska.settings.screens.HandleUserExercisesScreen
@@ -157,16 +158,19 @@ fun MainContent(
                 SettingsScreen(mainNavController)
             }
             composable(route = Screens.HandleUserExercisesScreen.name) {
-                HandleUserExercisesScreen()
+                HandleUserExercisesScreen(mainNavController)
+            }
+            composable(route = Screens.DietSettingsScreen.name) {
+                DietSettingsScreen(mainNavController)
             }
             composable(route = Screens.HandleUserFoodScreen.name) {
-                HandleUserFoodScreen()
+                HandleUserFoodScreen(mainNavController)
             }
             composable(route = Screens.TrainingBlockScreen.name) {
                 TrainingBlockScreen(mainNavController)
             }
             composable(route = Screens.BodyDimensionsScreen.name) {
-                BodyDimensionsScreen()
+                BodyDimensionsScreen(mainNavController)
             }
             composable(route = Screens.FoodChartScreen.name) {
                 FoodChartScreen(mainNavController)

@@ -10,10 +10,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.settings.components.body_dimensions.BodyDimensionsLegend
@@ -66,13 +64,4 @@ fun ExerciseChartScreenContent(
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
-}
-
-@Preview
-@Composable
-fun ExerciseChartScreenContentPreview() {
-    ExerciseChartScreenContent(
-        viewModel = ExerciseChartViewModel(),
-        navController = rememberNavController()
-    )
 }

@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.ErrorTextComponent
@@ -95,10 +94,4 @@ fun WeightRowComponent(
             ErrorTextComponent(error = viewModel.state.targetWeightError, start = 0, end = 0)
         }
     }
-}
-
-@Composable
-@Preview
-fun WeighPrev() {
-    WeightRowComponent(viewModel = DietConfigurationViewModel())
 }

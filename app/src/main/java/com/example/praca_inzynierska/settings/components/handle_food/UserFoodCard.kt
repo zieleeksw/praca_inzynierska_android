@@ -24,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.components.DeleteDialog
 import com.example.praca_inzynierska.commons.components.SecondaryColorDivider
@@ -94,17 +93,4 @@ fun UserFoodCard(
             FoodDescriptionValueComponent("Proteins", appFoodModel.proteins.toString())
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewUserFoodCard() {
-    val sampleAppFoodModel = AppFoodModel(
-        productName = "Apple",
-        kcal = 52,
-        fat = 0,
-        carbs = 14,
-        proteins = 0
-    )
-    UserFoodCard(appFoodModel = sampleAppFoodModel, viewModel = HandleUserFoodScreenViewModel())
 }

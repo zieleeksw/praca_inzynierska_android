@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.settings.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,10 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.screens.Screens
 import com.example.praca_inzynierska.settings.components.handle_exercise.CustomOutlinedButton
 
@@ -23,6 +24,7 @@ fun SettingsScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = colorResource(id = R.color.light_gray))
             .padding(16.dp)
     ) {
         Column(
@@ -30,7 +32,7 @@ fun SettingsScreen(
             modifier = Modifier.align(Alignment.Center)
         ) {
             CustomOutlinedButton(text = "Diet settings", onClick = {
-                navController.navigate(Screens.TrainingBlockScreen.name)
+                navController.navigate(Screens.DietSettingsScreen.name)
             })
             CustomOutlinedButton(text = "Training blocks", onClick = {
                 navController.navigate(Screens.TrainingBlockScreen.name)
@@ -51,18 +53,5 @@ fun SettingsScreen(
                 navController.navigate(Screens.FoodChartScreen.name)
             })
         }
-        Column(
-            modifier = Modifier.align(Alignment.BottomCenter)
-        ) {
-            CustomOutlinedButton(text = "Logout", onClick = {
-                navController.navigate(Screens.LoginScreen.name)
-            })
-        }
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun SettingsScreenPreview() {
-    SettingsScreen(rememberNavController())
 }

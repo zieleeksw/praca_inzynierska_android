@@ -21,7 +21,7 @@ interface UserService {
     suspend fun isUsernameAvailable(@Path("username") username: String): Response<Boolean>
 
     @GET("/api/user/email/{email}")
-    suspend fun isEmailAvailable(): Response<Boolean>
+    suspend fun isEmailAvailable(@Path("email") username: String): Response<Boolean>
 
     @POST("/api/auth/register")
     suspend fun registerUser(@Body user: UserRegisterRequest): Response<ResponseBody>

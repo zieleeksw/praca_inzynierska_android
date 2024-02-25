@@ -96,7 +96,8 @@ class ExerciseChartViewModel : ViewModel() {
     }
 
     fun getMaxReps(): String {
-        val maxReps = _userExercisesState.value.list.maxOfOrNull { it.repetition }?.toDouble() ?: 0.0
+        val maxReps =
+            _userExercisesState.value.list.maxOfOrNull { it.repetition }?.toDouble() ?: 0.0
         return String.format("%.1f", maxReps)
     }
 }

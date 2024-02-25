@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.praca_inzynierska.commons.components.DeleteDialog
 import com.example.praca_inzynierska.commons.components.SecondaryColorDivider
@@ -87,20 +86,5 @@ fun BodyDimensionsCard(
             Spacer(modifier = Modifier.height(6.dp))
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewBodyDimensionsCard() {
-    val sampleBodyDimensions = BodyDimensions(
-        id = 1L,
-        date = "2022-01-01",
-        arm = 32,
-        chest = 102,
-        waist = 82,
-        leg = 54,
-        calf = 35
-    )
-    BodyDimensionsCard(bodyDimensions = sampleBodyDimensions, onDelete = {})
 }
 

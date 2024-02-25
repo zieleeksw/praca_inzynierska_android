@@ -56,12 +56,13 @@ fun LoginScreen(
                         if (viewModel.user?.userNutritionConfig == null) {
                             navController.navigate(Screens.DietConfigurationScreen.name)
                         } else {
-                            navController.navigate(Screens.MainContent.name)
+                            navController.navigate(Screens.MainContent.name) {
+                                popUpTo(Screens.LoginScreen.name) {
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
                         }
-                        Toast.makeText(
-                            context, "Logged successful",
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
 
                     is ValidationEvent.Failure ->

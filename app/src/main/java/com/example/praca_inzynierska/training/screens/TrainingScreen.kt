@@ -25,10 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.components.AddIconButton
 import com.example.praca_inzynierska.commons.components.resource_loaders.ResourceStateHandler
@@ -111,10 +109,4 @@ fun TrainingScreen(
             }
         }
     )
-}
-
-@Preview
-@Composable
-fun PreviewTrainingScreen() {
-    TrainingScreen(navController = rememberNavController())
 }

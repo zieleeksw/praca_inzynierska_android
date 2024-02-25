@@ -68,7 +68,7 @@ class FoodChartViewModel : ViewModel() {
     }
 
     private fun getMaxValue(propertySelector: (Food) -> Double): String {
-        val maxValue = _userFoodState.value.list?.maxOfOrNull(propertySelector) ?: 0.0
+        val maxValue = _userFoodState.value.list.maxOfOrNull(propertySelector) ?: 0.0
         return String.format("%.1f", maxValue)
     }
 

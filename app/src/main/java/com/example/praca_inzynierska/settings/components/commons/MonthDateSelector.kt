@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.praca_inzynierska.R
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -59,14 +58,4 @@ fun MonthDateSelector(
             Icon(Icons.Default.ArrowForward, contentDescription = "Next Month", tint = Color.White)
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMonthSelector() {
-    MonthDateSelector(
-        currentMonth = LocalDate.now(),
-        onMonthChanged = {},
-        afterMonthChange = {}
-    )
 }

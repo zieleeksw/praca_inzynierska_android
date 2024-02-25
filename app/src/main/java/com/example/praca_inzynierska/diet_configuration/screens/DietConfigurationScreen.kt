@@ -14,11 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.commons.components.ConfirmButtonComponent
 import com.example.praca_inzynierska.commons.screens.Screens
@@ -43,7 +41,12 @@ fun DietConfigurationScreen(
         viewModel.validationEvents.collect { event ->
             when (event) {
                 is ValidationEvent.Success -> {
-                    navController.navigate(Screens.MainContent.name)
+                    navController.navigate(Screens.MainContent.name) {
+                        popUpTo(Screens.LoginScreen.name) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
 
                 else -> {
@@ -82,11 +85,4 @@ fun DietConfigurationScreen(
         WeightRowComponent(viewModel)
         ConfirmButtonComponent(text = "Next", 140.dp, onClick = { viewModel.onSubmit() })
     }
-}
-
-
-@Preview
-@Composable
-fun Preview() {
-    DietConfigurationScreen(rememberNavController())
 }
