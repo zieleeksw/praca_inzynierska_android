@@ -44,7 +44,9 @@ fun HandleExerciseScreenContent(
             .padding(vertical = 12.dp)
     )
     Column(
-        modifier = Modifier.padding(horizontal = 32.dp)
+        modifier = Modifier
+            .padding(horizontal = 32.dp)
+            .background(color = colorResource(id = R.color.light_gray))
     ) {
         Spacer(modifier = Modifier.height(16.dp))
         IncreaseDecreaseComponent(
@@ -63,7 +65,9 @@ fun HandleExerciseScreenContent(
             onSave = { onSave() },
             onClear = { onClear() }
         )
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.background(colorResource(id = R.color.light_gray))
+        ) {
             itemsIndexed(exerciseList) { index, exercise ->
                 ExercisesList(
                     index = index,

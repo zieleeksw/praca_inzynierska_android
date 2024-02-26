@@ -1,6 +1,7 @@
 package com.example.praca_inzynierska.forum.components.create_post
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,6 +26,7 @@ fun CreatePostButtonComponent(
     OutlinedButton(
         modifier = Modifier
             .fillMaxWidth()
+            .background(colorResource(id = R.color.light_gray))
             .padding(vertical = 24.dp, horizontal = 16.dp),
         onClick = { onClick() },
         shape = Ui.DEFAULT_ROUNDED_CORNER_SHAPE,

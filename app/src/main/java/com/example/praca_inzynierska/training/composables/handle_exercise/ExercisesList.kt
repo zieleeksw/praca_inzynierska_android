@@ -15,9 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.commons.objects.Ui
 import com.example.praca_inzynierska.training.data.Exercise
 
@@ -31,7 +33,8 @@ fun ExercisesList(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp),
+            .padding(top = 8.dp)
+            .background(colorResource(id = R.color.light_gray)),
     ) {
         Text(
             text = "${index + 1}.",

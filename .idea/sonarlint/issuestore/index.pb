@@ -399,10 +399,6 @@ lapp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/E
 bapp/src/main/java/com/example/praca_inzynierska/diet_configuration/components/WeightRowCoponent.kt,b\8\b838318c8dc98cbb5d6b1a87deaee62ca2bce566
 „
 Tapp/src/main/java/com/example/praca_inzynierska/commons/navigation/NavigationItem.kt,8\c\8ce8e8e6b6e3fde86df7c5443890ab338ff00c65
-‹
-[app/src/main/java/com/example/praca_inzynierska/settings/screens/DietConfigurationScreeb.kt,0\9\095c571c7c4adda73495540b08bea04c16ad5738
-‹
-[app/src/main/java/com/example/praca_inzynierska/settings/screens/DietConfigurationScreen.kt,7\f\7f3c73807a615b8eab2416363b2bd383199afbd4
 †
 Vapp/src/main/java/com/example/praca_inzynierska/settings/screens/DietSettingsScreen.kt,6\6\662122749c7b4557a1ec5789fd3f42256bda1510
 Š
@@ -417,3 +413,7 @@ kapp/src/main/java/com/example/praca_inzynierska/settings/components/diet_settin
 happ/src/main/java/com/example/praca_inzynierska/settings/components/diet_settings/ActivityLevelDialog.kt,0\c\0c6b760c89b15f5e44d7d2ff9b3b69297f30750d
 ‘
 aapp/src/main/java/com/example/praca_inzynierska/settings/components/diet_settings/WeightDialog.kt,5\7\579874018674905db692bd0330b7485bc0b58966
+¦
+vapp/src/main/java/com/example/praca_inzynierska/commons/components/resource_loaders/CustomCircularProgressIndicator.kt,8\6\861cc7316712ccb0ef47d6be61c600291f316494
+ 
+papp/src/main/java/com/example/praca_inzynierska/commons/components/resource_loaders/OnFetchDataErrorComponent.kt,9\2\92fb1802e84666ee929b5f9c68f048517c27b520

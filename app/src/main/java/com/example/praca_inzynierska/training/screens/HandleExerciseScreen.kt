@@ -32,7 +32,8 @@ fun HandleExerciseScreen(
     }
 
     Scaffold(
-        topBar = { CustomTopAppBar(text = "Add your reps!") { navController.popBackStack() } },
+        containerColor = colorResource(id = R.color.light_gray),
+        topBar = { CustomTopAppBar(text = "Add your reps!") { navController.popBackStack() } }
     ) {
         Column(
             verticalArrangement = Arrangement.Top,
