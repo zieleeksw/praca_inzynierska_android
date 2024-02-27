@@ -260,6 +260,9 @@ fun MainContent(
                 val foodName = backStackEntry.arguments?.getString("foodName")
                 HandleProductScreen(mainNavController, date!!, meal!!, foodName!!)
             }
+            composable(route = Screens.Logout.name) {
+                AppNavigation()
+            }
         }
     }
 }

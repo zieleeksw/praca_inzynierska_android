@@ -1,5 +1,6 @@
 package com.example.praca_inzynierska.auth.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -39,6 +41,7 @@ fun RegisterScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = colorResource(id = R.color.light_gray))
             .padding(28.dp)
             .pointerInput(Unit) {
                 detectTapGestures(

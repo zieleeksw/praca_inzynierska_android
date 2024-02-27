@@ -23,5 +23,6 @@ enum class Screens {
     BodyDimensionsScreen,
     ExercisesChartScreen,
     FoodChartScreen,
-    DietSettingsScreen
+    DietSettingsScreen,
+    Logout
 }

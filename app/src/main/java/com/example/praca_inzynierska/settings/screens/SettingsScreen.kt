@@ -53,5 +53,17 @@ fun SettingsScreen(
                 navController.navigate(Screens.FoodChartScreen.name)
             })
         }
+        Column(
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ) {
+            CustomOutlinedButton(text = "Logout", onClick = {
+                navController.navigate(Screens.Logout.name) {
+                    popUpTo(0) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            })
+        }
     }
 }

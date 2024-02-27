@@ -2,6 +2,7 @@ package com.example.praca_inzynierska.diet_configuration.screens
 
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,9 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.praca_inzynierska.R
 import com.example.praca_inzynierska.ValidationEvent
 import com.example.praca_inzynierska.commons.components.ConfirmButtonComponent
 import com.example.praca_inzynierska.commons.screens.Screens
@@ -62,6 +65,7 @@ fun DietConfigurationScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = colorResource(id = R.color.light_gray))
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = { focusManager.clearFocus() })
