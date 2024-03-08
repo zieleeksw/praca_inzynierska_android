@@ -417,3 +417,7 @@ aapp/src/main/java/com/example/praca_inzynierska/settings/components/diet_settin
 vapp/src/main/java/com/example/praca_inzynierska/commons/components/resource_loaders/CustomCircularProgressIndicator.kt,8\6\861cc7316712ccb0ef47d6be61c600291f316494
  
 papp/src/main/java/com/example/praca_inzynierska/commons/components/resource_loaders/OnFetchDataErrorComponent.kt,9\2\92fb1802e84666ee929b5f9c68f048517c27b520
+„
+Tapp/src/main/java/com/example/praca_inzynierska/auth/validators/UsernameValidator.kt,5\4\5466187f61bdd1bd8ede788594c98e7545a9bf64
+„
+Tapp/src/main/java/com/example/praca_inzynierska/auth/validators/PasswordValidator.kt,2\5\255f4b92d96bf0b8c1edf26d6a74de4633c8e6da

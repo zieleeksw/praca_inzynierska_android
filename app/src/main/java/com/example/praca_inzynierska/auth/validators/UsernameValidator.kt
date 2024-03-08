@@ -14,13 +14,13 @@ class UsernameValidator(
 
     private fun setResultIfUsernameIsTooShort() {
         if (username.length < 6) {
-            updateResultIfNotError("The username must be at least 6 characters long")
+            updateResultIfNotError("Requires min. 6 characters.")
         }
     }
 
     private fun setResultIfUsernameContainsInvalidCharacters() {
         if (username.any { !it.isLetterOrDigit() }) {
-            updateResultIfNotError("The username must contain only letters and numbers")
+            updateResultIfNotError("Only letters and numbers allowed.")
         }
     }
 }
