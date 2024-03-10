@@ -73,41 +73,44 @@ fun MainContent(
     val mainNavController = rememberNavController()
     val navBackStackEntry by mainNavController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val showBottomBar = currentDestination?.route !in listOf(Screens.LoginScreen.name, Screens.Logout.name)
 
     Scaffold(
         bottomBar = {
-            NavigationBar(
-                containerColor = colorResource(id = R.color.primary_color),
-            ) {
-                listOfNavItems.forEach { navigationItem ->
-                    NavigationBarItem(
-                        selected = currentDestination?.hierarchy?.any { it.route == navigationItem.route } == true,
-                        onClick = {
-                            mainNavController.navigate(navigationItem.route) {
-                                popUpTo(mainNavController.graph.findStartDestination().id) {
-                                    saveState = true
+            if(showBottomBar) {
+                NavigationBar(
+                    containerColor = colorResource(id = R.color.primary_color),
+                ) {
+                    listOfNavItems.forEach { navigationItem ->
+                        NavigationBarItem(
+                            selected = currentDestination?.hierarchy?.any { it.route == navigationItem.route } == true,
+                            onClick = {
+                                mainNavController.navigate(navigationItem.route) {
+                                    popUpTo(mainNavController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = navigationItem.icon,
-                                contentDescription = null,
-                                tint = Color.White,
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = navigationItem.icon,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = navigationItem.label,
+                                    color = Color.White
+                                )
+                            },
+                            colors = NavigationBarItemDefaults.colors(
+                                indicatorColor = colorResource(id = R.color.secondary_color),
                             )
-                        },
-                        label = {
-                            Text(
-                                text = navigationItem.label,
-                                color = Color.White
-                            )
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = colorResource(id = R.color.secondary_color),
                         )
-                    )
+                    }
                 }
             }
         },
@@ -262,6 +265,7 @@ fun MainContent(
             }
             composable(route = Screens.Logout.name) {
                 AppNavigation()
+
             }
         }
     }
